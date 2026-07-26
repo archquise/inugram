@@ -245,3 +245,4 @@ feature/send-mp4-as-video.patch
 bugfix/admin-sort-overflow.patch
 bugfix/reaction-animation-alignment.patch
 bugfix/dialog-preview-code-color.patch
+bugfix/recyclerview-null-holder.patch
