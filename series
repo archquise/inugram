@@ -248,3 +248,4 @@ bugfix/dialog-preview-code-color.patch
 bugfix/recyclerview-null-holder.patch
 bugfix/sticky-date-jump.patch
 bugfix/attach-preview-caption-reorder.patch
+feature/md3-profile-actions.patch

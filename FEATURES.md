@@ -36,6 +36,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
   - predictive back
   - lists & sections
   - avatars (tonal on-container initials instead of white)
+  - profile action buttons
 - 🐶 toggle to replace profile photo bottom blur with a plain gradient fade
 - disable number rounding
 - export/import settings to/from json file
