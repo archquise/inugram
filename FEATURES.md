@@ -243,6 +243,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - paid reaction animation respects litemode
 - reaction counter shift during long-tap menu
 - reactions silently disappearing right after being sent (stale server read race)
+- sticky date pill jump and color shift when replacing an inline date separator
 - bubble jump when ime height changes mid send-animation
 - "regular" formatting option with mixed-span selections
 - applying a style over a mixed-span selection smearing one span (e.g. mono) across the whole range
