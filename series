@@ -249,3 +249,4 @@ bugfix/recyclerview-null-holder.patch
 bugfix/sticky-date-jump.patch
 bugfix/attach-preview-caption-reorder.patch
 feature/md3-profile-actions.patch
+bugfix/message-cache-fallback.patch
