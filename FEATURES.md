@@ -225,6 +225,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 
 - "Save to Downloads" preserves the original filename on Android 10+
 - gboard image paste no longer skips PhotoViewer
+- reordering an attach-panel album preserves per-photo captions and no longer duplicates its album caption
 - photo crop silently not applied to the sent image
 - high-quality photo cropping in PhotoViewer (crop *before* downscaling)
 - sticker creator output sent as photo when high-quality default is on
