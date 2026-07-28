@@ -693,4 +693,7 @@
     <string name="InuBiometricConfirmLogoutInfo">Ask for biometric confirmation before logging out of an account.</string>
     <string name="InuBiometricAllowDeviceCredential">Allow device PIN/pattern</string>
     <string name="InuBiometricAllowDeviceCredentialInfo">Fall back to the device PIN, pattern or password when no biometric is enrolled.</string>
+    <string name="InuRefreshStickerSet">Refresh</string>
+    <string name="InuStickerSetRefreshed">Pack updated</string>
+    <string name="InuStickerSetRefreshFailed">Couldn\'t refresh the pack</string>
 </resources>

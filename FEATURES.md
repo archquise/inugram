@@ -73,6 +73,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - show all recent stickers
 - minimize sticker creator button in recent stickers
 - sticker time overlay modes: show / 🐶 hide time / 🐶 hide on incoming / hide completely
+- "Refresh" in the sticker/emoji pack menu
 - compact edited indicator: pencil icon instead of the "edited" label
 - toggleable message bubble tails
 - 🐶 jump-to-discussion button from comments
@@ -235,6 +236,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - list ripple left behind when the pressed row moves because another row changed height (selector was only re-synced on scroll)
 - dead zones in list rows where a hidden clickable child kept stale bounds from a previous binding (e.g. top-right corner of a member row in profile after a tagged member was recycled)
 - chat list crash while flinging when RecyclerView exposes a stale child without a ViewHolder
+- chat message jumps use the live input-bar inset for scroll positioning
 - dialogs list pull-to-reveal-archive glitches
 - inline code in dialog previews no longer inherits chat-bubble colors
 - pinned dialog reorder scrolling/glitching mid-drag in the archive (stock bug: async list diffing dispatched the move after the drag swap)
