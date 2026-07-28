@@ -1015,18 +1015,26 @@ object ChatHelper {
     }
 
     @JvmStatic
-    fun maybeAppendForwardTime(forwardedString: String, messageObject: MessageObject): String {
-        if (isCompactForward(messageObject)) return forwardedString
-        val suffix = getForwardTimeSuffix(messageObject) ?: return forwardedString
-        return "$forwardedString • $suffix"
+    fun formatForwardHeaderLine(line: CharSequence, messageObject: MessageObject): CharSequence {
+        if (messageObject.type == MessageObject.TYPE_STORY) return line
+        if (isCompactForward(messageObject)) return line
+        val suffix = getForwardTimeSuffix(messageObject)
+        if (isIconForward(messageObject)) {
+            val sb = SpannableStringBuilder()
+            appendTimeIcon(sb, R.drawable.mini_forwarded, sizeDp = COMPACT_FORWARD_ICON_SIZE, translateYDp = 1f)
+            suffix?.let { sb.append(" ").append(it) }
+            return sb
+        }
+        if (suffix == null) return line
+        return SpannableStringBuilder(line).append(" • ").append(suffix)
     }
 
     @JvmStatic
     fun isCompactForward(messageObject: MessageObject?): Boolean {
-        if (!InuConfig.COMPACT_FORWARDED.value) return false
-        if (messageObject == null || messageObject.type == MessageObject.TYPE_STORY) return false
-        val fwd = messageObject.messageOwner?.fwd_from ?: return false
-        return fwd.psa_type.isNullOrEmpty()
+        if (!supportsCustomForwardHeader(messageObject)) return false
+        return InuConfig.FORWARD_HEADER_MODE.value == InuConfig.ForwardHeaderModeItem.COMPACT ||
+            InuConfig.FORWARD_HEADER_MODE.value == InuConfig.ForwardHeaderModeItem.ICON &&
+            !InuConfig.SHOW_FORWARD_TIME.value
     }
 
     @JvmStatic
@@ -1077,8 +1085,20 @@ object ChatHelper {
 
     @JvmStatic
     fun getForwardAccessibilityPrefix(messageObject: MessageObject?): String {
-        if (!isCompactForward(messageObject)) return ""
+        if (!isCompactForward(messageObject) && !isIconForward(messageObject)) return ""
         return LocaleController.getString(R.string.ForwardedFrom) + " "
+    }
+
+    private fun isIconForward(messageObject: MessageObject?): Boolean {
+        return supportsCustomForwardHeader(messageObject) &&
+            InuConfig.FORWARD_HEADER_MODE.value == InuConfig.ForwardHeaderModeItem.ICON &&
+            InuConfig.SHOW_FORWARD_TIME.value
+    }
+
+    private fun supportsCustomForwardHeader(messageObject: MessageObject?): Boolean {
+        if (messageObject == null || messageObject.type == MessageObject.TYPE_STORY) return false
+        val fwd = messageObject.messageOwner?.fwd_from ?: return false
+        return fwd.psa_type.isNullOrEmpty()
     }
 
     private fun getForwardTimeSuffix(messageObject: MessageObject): String? {

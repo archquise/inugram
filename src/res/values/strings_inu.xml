@@ -431,7 +431,11 @@
     <string name="InuOldMentionIndicator">Legacy mention indicator</string>
 
     <string name="InuShowForwardTime">Show forward time</string>
-    <string name="InuCompactForwarded">Compact forward indicator</string>
+    <string name="InuForwardHeaderMode">Forward header</string>
+    <string name="InuForwardHeaderModeRegular">Regular</string>
+    <string name="InuForwardHeaderModeIcon">Icon</string>
+    <string name="InuForwardHeaderModeIconNoTimeInfo">Same as Compact with &quot;Show forward time&quot; off</string>
+    <string name="InuForwardHeaderModeCompact">Compact</string>
     <string name="InuCompactEdited">Compact edit indicator</string>
 
     <string name="InuAddToStickersGifs">Add to Stickers/GIFs</string>

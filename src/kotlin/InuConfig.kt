@@ -585,8 +585,27 @@ object InuConfig {
     @JvmField
     val SHOW_FORWARD_TIME = BoolItem("show_forward_time", true)
 
+    class ForwardHeaderModeItem : IntItem("forward_header_mode", REGULAR) {
+        override fun read(prefs: SharedPreferences): Int {
+            if (prefs.contains(key)) return prefs.getInt(key, default)
+            if (!prefs.contains("compact_forwarded")) return default
+            val migrated = if (prefs.getBoolean("compact_forwarded", false)) COMPACT else REGULAR
+            prefs.edit {
+                putInt(key, migrated)
+                remove("compact_forwarded")
+            }
+            return migrated
+        }
+
+        companion object {
+            const val REGULAR = 0
+            const val ICON = 1
+            const val COMPACT = 2
+        }
+    }
+
     @JvmField
-    val COMPACT_FORWARDED = BoolItem("compact_forwarded", false)
+    val FORWARD_HEADER_MODE = ForwardHeaderModeItem()
 
     @JvmField
     val COMPACT_EDITED = BoolItem("compact_edited", false)
