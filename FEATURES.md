@@ -304,3 +304,4 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - crash cutting out a sticker after the photo editor recycled the source image mid-segmentation
 - storage usage cached-media list intermittently refusing to scroll
 - crash after transferring channel ownership (admin sort comparator overflowed on 64-bit peer ids)
+- crash expanding/loading more votes in poll results (sections adapter diffed against an empty hash list on the first update, re-inserting every already-laid-out item)
