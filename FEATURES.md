@@ -238,7 +238,6 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - link ripples in album captions work across the entire group
 - dead zones in list rows where a hidden clickable child kept stale bounds from a previous binding (e.g. top-right corner of a member row in profile after a tagged member was recycled)
 - chat list crash while flinging when RecyclerView exposes a stale child without a ViewHolder
-- chat message jumps use the live input-bar inset for scroll positioning
 - dialogs list pull-to-reveal-archive glitches
 - inline code in dialog previews no longer inherits chat-bubble colors
 - pinned dialog reorder scrolling/glitching mid-drag in the archive (stock bug: async list diffing dispatched the move after the drag swap)
@@ -309,4 +308,5 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - crash cutting out a sticker after the photo editor recycled the source image mid-segmentation
 - storage usage cached-media list intermittently refusing to scroll
 - crash after transferring channel ownership (admin sort comparator overflowed on 64-bit peer ids)
+- chat drifting a few px off the input when hiding the keyboard while a message animation runs (aosp recyclerview bug: end-anchored padding delta applied twice across pre+post layout)
 - crash expanding/loading more votes in poll results (sections adapter diffed against an empty hash list on the first update, re-inserting every already-laid-out item)

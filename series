@@ -254,3 +254,4 @@ bugfix/sections-adapter-first-diff.patch
 feature/refresh-sticker-set.patch
 bugfix/profile-menu-duplicate-actions.patch
 bugfix/album-caption-link-ripple.patch
+bugfix/recyclerview-prelayout-space-change.patch
