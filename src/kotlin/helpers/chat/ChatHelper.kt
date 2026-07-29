@@ -39,6 +39,7 @@ import org.telegram.messenger.ChatObject
 import org.telegram.messenger.DialogObject
 import org.telegram.messenger.FileLoader
 import org.telegram.messenger.LocaleController
+import org.telegram.messenger.MediaController
 import org.telegram.messenger.MessageObject
 import org.telegram.messenger.MessagePreviewParams
 import org.telegram.messenger.MessagesStorage
@@ -95,6 +96,7 @@ object ChatHelper {
     const val OPTION_REPEAT_COPY = 515
     const val OPTION_REPEAT_FORWARD = 516
     const val OPTION_SHOW_JSON = 517
+    const val OPTION_SAVE_STICKER_TO_DOWNLOADS = 521
 
     @JvmStatic
     fun timeAdditionsHash(msg: MessageObject?): Int {
@@ -295,15 +297,18 @@ object ChatHelper {
             icons.add(R.drawable.msg_copy)
         }
 
-        // stock only offers this for documents/music, but its handler saves any cached file just fine
-        if (!noforwards && !options.contains(ChatActivity.OPTION_SAVE_TO_DOWNLOADS_OR_MUSIC) &&
+        if (!noforwards &&
             (selectedObject.isSticker || selectedObject.isAnimatedSticker) &&
-            selectedObject.messageOwner?.media is TLRPC.TL_messageMediaDocument &&
-            (selectedObject.mediaExists || selectedObject.attachPathExists)
+            selectedObject.messageOwner?.media is TLRPC.TL_messageMediaDocument
         ) {
-            items.add(LocaleController.getString(R.string.SaveToDownloads))
-            options.add(ChatActivity.OPTION_SAVE_TO_DOWNLOADS_OR_MUSIC)
-            icons.add(R.drawable.msg_download)
+            val index = options.indexOf(ChatActivity.OPTION_SAVE_TO_DOWNLOADS_OR_MUSIC)
+            if (index >= 0) {
+                options[index] = OPTION_SAVE_STICKER_TO_DOWNLOADS
+            } else {
+                items.add(LocaleController.getString(R.string.SaveToDownloads))
+                options.add(OPTION_SAVE_STICKER_TO_DOWNLOADS)
+                icons.add(R.drawable.msg_download)
+            }
         }
 
         items.add(LocaleController.getString(R.string.InuMessageDetails))
@@ -612,6 +617,31 @@ object ChatHelper {
                     BulletinFactory.of(activity)
                         .createCopyBulletin(LocaleController.getString(bulletinRes))
                         .show()
+                }
+            }
+
+            OPTION_SAVE_STICKER_TO_DOWNLOADS -> {
+                val parent = activity.parentActivity ?: return true
+                if (Build.VERSION.SDK_INT >= 23 &&
+                    (Build.VERSION.SDK_INT <= 28 || BuildVars.NO_SCOPED_STORAGE) &&
+                    parent.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    parent.requestPermissions(
+                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        BasePermissionsActivity.REQUEST_CODE_EXTERNAL_STORAGE,
+                    )
+                    return true
+                }
+                MediaController.saveFilesFromMessages(
+                    parent,
+                    activity.accountInstance,
+                    arrayListOf(selectedObject),
+                ) { count ->
+                    if (count > 0 && activity.parentActivity != null) {
+                        BulletinFactory.of(activity)
+                            .createDownloadBulletin(BulletinFactory.FileType.UNKNOWNS, count, activity.resourceProvider)
+                            .show()
+                    }
                 }
             }
 
