@@ -268,6 +268,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - nav stack lockup after rapid back swipes
 - click-through area to the left/right of bottom bar tabs
 - profile scroll jump when opening uncached user
+- duplicate edit-info and profile-photo actions in the standalone self-profile overflow menu
 - stale unread badges on global-search top peers
 - stale unread mention pointer after reading mention on another device (mention button jumping to old message)
 - folder pins silently missing when the pinned dialog isn't in the local dialogs cache (now fetched from server)
