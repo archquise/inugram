@@ -109,6 +109,15 @@ pnpm run export
 
 as a rule of thumb: prefer the former, but if you get a lot of merge conflicts, try `float`-ing instead.
 
+### auditing patch interactions
+
+```bash
+pnpm run lint-patches
+pnpm run lint-patches -- --check
+```
+
+the audit reports later patches that fully revert an earlier patch or delete lines last changed by one. `--check` exits non-zero when it finds either.
+
 ## acknowledgements
 
 - the original [Telegram Android](https://github.com/DrKLO/Telegram) - the basis for this fork
