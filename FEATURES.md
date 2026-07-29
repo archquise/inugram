@@ -235,6 +235,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - non-square webm stickers rendered off-center in the emoji panel (precached frames were blitted top-left and scaled by width only)
 - recyclerlistview double-tap requires same view
 - list ripple left behind when the pressed row moves because another row changed height (selector was only re-synced on scroll)
+- link ripples in album captions work across the entire group
 - dead zones in list rows where a hidden clickable child kept stale bounds from a previous binding (e.g. top-right corner of a member row in profile after a tagged member was recycled)
 - chat list crash while flinging when RecyclerView exposes a stale child without a ViewHolder
 - chat message jumps use the live input-bar inset for scroll positioning
