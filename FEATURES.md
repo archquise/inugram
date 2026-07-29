@@ -226,6 +226,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 
 ## 🐶 bugfixes (vs stock)
 
+- "Save to Downloads" copies uncached documents after downloading instead of requiring a second attempt
 - "Save to Downloads" preserves the original filename on Android 10+
 - gboard image paste no longer skips PhotoViewer
 - reordering an attach-panel album preserves per-photo captions and no longer duplicates its album caption
