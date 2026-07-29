@@ -16,6 +16,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - icon replacement (currently: solar pack, [480 Design](https://t.me/Design480)) - *ported from [NagramX](https://github.com/risin42/NagramX)*
 - notification icon: Telegram (default) or Inugram
 - show seconds in timestamps
+- override Telegram's detected device performance class
 - 🐶 customizable animation speed multiplier (incl. instant)
 - estimated registration date in profile - *ported & datapoints from [NagramX](https://github.com/risin42/NagramX)*
 - join/creation date in group & channel profiles
