@@ -35,6 +35,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
   - switches
   - fabs
   - predictive back
+  - navigation animation
   - lists & sections
   - avatars (tonal on-container initials instead of white)
   - profile action buttons
