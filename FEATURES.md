@@ -93,7 +93,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - static pinned reactions in the reaction bar
 - 🐶 reachable reactions bar (moved to the bottom of message menu)
 - 🐶 reachable "seen by" (moved to bottom of message menu)
-- double-tap message actions (separate for incoming/outgoing), 🐶 customizable double-tap delay
+- double-tap message actions (separate for incoming/outgoing/editable channel posts), 🐶 customizable double-tap delay
 - hide keyboard on scroll
 - always show go-to-bottom button (don't hide on scroll-down)
 - web preview: replacements (e.g. twitter→fixupx)

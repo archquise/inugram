@@ -29,6 +29,8 @@
     <string name="InuDoubleTapDelay">Çift dokunma gecikmesi</string>
     <string name="InuIncomingMessages">Gelen mesajlar</string>
     <string name="InuOutgoingMessages">Giden mesajlar</string>
+    <string name="InuChannelMessages">Gönderi paylaşabildiğiniz kanallar</string>
+    <string name="InuSameAsIncoming">Gelen ile aynı</string>
     <string name="InuDoubleTapInfo">Not: Telegram\'ın çift dokunmaları işleme biçimi nedeniyle, bir çift dokunma eylemini etkinleştirmek tek dokunmaların yukarıdaki süre kadar gecikmesine ve uygulamanın daha az tepkisel hissettirmesine neden olur.\nSüreyi ayarlayabilirsiniz, ancak gecikmeyi tamamen önlemenin tek yolu eylemleri devre dışı bırakmaktır.</string>
     <string name="InuQuickReaction">Hızlı Tepki</string>
     <string name="InuShowReactions">Tepkileri Göster</string>

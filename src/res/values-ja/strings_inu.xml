@@ -22,6 +22,8 @@
     <string name="InuDoubleTapDelay">ダブルタップの遅延</string>
     <string name="InuIncomingMessages">受信メッセージ</string>
     <string name="InuOutgoingMessages">送信メッセージ</string>
+    <string name="InuChannelMessages">投稿できるチャンネル</string>
+    <string name="InuSameAsIncoming">受信メッセージと同じ</string>
     <string name="InuDoubleTapInfo">注：Telegram のダブルタップ処理の都合上、ダブルタップ動作を有効にすると通常のタップが上記の時間だけ遅延し、アプリの応答が鈍く感じられます。\n時間は調整できますが、遅延を完全になくすには動作を無効にするしかありません。</string>
     <string name="InuQuickReaction">クイックリアクション</string>
     <string name="InuShowReactions">リアクションを表示</string>

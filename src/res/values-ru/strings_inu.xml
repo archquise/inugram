@@ -22,6 +22,8 @@
     <string name="InuDoubleTapDelay">Задержка двойного тапа</string>
     <string name="InuIncomingMessages">Входящие сообщения</string>
     <string name="InuOutgoingMessages">Исходящие сообщения</string>
+    <string name="InuChannelMessages">Каналы, куда вы можете писать</string>
+    <string name="InuSameAsIncoming">Как у входящих</string>
     <string name="InuDoubleTapInfo">Из-за того, как Telegram обрабатывает двойные тапы, включение действия по двойному тапу приводит к задержке обычных тапов на указанное выше время, отчего приложение ощущается менее отзывчивым.\nВы можете настроить длительность, но полностью избавиться от задержки можно только отключив действия.</string>
     <string name="InuQuickReaction">Быстрая реакция</string>
     <string name="InuShowReactions">Показать реакции</string>
