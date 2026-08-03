@@ -186,6 +186,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - call confirmation
 - 🐶 reaction confirmation in non-joined chats
 - 🐶 internal link confirmation (tg://, t.me/…)
+- support `tg://user?id=…` links (opens the profile; user must be known locally)
 - 🐶 disable swipe-down to minimize the in-app browser (only the minimize button collapses it)
 - predictive back mode selector
 - disable pull-to-next-channel
