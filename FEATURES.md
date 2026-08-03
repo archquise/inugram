@@ -235,6 +235,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - high-quality photo cropping in PhotoViewer (crop *before* downscaling)
 - sticker creator output sent as photo when high-quality default is on
 - non-square webm stickers rendered off-center in the emoji panel (precached frames were blitted top-left and scaled by width only)
+- webm sticker permanently stuck blank until the app is restarted (an image load cancelled mid-flight published a decoder-less drawable into the animation cache, whose stream stayed cancelled and which never retried decoding)
 - recyclerlistview double-tap requires same view
 - list ripple left behind when the pressed row moves because another row changed height (selector was only re-synced on scroll)
 - link ripples in album captions work across the entire group
