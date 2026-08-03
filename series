@@ -257,3 +257,4 @@ bugfix/recyclerview-prelayout-space-change.patch
 bugfix/save-uncached-documents-to-downloads.patch
 bugfix/album-caption-spoiler-reset.patch
 bugfix/story-privacy-hint-npe.patch
+bugfix/preview-rotation-black-screen.patch

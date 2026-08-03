@@ -264,6 +264,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - missing action bar title/date and open/close animation when viewing a photo of a user who hid theirs from you (stock bug: profile photo locations carried no dc id)
 - text spoilers jittering/blinking while scrolling on high-refresh displays (12.8 regression)
 - revealed spoilers in album captions re-hiding themselves after a scroll (reveal flag was set on the drawing cell's message instead of the group's primary one)
+- black screen after rotating the screen with a chat preview open
 - round video recorder cancel crash when leaving chat
 - missing `Emoji.replaceEmoji` calls
 - background media loading cpu usage (experimental)
