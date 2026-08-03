@@ -188,7 +188,8 @@
     <string name="InuFontImporting">Импортируем шрифт…</string>
     <string name="InuFonts">Шрифты</string>
     <string name="InuAppFont">Шрифт приложения</string>
-    <string name="InuAppFontInfo">Шрифт, используемый по всему интерфейсу приложения.</string>
+    <string name="InuAppFontInfo">Шрифт, используемый по всему интерфейсу приложения. Шрифтом приложения можно выбрать только свои (импортированные) шрифты.</string>
+    <string name="InuFontCustomOnly">Шрифтом приложения можно выбрать только свои (импортированные) шрифты.</string>
     <string name="InuAvailableFonts">Доступные шрифты</string>
     <string name="InuFontsInfo">Видимые шрифты доступны в инструменте текста медиа-редактора. Перетаскивай, чтобы изменить порядок, нажми на глаз, чтобы скрыть; нажми на импортированный шрифт, чтобы удалить его.</string>
     <string name="InuFontAdd">Добавить шрифт</string>

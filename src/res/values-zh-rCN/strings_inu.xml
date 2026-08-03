@@ -183,7 +183,8 @@
     <string name="InuHideMyPhoneNumber">隐藏我的手机号</string>
     <string name="InuFonts">字体</string>
     <string name="InuAppFont">应用字体</string>
-    <string name="InuAppFontInfo">整个应用界面使用的字体。</string>
+    <string name="InuAppFontInfo">整个应用界面使用的字体。只有自定义（导入的）字体才能设为应用字体。</string>
+    <string name="InuFontCustomOnly">只有自定义（导入的）字体才能设为应用字体。</string>
     <string name="InuAvailableFonts">可用字体</string>
     <string name="InuFontsInfo">可见字体可在媒体编辑器的文字工具中使用。拖动以重新排序，点击眼睛图标隐藏；点击已导入的字体可将其移除。</string>
     <string name="InuFontAdd">添加字体</string>

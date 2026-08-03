@@ -253,7 +253,8 @@
     <string name="InuHideMyPhoneNumber">Telefon numaramı gizle</string>
     <string name="InuFonts">Yazı Tipleri</string>
     <string name="InuAppFont">Uygulama yazı tipi</string>
-    <string name="InuAppFontInfo">Uygulama arayüzü genelinde kullanılan yazı tipi.</string>
+    <string name="InuAppFontInfo">Uygulama arayüzü genelinde kullanılan yazı tipi. Uygulama yazı tipi olarak yalnızca Özel (içe aktarılmış) yazı tipleri seçilebilir.</string>
+    <string name="InuFontCustomOnly">Uygulama yazı tipi olarak yalnızca Özel (içe aktarılmış) yazı tipleri seçilebilir.</string>
     <string name="InuAvailableFonts">Kullanılabilir yazı tipleri</string>
     <string name="InuFontsInfo">Görünür yazı tipleri medya düzenleyicisinin metin aracında mevcuttur. Yeniden sıralamak için sürükleyin, gizlemek için göze dokunun; kaldırmak için içe aktarılan bir yazı tipine dokunun.</string>
     <string name="InuFontAdd">Yazı tipi ekle</string>
