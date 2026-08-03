@@ -316,3 +316,4 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - chat drifting a few px off the input when hiding the keyboard while a message animation runs (aosp recyclerview bug: end-anchored padding delta applied twice across pre+post layout)
 - crash expanding/loading more votes in poll results (sections adapter diffed against an empty hash list on the first update, re-inserting every already-laid-out item)
 - crash tapping the story privacy badge on a story from a user with no first name (e.g. deleted account)
+- stop spamming doomed admin-list requests (`COMMUNITY_FILTER_INVALID`) on every open of a community you're not an admin of
