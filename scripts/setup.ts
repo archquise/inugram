@@ -18,6 +18,7 @@ import {
   readSeries,
   step,
   success,
+  syncSubmodules,
 } from './lib.js'
 import { svgBodyToVectorDrawable } from './svg-to-vector.js'
 
@@ -194,6 +195,7 @@ async function forceReimportPatches(seriesEntries: string[]) {
 const args = process.argv.slice(2)
 const force = args.includes('--force')
 const noStgit = args.includes('--no-stgit')
+const noSubmodules = args.includes('--no-submodules')
 
 const commit = await readPinnedUpstreamCommit()
 const seriesEntries = await readSeries()
@@ -208,6 +210,7 @@ if (noStgit) {
     step(`Applying ${entry}`)
     await repo`git apply ${join(patchesDir, entry)}`
   }
+  if (!noSubmodules) await syncSubmodules(worktreeDir)
   await ensureAdGuardFilter()
   await linkForkSource(worktreeDir)
   await generateIconDrawables(worktreeDir)
@@ -222,9 +225,10 @@ if (noStgit) {
   } else {
     await ensurePatches(expectedPatches, seriesEntries)
   }
+  const syncedSubmodules = noSubmodules ? false : await syncSubmodules(worktreeDir)
   await ensureAdGuardFilter()
   await ensureGitExclude(worktreeDir, '.kotlin')
   const linkedAny = await linkForkSource(worktreeDir)
   const generatedAny = await generateIconDrawables(worktreeDir)
-  success(linkedAny || generatedAny ? 'Setup complete' : 'Up to date')
+  success(linkedAny || generatedAny || syncedSubmodules ? 'Setup complete' : 'Up to date')
 }

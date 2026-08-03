@@ -157,7 +157,6 @@ bugfix/expand-emoji-tabs.patch
 bugfix/spoiler-reveal-keep.patch
 feature/reaction-confirm-non-member.patch
 feature/confirm-internal-links.patch
-bugfix/hq-stickers-editor.patch
 feature/no-selection-cap.patch
 feature/seekable-gifs.patch
 feature/disable-browser-collapse.patch
