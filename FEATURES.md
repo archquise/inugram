@@ -266,6 +266,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - reactions silently disappearing right after being sent (stale server read race)
 - sticky date pill jump and color shift when replacing an inline date separator
 - bubble jump when ime height changes mid send-animation
+- out-of-bubble panels (reply/forward/name) on custom wallpapers jumping tint when the keyboard opens (wallpaper-sampling offset flipped by the action bar height via a stale keyboard-layout conditional)
 - markdown `__`/`**`/`~~`/`||` no longer parsed inside auto-detected links on send
 - "regular" formatting option with mixed-span selections
 - applying a style over a mixed-span selection smearing one span (e.g. mono) across the whole range
