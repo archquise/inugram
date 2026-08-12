@@ -4,10 +4,10 @@ Date: Sun, 5 Jul 2026 21:15:49 +0400
 Subject: spoilers for web previews (when the link is covered with a spoiler)
 
 ---
- .../telegram/ui/Cells/ChatMessageCell.java    | 41 ++++++++++++-------
- .../org/telegram/ui/Cells/DialogCell.java     |  7 ++--
+ .../telegram/ui/Cells/ChatMessageCell.java    | 45 ++++++++++++-------
+ .../org/telegram/ui/Cells/DialogCell.java     |  7 +--
  .../Components/spoilers/SpoilerEffect2.java   |  2 +-
- 3 files changed, 32 insertions(+), 18 deletions(-)
+ 3 files changed, 34 insertions(+), 20 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Cells/ChatMessageCell.java b/TMessagesProj/src/main/java/org/telegram/ui/Cells/ChatMessageCell.java
 index 0000000..0000000 100644
@@ -87,6 +87,15 @@ index 0000000..0000000 100644
                      if (documentAttachType == DOCUMENT_ATTACH_TYPE_ROUND) {
                          if (!MediaController.getInstance().isPlayingMessage(currentMessageObject) || MediaController.getInstance().isMessagePaused()) {
                              delegate.needPlayMessage(this, currentMessageObject, false);
+@@ -4084,7 +4087,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
+                 || hasGamePreview || hasInvoicePreview
+             );
+         }
+-        if (!allow) {
++        if (!allow || desu.inugram.helpers.chat.LinkPreviewSpoilerHelper.shouldHideMediaOverlays(this)) {
+             return false;
+         }
+ 
 @@ -4589,6 +4592,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                          block.spoilers.clear();
                      }
@@ -155,6 +164,15 @@ index 0000000..0000000 100644
          updateFlagSecure();
      }
  
+@@ -14599,7 +14608,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
+             }
+         }
+         if (documentAttachType == DOCUMENT_ATTACH_TYPE_GIF) {
+-            if (drawPhotoImage && !currentMessageObject.isRepostPreview && !currentMessageObject.isSponsored() && photoImage.getVisible() && !hasGamePreview && !currentMessageObject.needDrawBluredPreview() && !currentMessageObject.preview && !isSmallImage && !currentMessageObject.isSponsored()) {
++            if (drawPhotoImage && !currentMessageObject.isRepostPreview && !currentMessageObject.isSponsored() && photoImage.getVisible() && !hasGamePreview && !currentMessageObject.needDrawBluredPreview() && !currentMessageObject.preview && !isSmallImage && !currentMessageObject.isSponsored() && !desu.inugram.helpers.chat.LinkPreviewSpoilerHelper.shouldHideMediaOverlays(this)) {
+                 int oldAlpha = ((BitmapDrawable) Theme.chat_msgMediaMenuDrawable).getPaint().getAlpha();
+                 Theme.chat_msgMediaMenuDrawable.setAlpha((int) (oldAlpha * controlsAlpha));
+                 setDrawableBounds(Theme.chat_msgMediaMenuDrawable, otherX = (int) (photoImage.getImageX() + photoImage.getImageWidth() - dp(14)), otherY = (int) (photoImage.getImageY() + dp(8.1f)));
 @@ -15545,6 +15554,8 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                  .offsetEmoji(0, drawPhotoImageBefore ? (1f - isSmallImage()) * (dp(18) + photoImage.getImageHeight() + (siteNameLayout != null ? siteNameLayout.getLineBottom(siteNameLayout.getLineCount() - 1) : 0)) : 0)
                  .drawBackground(canvas, AndroidUtilities.rectTmp, rad, rad, rad, alpha);
