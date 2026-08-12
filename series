@@ -265,3 +265,4 @@ feature/user-deeplink.patch
 bugfix/community-picker-avatar-npe.patch
 bugfix/markdown-inside-links.patch
 feature/remember-poll-settings.patch
+bugfix/reply-bar-revealed-spoiler.patch
