@@ -335,3 +335,4 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - crash tapping the story privacy badge on a story from a user with no first name (e.g. deleted account)
 - stop spamming doomed admin-list requests (`COMMUNITY_FILTER_INVALID`) on every open of a community you're not an admin of
 - crash in the forward picker inside a community when the community's info updates (stock updates an action bar avatar view that picker mode never creates)
+- fix bottom progress bar on video bubbles now following inline playback (autoplay & play-with-sound)
