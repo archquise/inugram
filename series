@@ -271,3 +271,4 @@ feature/override-forum-mode.patch
 bugfix/profile-music-sheet-layout.patch
 bugfix/edge-to-edge-iv.patch
 bugfix/webm-sticker-speed.patch
+bugfix/call-end-lockscreen-flash.patch

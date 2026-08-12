@@ -297,6 +297,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - fix glitch when quickly dismissing photo editor after cropping
 - persist crop when rotating photo in photo editor
 - chat preview no longer marks visible reactions/poll votes as read
+- dialogs list briefly flashing over the lockscreen after ending/declining a call
 - fix camera2api a/v sync issue in round messages
 - forward bar showing stale message count/senders after deselecting messages in the forward options sheet
 - cross-peer reply: clear stale quote so a leftover quote-reply target doesn't override the new one at send
