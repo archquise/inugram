@@ -783,6 +783,7 @@ object ChatHelper {
         }
 
         val chat = fragment.currentChat ?: return false
+        if (ChatObject.isChannelAndNotMegaGroup(chat)) return false
         if (!ChatObject.isNotInChat(chat)) return false
         if (message.hasChosenReaction(visibleReaction)) return false
         // skip for auto-forwarded messages
