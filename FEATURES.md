@@ -188,6 +188,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 ## behavior
 
 - call confirmation
+- HD call audio on Bluetooth
 - 🐶 reaction confirmation in non-joined chats
 - 🐶 internal link confirmation (tg://, t.me/…)
 - support `tg://user?id=…` links (opens the profile; user must be known locally)

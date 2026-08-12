@@ -274,3 +274,4 @@ bugfix/webm-sticker-speed.patch
 bugfix/call-end-lockscreen-flash.patch
 bugfix/reply-preview-shared-emoji-spans.patch
 bugfix/video-stream-cancel-restart.patch
+feature/hd-bluetooth-call-audio.patch

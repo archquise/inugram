@@ -231,6 +231,8 @@
     <string name="InuCallConfirmation">Ask before calling</string>
     <string name="InuCallConfirmationTitle">Confirm calling</string>
     <string name="InuCallConfirmationText">Call **%1$s**?</string>
+    <string name="InuHdBluetoothCallAudio">HD call audio on Bluetooth</string>
+    <string name="InuHdBluetoothCallAudioInfo">Play call audio as media instead of switching headphones to the low-quality headset profile, using the phone\'s microphone. Applies when a Bluetooth device is connected at call start</string>
     <string name="InuConfirmInternalLinks">Confirm opening internal links</string>
     <string name="InuConfirmInternalLinksInfo">tg:// and t.me/</string>
     <string name="InuDisableBrowserSwipeCollapse">Disable swipe-down to minimize browser</string>

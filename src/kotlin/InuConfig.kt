@@ -494,6 +494,9 @@ object InuConfig {
     val CALL_CONFIRMATION = BoolItem("call_confirmation", true)
 
     @JvmField
+    val HD_BLUETOOTH_CALL_AUDIO = BoolItem("hd_bluetooth_call_audio", true)
+
+    @JvmField
     val CONFIRM_INTERNAL_LINKS = BoolItem("confirm_internal_links", false)
 
     @JvmField
