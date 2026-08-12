@@ -115,6 +115,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
   - Delete my messages
   - Statistics / Administrators / Permissions / Invite links (admin shortcuts)
 - 🐶 disable custom wallpaper and theme per chat
+- per-forum client-side topics layout override (tabs/list) from the profile menu
 - read-only chat "admin" page for non-admins
 - split media restriction toggles for stickers / gifs / games / inline
 - show id in profile, show user json
