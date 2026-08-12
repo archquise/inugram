@@ -17,11 +17,12 @@ Subject: md3-style sections redesign
  .../ui/Components/RecyclerListView.java       | 39 +++++++++++++++----
  .../ui/Components/UniversalAdapter.java       | 15 ++++++-
  .../telegram/ui/LiteModeSettingsActivity.java |  7 ++++
+ .../telegram/ui/MessageStatisticActivity.java |  2 +
  .../org/telegram/ui/PeerColorActivity.java    |  9 +++--
  .../org/telegram/ui/ProxyListActivity.java    |  5 ---
  .../org/telegram/ui/SettingsActivity.java     | 18 +++++++++
  .../org/telegram/ui/StatisticActivity.java    |  1 +
- 17 files changed, 143 insertions(+), 28 deletions(-)
+ 18 files changed, 145 insertions(+), 28 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ThemeDescription.java b/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ThemeDescription.java
 index 0000000..0000000 100644
@@ -408,7 +409,7 @@ index 0000000..0000000 100644
      public void setSections(int padding, float roundRadius, boolean topPadding) {
          setSections(
 -            view -> !(view instanceof TextInfoPrivacyCell || view instanceof ShadowSectionCell || view instanceof FiltersSetupActivity.HintInnerCell || view instanceof GraySectionCell || view instanceof CollapseTextCell) && !Objects.equals(view.getTag(), TAG_NOT_SECTION),
-+            view -> !(view instanceof TextInfoPrivacyCell || view instanceof ShadowSectionCell || view instanceof FiltersSetupActivity.HintInnerCell || view instanceof GraySectionCell || view instanceof CollapseTextCell) && !(desu.inugram.helpers.theme.M3SectionsHelper.isEnabled() && view instanceof org.telegram.ui.Cells.HeaderCell) && !Objects.equals(view.getTag(), TAG_NOT_SECTION),
++            view -> !(view instanceof TextInfoPrivacyCell || view instanceof ShadowSectionCell || view instanceof FiltersSetupActivity.HintInnerCell || view instanceof GraySectionCell || view instanceof CollapseTextCell) && !desu.inugram.helpers.theme.M3SectionsHelper.isDetachedHeaderCell(view) && !Objects.equals(view.getTag(), TAG_NOT_SECTION),
              padding,
              roundRadius,
              this::drawBackgroundRect,
@@ -536,6 +537,23 @@ index 0000000..0000000 100644
              } else if (viewType == VIEW_TYPE_SWITCH2) {
                  TextCell textCell = (TextCell) holder.itemView;
                  if (item.type == SWITCH_TYPE_SMOOTH_TRANSITIONS) {
+diff --git a/TMessagesProj/src/main/java/org/telegram/ui/MessageStatisticActivity.java b/TMessagesProj/src/main/java/org/telegram/ui/MessageStatisticActivity.java
+index 0000000..0000000 100644
+--- a/TMessagesProj/src/main/java/org/telegram/ui/MessageStatisticActivity.java
++++ b/TMessagesProj/src/main/java/org/telegram/ui/MessageStatisticActivity.java
+@@ -1002,10 +1002,12 @@ public class MessageStatisticActivity extends BaseFragment implements Notificati
+                         headerCell.setTopMargin(9);
+                         headerCell.setPadding(0, 0, 0, AndroidUtilities.dp(8));
+                         headerCell.setText(LocaleController.formatString("StatisticOverview", R.string.StatisticOverview));
++                        desu.inugram.helpers.theme.M3SectionsHelper.markMerged(headerCell, false, true);
+                     } else {
+                         headerCell.setTopMargin(11);
+                         headerCell.setPadding(0, 0, 0, 0);
+                         headerCell.setText(LocaleController.formatString("PublicShares", R.string.PublicShares));
++                        desu.inugram.helpers.theme.M3SectionsHelper.markMerged(headerCell, false, false);
+                     }
+                     break;
+                 case 4:
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/PeerColorActivity.java b/TMessagesProj/src/main/java/org/telegram/ui/PeerColorActivity.java
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/PeerColorActivity.java

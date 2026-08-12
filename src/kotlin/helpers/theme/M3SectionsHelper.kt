@@ -65,6 +65,11 @@ object M3SectionsHelper {
         return view?.getTag(R.id.inu_merge_with_next) == TRUE
     }
 
+    @JvmStatic
+    fun isDetachedHeaderCell(view: View): Boolean {
+        return isEnabled() && view is HeaderCell && !isMergedWithPrev(view) && !isMergedWithNext(view)
+    }
+
     private val outerR get() = AndroidUtilities.dp(20f).toFloat()
     private val innerR get() = AndroidUtilities.dp(4f).toFloat()
     private val gap get() = AndroidUtilities.dp(2f)
