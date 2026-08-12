@@ -320,3 +320,4 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - crash expanding/loading more votes in poll results (sections adapter diffed against an empty hash list on the first update, re-inserting every already-laid-out item)
 - crash tapping the story privacy badge on a story from a user with no first name (e.g. deleted account)
 - stop spamming doomed admin-list requests (`COMMUNITY_FILTER_INVALID`) on every open of a community you're not an admin of
+- crash in the forward picker inside a community when the community's info updates (stock updates an action bar avatar view that picker mode never creates)

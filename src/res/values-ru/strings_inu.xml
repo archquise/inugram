@@ -636,7 +636,7 @@
 
     <string name="InuCrashTitle">Inugram упал в прошлый раз</string>
     <string name="InuCrashDesc">Извиняемся. Вы можете поделиться логом краша с разработчиком, чтобы помочь его исправить.</string>
-    <string name="InuCrashShare">Поделиться логом краша</string>
+    <string name="InuCrashShare">Поделиться логом</string>
     <string name="InuCrashDiscard">Отбросить</string>
     <string name="InuCrashChannel">Восстановление после краша</string>
     <string name="InuCrashNotifTitle">Inugram упал</string>
