@@ -15,6 +15,7 @@ Subject: non-island ui in various parts of the app
  .../ui/Components/ChatAvatarContainer.java    |   1 +
  .../DialogsActivityTopPanelLayout.java        |   8 +-
  .../ui/Components/FilterTabsView.java         |  19 ++-
+ .../ui/Components/FragmentContextView.java    |   3 +
  .../ui/Components/FragmentSearchField.java    |  10 +-
  .../telegram/ui/Components/MediaActivity.java |   2 +-
  .../ui/Components/MentionsContainerView.java  |  19 +--
@@ -38,7 +39,7 @@ Subject: non-island ui in various parts of the app
  .../ui/bots/BotCommandsMenuContainer.java     |   4 +-
  .../bots/ChatAttachAlertBotWebViewLayout.java |   5 +-
  .../java/org/telegram/ui/iv/RichEditor.java   |   4 +-
- 34 files changed, 643 insertions(+), 245 deletions(-)
+ 35 files changed, 646 insertions(+), 245 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ActionBar.java b/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ActionBar.java
 index 0000000..0000000 100644
@@ -1225,6 +1226,20 @@ index 0000000..0000000 100644
          canvas.save();
          canvas.clipPath(clipPath);
          super.dispatchDraw(canvas);
+diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentContextView.java b/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentContextView.java
+index 0000000..0000000 100644
+--- a/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentContextView.java
++++ b/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentContextView.java
+@@ -949,6 +949,9 @@ public class FragmentContextView extends FrameLayout implements NotificationCent
+     }
+ 
+     private void showSpeedHint() {
++        if (desu.inugram.helpers.theme.NonIslandHelper.chatElements()) {
++            return;
++        }
+         if (fragment != null && getParent() instanceof ViewGroup) {
+             speedHintView = new HintView(getContext(), 6, true) {
+                 @Override
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentSearchField.java b/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentSearchField.java
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentSearchField.java
