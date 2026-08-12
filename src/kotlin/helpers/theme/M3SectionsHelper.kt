@@ -275,6 +275,26 @@ object M3SectionsHelper {
 
         resizeSquare(iconLayout, 36)
         resizeSquare(iconView, 22)
+        val (bg, fg) = computeIconColors(topColor, bottomColor)
+        iconView.setColorFilter(fg)
+        cellBackground.inu_monetColor = bg
+    }
+
+    @JvmStatic
+    fun applyTextCellColorfulIcon(
+        iconView: ImageView,
+        topColor: Int,
+        bottomColor: Int,
+        cellBackground: SettingsActivity.SettingCell.Background,
+    ) {
+        if (!isEnabled()) return
+        iconView.translationX = 0f
+        val (bg, fg) = computeIconColors(topColor, bottomColor)
+        iconView.setColorFilter(fg)
+        cellBackground.inu_monetColor = bg
+    }
+
+    private fun computeIconColors(topColor: Int, bottomColor: Int): Pair<Int, Int> {
         val flat = ColorUtils.blendARGB(topColor, bottomColor, 0.5f)
         val hsl = FloatArray(3)
         ColorUtils.colorToHSL(flat, hsl)
@@ -282,8 +302,7 @@ object M3SectionsHelper {
         hsl[2] = 0.82f
         val bg = ColorUtils.HSLToColor(hsl)
         hsl[2] = 0.32f
-        iconView.setColorFilter(ColorUtils.HSLToColor(hsl))
-        cellBackground.inu_monetColor = bg
+        return bg to ColorUtils.HSLToColor(hsl)
     }
 
     @JvmStatic
