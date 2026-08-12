@@ -120,6 +120,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - split media restriction toggles for stickers / gifs / games / inline
 - show id in profile, show user json
 - long-tap the name in profile to copy it
+- 🐶 drag the pinned-music sheet by its header to scroll/expand the playlist
 - long-tap inline callback button to copy text or callback data
 - "select between messages" (🐶 done right)
 - 🐶 lift 100-message selection cap (forwards/saves/deletes are auto-chunked)
@@ -251,6 +252,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - pinned dialog reorder scrolling/glitching mid-drag in the archive (stock bug: async list diffing dispatched the move after the drag swap)
 - forwards from users with hidden forward privacy: the optimistic message shows the anonymized name right away (when their profile is cached), and the server-confirmed hidden header is applied in place instead of showing the linked author until chat reopen
 - shared media player visual glitches
+- profile pinned-music sheet bugfixes
 - shared media pager: fling mid-animation to chain tabs or reverse (was ignored until settled); at the edge tab the fling falls through to swipe-to-close
 - attach panel: better perf, safe close before fully open
 - paid reaction animation respects litemode
