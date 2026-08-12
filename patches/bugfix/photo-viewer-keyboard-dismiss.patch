@@ -11,7 +11,7 @@ diff --git a/TMessagesProj/src/main/java/org/telegram/ui/LaunchActivity.java b/T
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/LaunchActivity.java
 +++ b/TMessagesProj/src/main/java/org/telegram/ui/LaunchActivity.java
-@@ -9170,6 +9170,11 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
+@@ -9173,6 +9173,11 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
  
      private int reasonsToHideMainContent = 0;
      private int reasonsToHideDecorView = 0;
@@ -23,7 +23,7 @@ index 0000000..0000000 100644
  
      private void updateReasonsToHideMainContent(boolean increment, boolean withDecorView) {
          reasonsToHideMainContent += (increment ? 1 : -1);
-@@ -9177,7 +9182,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
+@@ -9180,7 +9185,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
              reasonsToHideDecorView += (increment ? 1 : -1);
          }
          if (frameLayout != null) {
@@ -33,7 +33,7 @@ index 0000000..0000000 100644
          }
          checkDecorViewVisibility();
      }
-@@ -9249,6 +9255,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
+@@ -9252,6 +9258,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
  
          @Override
          protected void dispatchDraw(@NonNull Canvas canvas) {
