@@ -129,6 +129,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - in-place message translation, with optional web preview translation, original-text appending and on-device source-language auto-detection (hides Translate when already in your language)
 - instant view pages translator
 - show original time/date in the forwarded header, with regular, icon-only label, and compact one-line modes
+- show forward count next to the view count on channel posts
 - long-tap forward bar (above input) to cycle between regular / without sender / without caption
 - long-tap a mention in a message to insert a name-mention into the input with custom text
 - 🐶 restrict/ban menu items the avatar long-tap menu

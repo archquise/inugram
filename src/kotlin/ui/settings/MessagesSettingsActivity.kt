@@ -191,6 +191,12 @@ class MessagesSettingsActivity : SettingsPageActivity() {
         )
         items.add(
             UItem.asCheck(
+                TOGGLE_SHOW_FORWARDS_COUNT,
+                LocaleController.getString(R.string.InuShowForwardsCount),
+            ).setChecked(InuConfig.SHOW_FORWARDS_COUNT.value)
+        )
+        items.add(
+            UItem.asCheck(
                 TOGGLE_COMPACT_EDITED,
                 LocaleController.getString(R.string.InuCompactEdited),
             ).setChecked(InuConfig.COMPACT_EDITED.value)
@@ -314,6 +320,12 @@ class MessagesSettingsActivity : SettingsPageActivity() {
             }
 
             BUTTON_FORWARD_HEADER_MODE -> showForwardHeaderModeSelector()
+
+            TOGGLE_SHOW_FORWARDS_COUNT -> {
+                val new = InuConfig.SHOW_FORWARDS_COUNT.toggle()
+                (view as? TextCheckCell)?.isChecked = new
+                miscPreview?.invalidate()
+            }
 
             TOGGLE_COMPACT_EDITED -> {
                 val new = InuConfig.COMPACT_EDITED.toggle()
@@ -478,6 +490,7 @@ class MessagesSettingsActivity : SettingsPageActivity() {
         private val TOGGLE_CHAT_REMEMBER_ALL_REPLIES = InuUtils.generateId()
         private val TOGGLE_SHOW_FORWARD_TIME = InuUtils.generateId()
         private val BUTTON_FORWARD_HEADER_MODE = InuUtils.generateId()
+        private val TOGGLE_SHOW_FORWARDS_COUNT = InuUtils.generateId()
         private val TOGGLE_COMPACT_EDITED = InuUtils.generateId()
         private val TOGGLE_BUBBLE_TAILS = InuUtils.generateId()
         private val BUTTON_DOUBLE_TAP_INCOMING = InuUtils.generateId()
@@ -532,6 +545,7 @@ class MessagesSettingsActivity : SettingsPageActivity() {
                 SearchRegistry.Entry("chat-remember-all-replies", R.string.InuChatRememberAllReplies, TOGGLE_CHAT_REMEMBER_ALL_REPLIES),
                 SearchRegistry.Entry("show-forward-time", R.string.InuShowForwardTime, TOGGLE_SHOW_FORWARD_TIME),
                 SearchRegistry.Entry("compact-forwarded", R.string.InuForwardHeaderMode, BUTTON_FORWARD_HEADER_MODE),
+                SearchRegistry.Entry("show-forwards-count", R.string.InuShowForwardsCount, TOGGLE_SHOW_FORWARDS_COUNT),
                 SearchRegistry.Entry("compact-edited", R.string.InuCompactEdited, TOGGLE_COMPACT_EDITED),
                 SearchRegistry.Entry("bubble-tails", R.string.InuBubbleTails, TOGGLE_BUBBLE_TAILS),
                 SearchRegistry.Entry("double-tap-incoming", R.string.InuIncomingMessages, BUTTON_DOUBLE_TAP_INCOMING),

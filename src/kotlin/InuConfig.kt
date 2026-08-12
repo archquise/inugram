@@ -621,6 +621,9 @@ object InuConfig {
     val COMPACT_EDITED = BoolItem("compact_edited", false)
 
     @JvmField
+    val SHOW_FORWARDS_COUNT = BoolItem("show_forwards_count", false)
+
+    @JvmField
     val BUBBLE_TAILS = BoolItem("bubble_tails", true)
 
     @JvmField
