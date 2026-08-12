@@ -75,6 +75,8 @@
     <string name="InuDisableSensitive">Disable sensitive filter</string>
     <string name="InuDisableQuickShare">Disable quick share</string>
     <string name="InuDisableQuickShareInfo">Don\'t show frequent contacts on long-tapping the share button (next to channel messages); it sends without confirmation</string>
+    <string name="InuDisableProfileMusicAutoplay">Disable profile music auto-play</string>
+    <string name="InuDisableProfileMusicAutoplayInfo">Don\'t start playback automatically when opening the pinned music player on a profile</string>
     <string name="InuDisableChatBackgrounds">Disable custom chat backgrounds</string>
     <string name="InuDisableChatThemes">Disable custom chat themes</string>
     <string name="InuDisableBgParallax">Disable background parallax</string>

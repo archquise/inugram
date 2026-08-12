@@ -227,6 +227,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - disable notification bubbles
 - disable volume keys playing visible video with sound in chat
 - disable quick share (long-tap share button → send to frequent contact without confirmation)
+- disable auto-play when opening the pinned music player on a profile
 
 ## 🐶 bugfixes (vs stock)
 
