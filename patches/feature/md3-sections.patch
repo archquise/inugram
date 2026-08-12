@@ -343,7 +343,7 @@ index 0000000..0000000 100644
          ViewGroup container = pointContainer = this.container == null ? fragment.getParentLayout().getOverlayContainerView() : this.container;
  
          if (context == null || container == null) {
-@@ -2152,6 +2159,7 @@ public class ItemOptions {
+@@ -2158,6 +2165,7 @@ public class ItemOptions {
                      } else {
                          canvas.save();
                      }
