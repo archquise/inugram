@@ -17,7 +17,6 @@
     <string name="InuUserProfileHeader">Шапка</string>
     <string name="InuUserProfileInformation">Информация</string>
     <string name="InuChatList">Список чатов</string>
-    <string name="InuOpenArchiveOnPull">Открывать архив при вытягивании</string>
     <string name="InuDoubleTapActions">Действия на двойной тап</string>
     <string name="InuDoubleTapDelay">Задержка двойного тапа</string>
     <string name="InuIncomingMessages">Входящие сообщения</string>

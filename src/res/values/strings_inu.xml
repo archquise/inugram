@@ -31,7 +31,15 @@
     <string name="InuUserProfileInformation">Information</string>
     <string name="InuChatList">Chat list</string>
     <string name="InuTitleText">Title text</string>
-    <string name="InuOpenArchiveOnPull">Open archive on pull</string>
+    <string name="InuPullDownAction">Pull-down action</string>
+    <string name="InuPullDownActionDisabled">Disabled</string>
+    <string name="InuPullDownActionDisabledInfo">The archive is moved to the menu</string>
+    <string name="InuPullDownActionRevealArchive">Reveal archive</string>
+    <string name="InuPullDownActionOpenArchive">Open archive</string>
+    <string name="InuSwipeForSavedMessages">Swipe down for Saved Messages</string>
+    <string name="InuReleaseForSavedMessages">Release for Saved Messages</string>
+    <string name="InuSwipeForSearch">Swipe down for search</string>
+    <string name="InuReleaseForSearch">Release for search</string>
     <string name="InuDoubleTapActions">Double tap actions</string>
     <string name="InuDoubleTapDelay">Double tap delay</string>
     <string name="InuIncomingMessages">Incoming messages</string>

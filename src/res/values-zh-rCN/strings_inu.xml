@@ -17,7 +17,6 @@
     <string name="InuUserProfileHeader">头部</string>
     <string name="InuUserProfileInformation">信息</string>
     <string name="InuChatList">聊天列表</string>
-    <string name="InuOpenArchiveOnPull">下拉打开归档</string>
     <string name="InuDoubleTapActions">双击操作</string>
     <string name="InuDoubleTapDelay">双击延迟</string>
     <string name="InuIncomingMessages">收到的消息</string>

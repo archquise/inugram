@@ -17,7 +17,6 @@
     <string name="InuUserProfileHeader">ヘッダー</string>
     <string name="InuUserProfileInformation">情報</string>
     <string name="InuChatList">チャットリスト</string>
-    <string name="InuOpenArchiveOnPull">引き下げでアーカイブを開く</string>
     <string name="InuDoubleTapActions">ダブルタップ動作</string>
     <string name="InuDoubleTapDelay">ダブルタップの遅延</string>
     <string name="InuIncomingMessages">受信メッセージ</string>

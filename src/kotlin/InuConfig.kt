@@ -268,8 +268,30 @@ object InuConfig {
     @JvmField
     val DISABLE_SWIPE_TO_HIDE_GENERAL_TOPIC = BoolItem("disable_swipe_to_hide_general_topic", true)
 
+    class PullDownActionItem : IntItem("pull_down_action", REVEAL_ARCHIVE) {
+        // Migrate the old `open_archive_on_pull` boolean toggle: on → open archive, off → reveal (stock).
+        override fun read(prefs: SharedPreferences): Int {
+            if (prefs.contains(key)) return prefs.getInt(key, default)
+            if (!prefs.contains("open_archive_on_pull")) return default
+            val migrated = if (prefs.getBoolean("open_archive_on_pull", false)) OPEN_ARCHIVE else REVEAL_ARCHIVE
+            prefs.edit {
+                putInt(key, migrated)
+                remove("open_archive_on_pull")
+            }
+            return migrated
+        }
+
+        companion object {
+            const val DISABLED = 0
+            const val REVEAL_ARCHIVE = 1
+            const val OPEN_ARCHIVE = 2
+            const val SAVED_MESSAGES = 3
+            const val SEARCH = 4
+        }
+    }
+
     @JvmField
-    val OPEN_ARCHIVE_ON_PULL = BoolItem("open_archive_on_pull", false)
+    val PULL_DOWN_ACTION = PullDownActionItem()
 
     @JvmField
     val CHAT_ALWAYS_SHOW_DOWN = BoolItem("chat_always_show_down", true)

@@ -609,6 +609,13 @@ object DrawerHelper {
                 close()
             }
 
+            ITEM_ARCHIVE -> {
+                val args = Bundle()
+                args.putInt("folderId", 1)
+                nav.presentFragment(DialogsActivity(args))
+                close()
+            }
+
             ITEM_SETTINGS -> {
                 nav.presentFragment(SettingsActivity())
                 close()
@@ -632,6 +639,7 @@ object DrawerHelper {
     private const val ITEM_SAVED_MESSAGES = 11
     private const val ITEM_SETTINGS = 8
     private const val ITEM_PROXY = DrawerLayoutAdapter.ITEM_PROXY
+    private const val ITEM_ARCHIVE = DrawerLayoutAdapter.ITEM_ARCHIVE
 
     @JvmStatic
     fun notifyDataChanged() {

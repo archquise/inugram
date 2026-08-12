@@ -109,7 +109,7 @@ feature/create-as-supergroup.patch
 bugfix/profile-scroll-jump.patch
 hooks/loginactivity.patch
 feature/login-options.patch
-feature/open-archive-on-pull.patch
+feature/dialogs-pull-down.patch
 hooks/messagescontroller.patch
 feature/maps.patch
 feature/translator.patch

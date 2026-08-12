@@ -70,8 +70,11 @@ class DialogsSettingsActivity : SettingsPageActivity() {
             ).setChecked(InuConfig.OLD_MENTION_INDICATOR.value)
         )
         items.add(
-            UItem.asCheck(TOGGLE_OPEN_ARCHIVE_ON_PULL, LocaleController.getString(R.string.InuOpenArchiveOnPull))
-                .setChecked(InuConfig.OPEN_ARCHIVE_ON_PULL.value)
+            UItem.asButton(
+                BUTTON_PULL_DOWN_ACTION,
+                LocaleController.getString(R.string.InuPullDownAction),
+                pullDownActionLabel(InuConfig.PULL_DOWN_ACTION.value),
+            )
         )
         items.add(
             UItem.asCheck(
@@ -233,10 +236,7 @@ class DialogsSettingsActivity : SettingsPageActivity() {
                 softRebuild()
             }
 
-            TOGGLE_OPEN_ARCHIVE_ON_PULL -> {
-                val new = InuConfig.OPEN_ARCHIVE_ON_PULL.toggle()
-                (view as? TextCheckCell)?.isChecked = new
-            }
+            BUTTON_PULL_DOWN_ACTION -> showPullDownActionSelector()
 
             TOGGLE_DISABLE_SWIPE_TO_UNARCHIVE -> {
                 val new = InuConfig.DISABLE_SWIPE_TO_UNARCHIVE.toggle()
@@ -341,6 +341,38 @@ class DialogsSettingsActivity : SettingsPageActivity() {
         )
     }
 
+    private fun showPullDownActionSelector() {
+        val context = context ?: return
+        val values = intArrayOf(
+            InuConfig.PullDownActionItem.DISABLED,
+            InuConfig.PullDownActionItem.REVEAL_ARCHIVE,
+            InuConfig.PullDownActionItem.OPEN_ARCHIVE,
+            InuConfig.PullDownActionItem.SAVED_MESSAGES,
+            InuConfig.PullDownActionItem.SEARCH,
+        )
+        val items = values.map { value ->
+            if (value == InuConfig.PullDownActionItem.DISABLED) {
+                RadioDialogBuilder.Item(
+                    pullDownActionLabel(value),
+                    LocaleController.getString(R.string.InuPullDownActionDisabledInfo),
+                )
+            } else {
+                RadioDialogBuilder.Item(pullDownActionLabel(value))
+            }
+        }
+        showDialog(
+            RadioDialogBuilder(context, getResourceProvider())
+                .setTitle(LocaleController.getString(R.string.InuPullDownAction))
+                .setItems(items, values.indexOf(InuConfig.PULL_DOWN_ACTION.value).coerceAtLeast(0)) { _, which ->
+                    val newValue = values[which]
+                    if (InuConfig.PULL_DOWN_ACTION.value == newValue) return@setItems
+                    InuConfig.PULL_DOWN_ACTION.value = newValue
+                    listView.adapter.update(true)
+                    softRebuild()
+                }.create()
+        )
+    }
+
     private fun showFabActionDialog(anchor: View, item: InuConfig.IntItem) {
         val options = DialogsFabHelper.Action.entries
         val current = options.indexOfFirst { it.value == item.value }.coerceAtLeast(0)
@@ -359,7 +391,7 @@ class DialogsSettingsActivity : SettingsPageActivity() {
         private val BUTTON_FOLDERS_UNREAD_COUNTER_MODE = InuUtils.generateId()
         private val TOGGLE_BOT_WEBVIEW_BUTTON = InuUtils.generateId()
         private val TOGGLE_OLD_MENTION_INDICATOR = InuUtils.generateId()
-        private val TOGGLE_OPEN_ARCHIVE_ON_PULL = InuUtils.generateId()
+        private val BUTTON_PULL_DOWN_ACTION = InuUtils.generateId()
         private val TOGGLE_DISABLE_SWIPE_TO_UNARCHIVE = InuUtils.generateId()
         private val TOGGLE_DISABLE_SWIPE_TO_HIDE_GENERAL_TOPIC = InuUtils.generateId()
         private val TOGGLE_BOTTOM_TABS_HIDE = InuUtils.generateId()
@@ -382,6 +414,14 @@ class DialogsSettingsActivity : SettingsPageActivity() {
             else -> LocaleController.getString(R.string.AppName)
         }
 
+        private fun pullDownActionLabel(value: Int): String = when (value) {
+            InuConfig.PullDownActionItem.DISABLED -> LocaleController.getString(R.string.InuPullDownActionDisabled)
+            InuConfig.PullDownActionItem.OPEN_ARCHIVE -> LocaleController.getString(R.string.InuPullDownActionOpenArchive)
+            InuConfig.PullDownActionItem.SAVED_MESSAGES -> LocaleController.getString(R.string.SavedMessages)
+            InuConfig.PullDownActionItem.SEARCH -> LocaleController.getString(R.string.Search)
+            else -> LocaleController.getString(R.string.InuPullDownActionRevealArchive)
+        }
+
         private fun communityDisplayModeLabel(value: Int): String = when (value) {
             InuConfig.CommunityDisplayModeItem.LONG_TAP -> LocaleController.getString(R.string.InuCommunityDisplayModeLongTap)
             InuConfig.CommunityDisplayModeItem.INVISIBLE -> LocaleController.getString(R.string.InuCommunityDisplayModeInvisible)
@@ -400,7 +440,7 @@ class DialogsSettingsActivity : SettingsPageActivity() {
                 SearchRegistry.Entry("hide-all-chats-tab", R.string.InuHideAllChatsTab, TOGGLE_HIDE_ALL_CHATS_TAB),
                 SearchRegistry.Entry("title-text", R.string.InuTitleText, BUTTON_TITLE_TEXT),
                 SearchRegistry.Entry("old-mention-indicator", R.string.InuOldMentionIndicator, TOGGLE_OLD_MENTION_INDICATOR),
-                SearchRegistry.Entry("open-archive-on-pull", R.string.InuOpenArchiveOnPull, TOGGLE_OPEN_ARCHIVE_ON_PULL),
+                SearchRegistry.Entry("pull-down-action", R.string.InuPullDownAction, BUTTON_PULL_DOWN_ACTION),
                 SearchRegistry.Entry("disable-swipe-to-unarchive", R.string.InuDisableSwipeToUnarchive, TOGGLE_DISABLE_SWIPE_TO_UNARCHIVE),
                 SearchRegistry.Entry("disable-swipe-to-hide-general-topic", R.string.InuDisableSwipeToHideGeneralTopic, TOGGLE_DISABLE_SWIPE_TO_HIDE_GENERAL_TOPIC),
                 SearchRegistry.Entry("hide-bot-webview-dialogs", R.string.InuHideBotWebView, TOGGLE_BOT_WEBVIEW_BUTTON),

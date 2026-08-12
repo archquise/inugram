@@ -24,7 +24,6 @@
     <string name="InuUserProfileHeader">Üst bilgi</string>
     <string name="InuUserProfileInformation">Bilgi</string>
     <string name="InuChatList">Sohbet listesi</string>
-    <string name="InuOpenArchiveOnPull">Aşağı çekince arşivi aç</string>
     <string name="InuDoubleTapActions">Çift dokunma eylemleri</string>
     <string name="InuDoubleTapDelay">Çift dokunma gecikmesi</string>
     <string name="InuIncomingMessages">Gelen mesajlar</string>
