@@ -264,3 +264,4 @@ feature/unified-video-rewind.patch
 feature/user-deeplink.patch
 bugfix/community-picker-avatar-npe.patch
 bugfix/markdown-inside-links.patch
+feature/remember-poll-settings.patch
