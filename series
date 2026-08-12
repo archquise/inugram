@@ -269,3 +269,4 @@ bugfix/reply-bar-revealed-spoiler.patch
 debloat/profile-music-autoplay.patch
 feature/override-forum-mode.patch
 bugfix/profile-music-sheet-layout.patch
+bugfix/edge-to-edge-iv.patch

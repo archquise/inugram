@@ -63,7 +63,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - 🐶 "create as supergroup" toggle in group creation
 - 🐶 deeplink / username quick-open from global search
 - mutual contact icon in contacts list
-- open archive directly on pull-down (🐶 done right, without revealing the cell)
+- customizable dialogs list pull-down action: reveal archive (stock), open archive directly (🐶 done right, without revealing the cell), open saved messages, open search, or disabled entirely. when the pull-down no longer leads to the archive, the archive row is hidden from the list and an "Archived Chats" entry appears in the drawer/overflow menu instead
 - interactive chat preview (long-tap avatar): tappable bubbles, no tap-to-expand
 - 🐶 community display modes: regular / open on avatar long-tap / invisible
 - "select all" in the chat selection three-dot menu (selects all loaded chats in the current folder tab)
@@ -272,6 +272,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - stale video seekbar leaking onto photos in photo viewer
 - fix photo zoom/video progress resetting on message edit
 - photo viewer no longer dismissing the keyboard / jumping at end of close animation (12.8 regression)
+- fix edge-to-edge for instant view
 - missing action bar title/date and open/close animation when viewing a photo of a user who hid theirs from you (stock bug: profile photo locations carried no dc id)
 - text spoilers jittering/blinking while scrolling on high-refresh displays (12.8 regression)
 - revealed spoilers in album captions re-hiding themselves after a scroll (reveal flag was set on the drawing cell's message instead of the group's primary one)
