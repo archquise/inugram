@@ -4,25 +4,25 @@ Date: Thu, 28 May 2026 22:18:07 +0400
 Subject: md3-style sections redesign
 
 ---
- .../ui/ActionBar/ThemeDescription.java        |  7 +++-
- .../java/org/telegram/ui/BoostsActivity.java  |  5 +++
- .../java/org/telegram/ui/Cells/TextCell.java  | 27 ++++++++++---
+ .../ui/ActionBar/ThemeDescription.java        |  7 ++-
+ .../java/org/telegram/ui/BoostsActivity.java  |  5 ++
+ .../java/org/telegram/ui/Cells/TextCell.java  | 27 ++++++++--
  .../org/telegram/ui/Cells/TextCheckCell.java  |  6 ++-
- .../ui/Cells/TextDetailSettingsCell.java      |  8 ++--
+ .../ui/Cells/TextDetailSettingsCell.java      |  8 +--
  .../telegram/ui/Cells/TextSettingsCell.java   |  2 +-
- .../org/telegram/ui/ChannelBoostLayout.java   |  5 +++
+ .../org/telegram/ui/ChannelBoostLayout.java   |  5 ++
  .../telegram/ui/ChatRightsEditActivity.java   |  3 ++
  .../org/telegram/ui/ChatUsersActivity.java    |  6 +++
- .../telegram/ui/Components/ItemOptions.java   |  8 ++++
- .../ui/Components/RecyclerListView.java       | 39 +++++++++++++++----
- .../ui/Components/UniversalAdapter.java       | 15 ++++++-
- .../telegram/ui/LiteModeSettingsActivity.java |  7 ++++
+ .../telegram/ui/Components/ItemOptions.java   |  8 +++
+ .../ui/Components/RecyclerListView.java       | 54 ++++++++++++++++---
+ .../ui/Components/UniversalAdapter.java       | 15 +++++-
+ .../telegram/ui/LiteModeSettingsActivity.java |  7 +++
  .../telegram/ui/MessageStatisticActivity.java |  2 +
- .../org/telegram/ui/PeerColorActivity.java    |  9 +++--
- .../org/telegram/ui/ProxyListActivity.java    |  5 ---
- .../org/telegram/ui/SettingsActivity.java     | 18 +++++++++
+ .../org/telegram/ui/PeerColorActivity.java    |  9 ++--
+ .../org/telegram/ui/ProxyListActivity.java    |  5 --
+ .../org/telegram/ui/SettingsActivity.java     | 18 +++++++
  .../org/telegram/ui/StatisticActivity.java    |  1 +
- 18 files changed, 145 insertions(+), 28 deletions(-)
+ 18 files changed, 160 insertions(+), 28 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ThemeDescription.java b/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ThemeDescription.java
 index 0000000..0000000 100644
@@ -364,13 +364,16 @@ index 0000000..0000000 100644
  
      private boolean accessibilityEnabled = true;
  
-@@ -2679,15 +2679,20 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
+@@ -2679,14 +2679,34 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
  
      @Override
      public boolean drawChild(Canvas canvas, View child, long drawingTime) {
 +        final boolean inu_m3 = hasSections() && desu.inugram.helpers.theme.M3SectionsHelper.isEnabled();
 +        final int inu_oldDividerAlpha = inu_m3 ? Theme.dividerPaint.getAlpha() : 0;
 +        if (inu_m3) Theme.dividerPaint.setAlpha(0);
++        final Paint inu_providerDivider = inu_m3 && resourcesProvider != null ? resourcesProvider.getPaint(Theme.key_paint_divider) : null;
++        final int inu_oldProviderDividerAlpha = inu_providerDivider != null ? inu_providerDivider.getAlpha() : 0;
++        if (inu_providerDivider != null) inu_providerDivider.setAlpha(0);
 +        final boolean r;
          if (hasSections() && !ignoreClipChild) {
              canvas.save();
@@ -382,13 +385,24 @@ index 0000000..0000000 100644
          } else {
 -            return super.drawChild(canvas, child, drawingTime);
 +            r = super.drawChild(canvas, child, drawingTime);
-         }
++        }
 +        if (inu_m3) Theme.dividerPaint.setAlpha(inu_oldDividerAlpha);
++        if (inu_providerDivider != null) inu_providerDivider.setAlpha(inu_oldProviderDividerAlpha);
 +        return r;
++    }
++
++    @Override
++    public void onDescendantInvalidated(@NonNull View child, @NonNull View target) {
++        super.onDescendantInvalidated(child, target);
++        if (hasSections() && desu.inugram.helpers.theme.M3SectionsHelper.isEnabled()) {
++            // since API 26 a dirty child re-records its display list without going through the
++            // parent's drawChild, escaping the divider paint suppression above — dirty ourselves
++            // so the re-record happens inside drawChild
++            invalidate();
+         }
      }
  
-     @Override
-@@ -3257,12 +3262,12 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
+@@ -3257,12 +3277,12 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
          return sectionsItemDecoration != null;
      }
  
@@ -404,7 +418,7 @@ index 0000000..0000000 100644
      public boolean applyPaddingToSections = false;
  
      public static final int TAG_NOT_SECTION = -33024;
-@@ -3288,7 +3293,7 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
+@@ -3288,7 +3308,7 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
      }
      public void setSections(int padding, float roundRadius, boolean topPadding) {
          setSections(
@@ -413,7 +427,7 @@ index 0000000..0000000 100644
              padding,
              roundRadius,
              this::drawBackgroundRect,
-@@ -3405,6 +3410,9 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
+@@ -3405,6 +3425,9 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
                          if (last) outRect.bottom = padding;
                      }
                  }
@@ -423,7 +437,7 @@ index 0000000..0000000 100644
              }
          }
  
-@@ -3476,6 +3484,11 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
+@@ -3476,6 +3499,11 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
      public void drawSectionsBackgrounds(Canvas canvas) {
          if (drawSectionBackground == null) return;
  
@@ -435,7 +449,7 @@ index 0000000..0000000 100644
          if (isAnimating()) {
              if (sections == null) {
                  sections = new ArrayList<>();
-@@ -3622,6 +3635,11 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
+@@ -3622,6 +3650,11 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
          if (child == null || !sectionsItemDecoration.isSectionItem.run(child))
              return;
  
@@ -447,7 +461,7 @@ index 0000000..0000000 100644
          boolean prev, next;
          int position = getChildAdapterPosition(child);
          if (position == RecyclerView.NO_POSITION) {
-@@ -3682,6 +3700,11 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
+@@ -3682,6 +3715,11 @@ public class RecyclerListView extends RecyclerView implements IBlur3Capture {
      public Drawable getClipBackground(View child, boolean forceRound) {
          if (child.getParent() != this || !hasSections() || !sectionsItemDecoration.isSectionItem.run(child)) return null;
  
