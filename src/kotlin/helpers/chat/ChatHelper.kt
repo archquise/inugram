@@ -1517,4 +1517,25 @@ object ChatHelper {
             .show()
         return true
     }
+
+    @JvmStatic
+    fun getDialogsTitle(account: Int): String {
+        val user = UserConfig.getInstance(account).getCurrentUser()
+        return when (InuConfig.DIALOGS_TITLE_TEXT.value) {
+            InuConfig.DialogsTitleTextItem.USERNAME -> {
+                val username = UserObject.getPublicUsername(user)
+                if (username.isNullOrEmpty()) getFirstNameOrDefault(user) else "@$username"
+            }
+
+            InuConfig.DialogsTitleTextItem.FIRST_NAME -> getFirstNameOrDefault(user)
+            InuConfig.DialogsTitleTextItem.CHATS -> LocaleController.getString(R.string.Chats)
+            else -> LocaleController.getString(R.string.AppName)
+        }
+    }
+
+    private fun getFirstNameOrDefault(user: TLRPC.User?): String {
+        if (user == null) return LocaleController.getString(R.string.AppName)
+        val name = UserObject.getFirstName(user)
+        return if (name.isNullOrBlank()) LocaleController.getString(R.string.AppName) else name
+    }
 }

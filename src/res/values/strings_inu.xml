@@ -30,6 +30,7 @@
     <string name="InuUserProfileHeader">Header</string>
     <string name="InuUserProfileInformation">Information</string>
     <string name="InuChatList">Chat list</string>
+    <string name="InuTitleText">Title text</string>
     <string name="InuOpenArchiveOnPull">Open archive on pull</string>
     <string name="InuDoubleTapActions">Double tap actions</string>
     <string name="InuDoubleTapDelay">Double tap delay</string>

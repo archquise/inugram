@@ -440,6 +440,18 @@ object InuConfig {
     @JvmField
     val COMMUNITY_DISPLAY_MODE = CommunityDisplayModeItem()
 
+    class DialogsTitleTextItem : IntItem("dialogs_title_text", INUGRAM) {
+        companion object {
+            const val INUGRAM = 1
+            const val USERNAME = 2
+            const val FIRST_NAME = 3
+            const val CHATS = 4
+        }
+    }
+
+    @JvmField
+    val DIALOGS_TITLE_TEXT = DialogsTitleTextItem()
+
     class StickerTimeModeItem : IntItem("sticker_time_mode", SHOW) {
         companion object {
             const val SHOW = 1;

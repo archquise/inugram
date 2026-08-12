@@ -57,6 +57,13 @@ class DialogsSettingsActivity : SettingsPageActivity() {
         // chat list section
         items.add(UItem.asHeader(LocaleController.getString(R.string.InuChatList)))
         items.add(
+            UItem.asButton(
+                BUTTON_TITLE_TEXT,
+                LocaleController.getString(R.string.InuTitleText),
+                titleTextLabel(InuConfig.DIALOGS_TITLE_TEXT.value),
+            )
+        )
+        items.add(
             UItem.asCheck(
                 TOGGLE_OLD_MENTION_INDICATOR,
                 LocaleController.getString(R.string.InuOldMentionIndicator),
@@ -265,6 +272,20 @@ class DialogsSettingsActivity : SettingsPageActivity() {
                 softRebuild()
             }
 
+            BUTTON_TITLE_TEXT -> RadioItemOptions.show(
+                this, view,
+                listOf(
+                    LocaleController.getString(R.string.AppName),
+                    LocaleController.getString(R.string.Username),
+                    LocaleController.getString(R.string.FirstNameSmall),
+                    LocaleController.getString(R.string.Chats),
+                ),
+                InuConfig.DIALOGS_TITLE_TEXT.value - 1,
+            ) { which ->
+                InuConfig.DIALOGS_TITLE_TEXT.value = which + 1
+                softRebuild()
+            }
+
             BUTTON_COMMUNITY_DISPLAY_MODE -> showCommunityDisplayModeSelector()
 
             BUTTON_FAB_MAIN_ACTION -> showFabActionDialog(view, InuConfig.DIALOGS_FAB_MAIN_ACTION)
@@ -352,6 +373,14 @@ class DialogsSettingsActivity : SettingsPageActivity() {
         private val TOGGLE_INTERACTIVE_CHAT_PREVIEW = InuUtils.generateId()
         private val TOGGLE_HIDE_ALL_CHATS_TAB = InuUtils.generateId()
         private val BUTTON_COMMUNITY_DISPLAY_MODE = InuUtils.generateId()
+        private val BUTTON_TITLE_TEXT = InuUtils.generateId()
+
+        private fun titleTextLabel(value: Int): String = when (value) {
+            InuConfig.DialogsTitleTextItem.USERNAME -> LocaleController.getString(R.string.Username)
+            InuConfig.DialogsTitleTextItem.FIRST_NAME -> LocaleController.getString(R.string.FirstNameSmall)
+            InuConfig.DialogsTitleTextItem.CHATS -> LocaleController.getString(R.string.Chats)
+            else -> LocaleController.getString(R.string.AppName)
+        }
 
         private fun communityDisplayModeLabel(value: Int): String = when (value) {
             InuConfig.CommunityDisplayModeItem.LONG_TAP -> LocaleController.getString(R.string.InuCommunityDisplayModeLongTap)
@@ -369,6 +398,7 @@ class DialogsSettingsActivity : SettingsPageActivity() {
                 SearchRegistry.Entry("folders-display-mode", R.string.InuFoldersDisplayMode, BUTTON_FOLDERS_DISPLAY_MODE),
                 SearchRegistry.Entry("folders-unread-counter", R.string.InuFoldersUnreadCounter, BUTTON_FOLDERS_UNREAD_COUNTER_MODE),
                 SearchRegistry.Entry("hide-all-chats-tab", R.string.InuHideAllChatsTab, TOGGLE_HIDE_ALL_CHATS_TAB),
+                SearchRegistry.Entry("title-text", R.string.InuTitleText, BUTTON_TITLE_TEXT),
                 SearchRegistry.Entry("old-mention-indicator", R.string.InuOldMentionIndicator, TOGGLE_OLD_MENTION_INDICATOR),
                 SearchRegistry.Entry("open-archive-on-pull", R.string.InuOpenArchiveOnPull, TOGGLE_OPEN_ARCHIVE_ON_PULL),
                 SearchRegistry.Entry("disable-swipe-to-unarchive", R.string.InuDisableSwipeToUnarchive, TOGGLE_DISABLE_SWIPE_TO_UNARCHIVE),
