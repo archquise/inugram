@@ -148,6 +148,7 @@ object BlockedMessagesHelper {
     private fun isBlockedPeer(currentAccount: Int, peerId: Long): Boolean {
         if (isExtraHidden(currentAccount, peerId)) return true
         val controller = MessagesController.getInstance(currentAccount)
+        if (peerId > 0 && controller.getUser(peerId)?.bot == true) return false
         val userFull = if (peerId > 0) controller.getUserFull(peerId) else null
         return userFull?.blocked == true || controller.blockePeers.indexOfKey(peerId) >= 0
     }
