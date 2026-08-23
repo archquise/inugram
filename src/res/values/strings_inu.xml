@@ -725,4 +725,8 @@
     <string name="InuRefreshStickerSet">Refresh</string>
     <string name="InuStickerSetRefreshed">Pack updated</string>
     <string name="InuStickerSetRefreshFailed">Couldn\'t refresh the pack</string>
+    <string name="InuStopBot">Stop bot</string>
+    <string name="InuStopBotAlert">Are you sure you want to stop **%1$s**? It won\'t be able to send you messages anymore.</string>
+    <string name="InuStopBotAction">Stop</string>
+    <string name="InuStopBotDone">Bot stopped</string>
 </resources>

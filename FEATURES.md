@@ -121,6 +121,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - split media restriction toggles for stickers / gifs / games / inline
 - show id in profile, show user json
 - long-tap the name in profile to copy it
+- "Stop" button in a bot profile stops (blocks) the bot instead of offering to delete the chat
 - 🐶 drag the pinned-music sheet by its header to scroll/expand the playlist
 - long-tap inline callback button to copy text or callback data
 - "select between messages" (🐶 done right)
