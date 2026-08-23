@@ -6,7 +6,9 @@ import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Shader
 import android.content.DialogInterface
+import android.os.Bundle
 import android.graphics.drawable.Drawable
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -37,10 +39,12 @@ import org.telegram.ui.ActionBar.ActionBarMenuItem
 import org.telegram.ui.ActionBar.AlertDialog
 import org.telegram.ui.ActionBar.BaseFragment
 import org.telegram.ui.ActionBar.Theme
+import org.telegram.ui.ChatActivity
 import org.telegram.ui.Components.BulletinFactory
 import org.telegram.ui.Components.ItemOptions
 import org.telegram.ui.Components.ProfileGalleryBlurView
 import org.telegram.ui.Components.ProfileGalleryView
+import org.telegram.ui.ProfileActivity
 import org.telegram.ui.Stars.StarsController
 import org.telegram.ui.Stories.StoriesController
 import java.util.Date
@@ -471,5 +475,22 @@ object ProfileHelper {
         }
         if (userId <= list.first().id) return formatShortDate(list.first().date * 1000L)
         return ">" + formatShortDate(list.last().date * 1000L)
+    }
+
+    @JvmStatic
+    fun openProfileOrChat(fragment: BaseFragment, view: View, dialogId: Long): Boolean {
+        val args = Bundle()
+        val openAsChat: Boolean
+        if (dialogId > 0) {
+            if (fragment.messagesController.getUser(dialogId) == null) return false
+            args.putLong("user_id", dialogId)
+            openAsChat = false
+        } else {
+            val chat = fragment.messagesController.getChat(-dialogId) ?: return false
+            args.putLong("chat_id", -dialogId)
+            openAsChat = ChatObject.isChannelAndNotMegaGroup(chat)
+        }
+        fragment.presentFragment(if (openAsChat) ChatActivity(args) else ProfileActivity(args))
+        return true
     }
 }
