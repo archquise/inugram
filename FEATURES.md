@@ -308,6 +308,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - fix camera2api a/v sync issue in round messages
 - forward bar showing stale message count/senders after deselecting messages in the forward options sheet
 - cross-peer reply: clear stale quote so a leftover quote-reply target doesn't override the new one at send
+- emoji suggestion panel popping up after sending a message (late `:keyword` lookup callback ignored the input having been cleared)
 - phantom empty dialog rows after peeking a non-joined channel / discuss group
 - expand emoji tabs when there's enough space to fit without scrolling
 - "pause music on media" now lets external players auto-resume (transient focus instead of indefinite)

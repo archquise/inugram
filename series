@@ -282,3 +282,4 @@ feature/long-tap-chip-profile.patch
 bugfix/custom-emoji-reaction-litemode.patch
 bugfix/qr-scanner-corner-points.patch
 bugfix/music-session-album.patch
+bugfix/stale-emoji-suggestions.patch
