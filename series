@@ -280,3 +280,4 @@ bugfix/glass-panel-keyboard-tint.patch
 feature/bot-stop-without-delete.patch
 feature/long-tap-chip-profile.patch
 bugfix/custom-emoji-reaction-litemode.patch
+bugfix/qr-scanner-corner-points.patch
