@@ -77,12 +77,14 @@ import org.telegram.ui.DialogsActivity
 import org.telegram.ui.LaunchActivity
 import java.io.File
 import java.util.Calendar
+import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 object ChatHelper {
     private var skipNextReactionConfirm = false
 
     private const val COMPACT_FORWARD_ICON_SIZE = 12f
+    private const val COMPACT_FORWARD_MIN_NAME_WIDTH = 56f
 
     const val OPTION_SAVE = 501
     const val OPTION_DETAILS = 502
@@ -1114,9 +1116,13 @@ object ChatHelper {
     @JvmStatic
     fun maybeCompactForwardLine(name: CharSequence, maxWidth: Int, messageObject: MessageObject): CharSequence {
         if (!isCompactForward(messageObject)) return name
-        val suffix = getForwardTimeSuffix(messageObject)?.let { " • $it" } ?: ""
-        val available = maxWidth - getCompactForwardPrefixWidth(messageObject) -
-            Theme.chat_forwardNamePaint.measureText(suffix)
+        val withoutSuffix = maxWidth - getCompactForwardPrefixWidth(messageObject)
+        var suffix = getForwardTimeSuffix(messageObject)?.let { " • $it" } ?: ""
+        var available = withoutSuffix - Theme.chat_forwardNamePaint.measureText(suffix)
+        if (available < AndroidUtilities.dp(COMPACT_FORWARD_MIN_NAME_WIDTH)) {
+            suffix = ""
+            available = withoutSuffix.toFloat()
+        }
         val sb = SpannableStringBuilder()
         appendTimeIcon(sb, R.drawable.mini_forwarded, sizeDp = COMPACT_FORWARD_ICON_SIZE, translateYDp = 1f)
         sb.append(" ")
