@@ -105,6 +105,12 @@ object ChatHelper {
         return msg.messageOwner?.forwards ?: 0
     }
 
+    private fun formatForwardsCount(msg: MessageObject?): String? {
+        val forwards = getForwardsCount(msg)
+        if (forwards <= 0) return null
+        return " " + LocaleController.formatShortNumber(forwards, null) + "  "
+    }
+
     @JvmStatic
     fun timeAdditionsHash(msg: MessageObject?): Int {
         if (msg == null) return 0
@@ -136,8 +142,9 @@ object ChatHelper {
         if (edited && InuConfig.COMPACT_EDITED.value) {
             width += AndroidUtilities.dp(11f)
         }
-        if (getForwardsCount(msg) > 0) {
-            width += AndroidUtilities.dp(11f)
+        val forwards = formatForwardsCount(msg)
+        if (forwards != null) {
+            width += AndroidUtilities.dp(11f) + ceil(Theme.chat_timePaint.measureText(forwards)).toInt()
         }
         return width
     }
@@ -147,11 +154,6 @@ object ChatHelper {
         if (time == null || msg == null) return time
         val sb = SpannableStringBuilder()
         TranslateHelper.appendTimePrefix(sb, msg)
-        val forwards = getForwardsCount(msg)
-        if (forwards > 0) {
-            appendTimeIcon(sb, R.drawable.mini_forwarded, sizeDp = 11f, translateYDp = 0f)
-            sb.append(" ").append(LocaleController.formatShortNumber(forwards, null)).append("  ")
-        }
         if (BlockedMessagesHelper.shouldSpoil(msg)) {
             appendTimeIcon(sb, R.drawable.msg_block, sizeDp = 11f, translateYDp = 1f)
             sb.append(" ")
@@ -161,6 +163,16 @@ object ChatHelper {
             sb.append(" ")
         }
         return if (sb.isEmpty()) time else sb.append(time)
+    }
+
+    @JvmStatic
+    fun forwardsPrefix(msg: MessageObject?, time: CharSequence?): CharSequence? {
+        if (time == null || msg == null) return time
+        val forwards = formatForwardsCount(msg) ?: return time
+        val sb = SpannableStringBuilder()
+        appendTimeIcon(sb, R.drawable.mini_forwarded, sizeDp = 11f, translateYDp = 0f)
+        sb.append(forwards)
+        return sb.append(time)
     }
 
     @JvmStatic
