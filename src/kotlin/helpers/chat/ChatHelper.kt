@@ -49,7 +49,9 @@ import org.telegram.messenger.TranslateController
 import org.telegram.messenger.UserConfig
 import org.telegram.messenger.UserObject
 import org.telegram.messenger.Utilities
+import org.telegram.messenger.utils.tlutils.TLKeyboardHelper
 import org.telegram.tgnet.TLRPC
+import org.telegram.tgnet.tl.TL_keyboard
 import org.telegram.ui.ActionBar.ActionBarPopupWindow
 import org.telegram.ui.ActionBar.AlertDialog
 import org.telegram.ui.ActionBar.BottomSheet
@@ -731,7 +733,7 @@ object ChatHelper {
             if (target.isAnyKindOfSticker) {
                 helper.sendSticker(
                     target.document, null, activity.dialogId, null, activity.threadMessage, null, null, null,
-                    true, 0, 0, false, null, activity.quickReplyShortcut, activity.quickReplyId, 0L,
+                    true, 0, 0, false, null, activity.messageChatSendParams, 0L,
                     activity.sendMonoForumPeerId, activity.sendMessageSuggestionParams,
                 )
             } else {
@@ -994,13 +996,14 @@ object ChatHelper {
     fun maybeHandleInlineButtonLongTap(
         activity: ChatActivity,
         cell: ChatMessageCell,
-        button: TLRPC.KeyboardButton,
+        button: TL_keyboard.KeyboardButtonProto,
     ): Boolean {
-        if (button !is TLRPC.TL_keyboardButtonCallback) return false
+        val callback = TLKeyboardHelper.getType(button, TL_keyboard.TL_inlineButtonTypeCallback::class.java)
+            ?: return false
         if (activity.parentActivity == null) return false
 
         val text = button.text ?: ""
-        val data = button.data?.let { String(it, Charsets.UTF_8) } ?: ""
+        val data = callback.data?.let { String(it, Charsets.UTF_8) } ?: ""
         runCatching {
             cell.performHapticFeedback(
                 HapticFeedbackConstants.LONG_PRESS,
