@@ -264,6 +264,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - shared media pager: fling mid-animation to chain tabs or reverse (was ignored until settled); at the edge tab the fling falls through to swipe-to-close
 - attach panel: better perf, safe close before fully open
 - paid reaction animation respects litemode
+- custom emoji reaction burst respects litemode (stock only gated the "around" animation of regular emoji)
 - reaction counter shift during long-tap menu
 - reactions silently disappearing right after being sent (stale server read race)
 - sticky date pill jump and color shift when replacing an inline date separator
