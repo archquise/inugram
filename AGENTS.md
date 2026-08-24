@@ -20,7 +20,7 @@ the same change.
 8. **Prefer data-layer patches over UI-layer** — one hook in a controller beats fifteen hooks in views.
 9. **Never touch `TLRPC.java`** — auto-generated, rebasing changes there is hell.
 10. **Never touch stock DB schema or `LAST_DB_VERSION`** — fork state goes in `inu_*` tables / `inu_kv` via `InuDatabaseHelper`.
-11. **No LSP, no local build.** Don't try to compile.
+11. **No LSP.** To verify compilation, run `pnpm run build-debug` (outside the sandbox, slow, use sparingly).
 12. **Debug logs use `android.util.Log.d`**, not `FileLog`.
 13. **Prefer non-`_solar` icons** when an alternative exists.
 

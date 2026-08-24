@@ -230,7 +230,7 @@ is not touched by the rebase, but it can still break against the new stock API**
 — fix it there, not in the worktree (the symlink makes them the same file).
 
 ```bash
-cd worktree && ./gradlew :TMessagesProj_App:assembleDebug
+pnpm run build-debug
 ```
 
 Run java/gradle **outside the sandbox**. First build after a rebase:
