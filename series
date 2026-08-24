@@ -284,3 +284,4 @@ bugfix/qr-scanner-corner-points.patch
 bugfix/music-session-album.patch
 bugfix/stale-emoji-suggestions.patch
 bugfix/recycler-stale-longpress-position.patch
+bugfix/message-drawable-oom-cache.patch
