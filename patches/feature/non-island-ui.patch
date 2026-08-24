@@ -10,12 +10,13 @@ Subject: non-island ui in various parts of the app
  .../java/org/telegram/ui/ChatActivity.java    | 127 +++++++++------
  .../ui/Components/ChatActivityEnterView.java  |  66 +++++---
  ...ChatActivityEnterViewAnimatedIconView.java |  17 +-
- .../ChatActivityTopPanelLayout.java           |  16 +-
+ .../ChatActivityTopPanelLayout.java           |  27 +++-
  .../ui/Components/ChatAttachAlert.java        |  20 +++
  .../ui/Components/ChatAvatarContainer.java    |   1 +
  .../DialogsActivityTopPanelLayout.java        |   8 +-
  .../ui/Components/FilterTabsView.java         |  19 ++-
- .../ui/Components/FragmentContextView.java    |   3 +
+ .../ui/Components/FragmentContextView.java    |  11 +-
+ .../FragmentContextViewWavesDrawable.java     |  29 +++-
  .../ui/Components/FragmentSearchField.java    |  10 +-
  .../telegram/ui/Components/MediaActivity.java |   2 +-
  .../ui/Components/MentionsContainerView.java  |  19 +--
@@ -39,7 +40,7 @@ Subject: non-island ui in various parts of the app
  .../ui/bots/BotCommandsMenuContainer.java     |   4 +-
  .../bots/ChatAttachAlertBotWebViewLayout.java |   5 +-
  .../java/org/telegram/ui/iv/RichEditor.java   |   4 +-
- 35 files changed, 659 insertions(+), 254 deletions(-)
+ 36 files changed, 701 insertions(+), 260 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ActionBar.java b/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ActionBar.java
 index 0000000..0000000 100644
@@ -1049,7 +1050,32 @@ index 0000000..0000000 100644
          }
      }
  
-@@ -168,6 +169,15 @@ public class ChatActivityTopPanelLayout extends AnimatedLinearLayout {
+@@ -95,6 +96,9 @@ public class ChatActivityTopPanelLayout extends AnimatedLinearLayout {
+     public void setCallFragmentContextView(FragmentContextView fragmentContextView) {
+         callFragmentContextView = fragmentContextView;
+         callFragmentContextView.getCapsuleBlobDrawable().setCallback(this);
++        if (NonIslandHelper.chatElements()) {
++            callFragmentContextView.inu_flat = true;
++        }
+     }
+ 
+     @Override
+@@ -124,6 +128,14 @@ public class ChatActivityTopPanelLayout extends AnimatedLinearLayout {
+                     }
+ 
+                     if (callFragmentContextView == view || callFragmentContextView.getParent() == view) {
++                        if (NonIslandHelper.chatElements()) {
++                            if (Theme.getFragmentContextViewWavesDrawable().inu_drawBottomWaves(canvas, getPaddingLeft(), top, getMeasuredWidth() - getPaddingRight(), dp(36), alpha)) {
++                                invalidate();
++                            }
++                            callDrawn = true;
++                            continue;
++                        }
++
+                         final CapsuleBlobDrawable capsuleBlobDrawable = callFragmentContextView.getCapsuleBlobDrawable();
+ 
+                         final int p = capsuleBlobDrawable.getRequiredInset();
+@@ -168,6 +180,15 @@ public class ChatActivityTopPanelLayout extends AnimatedLinearLayout {
          }
  
          super.dispatchDraw(canvas);
@@ -1230,7 +1256,16 @@ diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentCont
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentContextView.java
 +++ b/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentContextView.java
-@@ -949,6 +949,9 @@ public class FragmentContextView extends FrameLayout implements NotificationCent
+@@ -303,6 +303,8 @@ public class FragmentContextView extends FrameLayout implements NotificationCent
+         delegate = fragmentContextViewDelegate;
+     }
+ 
++    public boolean inu_flat;
++
+     public CapsuleBlobDrawable getCapsuleBlobDrawable() {
+         return capsuleBlobDrawable;
+     }
+@@ -949,6 +951,9 @@ public class FragmentContextView extends FrameLayout implements NotificationCent
      }
  
      private void showSpeedHint() {
@@ -1240,6 +1275,86 @@ index 0000000..0000000 100644
          if (fragment != null && getParent() instanceof ViewGroup) {
              speedHintView = new HintView(getContext(), 6, true) {
                  @Override
+@@ -1352,7 +1357,7 @@ public class FragmentContextView extends FrameLayout implements NotificationCent
+             importingImageView.setVisibility(GONE);
+             importingImageView.stopAnimation();
+             Theme.getFragmentContextViewWavesDrawable().addParent(this);
+-            capsuleBlobDrawable.start();
++            if (!inu_flat) capsuleBlobDrawable.start();
+             invalidate();
+ 
+             for (int i = 0; i < 2; i++) {
+@@ -2640,9 +2645,9 @@ public class FragmentContextView extends FrameLayout implements NotificationCent
+             float progress = topPadding / dp((getStyleHeight()));
+ 
+             if (collapseTransition) {
+-                Theme.getFragmentContextViewWavesDrawable().draw(0, 0 + extraHeight, getMeasuredWidth(), getMeasuredHeight(), canvas, null, Math.min(progress, (1f - collapseProgress)));
++                Theme.getFragmentContextViewWavesDrawable().draw(0, 0 + extraHeight, getMeasuredWidth(), getMeasuredHeight(), canvas, null, Math.min(progress, (1f - collapseProgress)), inu_flat ? 0 : dp(18));
+             } else {
+-                Theme.getFragmentContextViewWavesDrawable().draw(0, 0, getMeasuredWidth(), getMeasuredHeight(), canvas, this, progress);
++                Theme.getFragmentContextViewWavesDrawable().draw(0, 0, getMeasuredWidth(), getMeasuredHeight(), canvas, this, progress, inu_flat ? 0 : dp(18));
+             }
+             invalidate();
+         }
+diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentContextViewWavesDrawable.java b/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentContextViewWavesDrawable.java
+index 0000000..0000000 100644
+--- a/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentContextViewWavesDrawable.java
++++ b/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentContextViewWavesDrawable.java
+@@ -49,13 +49,15 @@ public class FragmentContextViewWavesDrawable {
+     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+     Path path = new Path();
+ 
++    private final LineBlobDrawable[] inu_bottomWaves = { new LineBlobDrawable(7), new LineBlobDrawable(8) };
++
+     public FragmentContextViewWavesDrawable() {
+         for (int i = 0; i < 4; i++) {
+             states[i] = new WeavingState(i);
+         }
+     }
+ 
+-    public void draw(float left, float top, float right, float bottom, Canvas canvas, FragmentContextView parentView, float progress) {
++    public void draw(float left, float top, float right, float bottom, Canvas canvas, FragmentContextView parentView, float progress, float radius) {
+         boolean update;
+         checkColors();
+         if (parentView == null) {
+@@ -154,14 +156,35 @@ public class FragmentContextViewWavesDrawable {
+                 canvas.save();
+ 
+                 canvas.clipPath(path);
+-                canvas.drawRoundRect(left, top, right, bottom, dp(18), dp(18), paint);
++                canvas.drawRoundRect(left, top, right, bottom, radius, radius, paint);
+                 canvas.restore();
+             } else {
+-                canvas.drawRoundRect(left, top, right, bottom, dp(18), dp(18), paint);
++                canvas.drawRoundRect(left, top, right, bottom, radius, radius, paint);
+             }
+         }
+     }
+ 
++    public boolean inu_drawBottomWaves(Canvas canvas, float left, float top, float right, float height, float alpha) {
++        if (currentState == null || !LiteMode.isEnabled(LiteMode.FLAG_CALLS_ANIMATIONS)) {
++            return false;
++        }
++        checkColors();
++        currentState.setToPaint(paint);
++        paint.setAlpha((int) (76 * alpha));
++
++        canvas.save();
++        canvas.translate(left, top);
++        canvas.scale(1f, -1f, 0, height / 2f);
++        for (LineBlobDrawable wave : inu_bottomWaves) {
++            wave.minRadius = 0;
++            wave.maxRadius = dp(3) + dp(9) * amplitude;
++            wave.update(amplitude, 0.7f);
++            wave.draw(0, -dp(6) * amplitude2, right - left, height, canvas, paint, 0, 1f);
++        }
++        canvas.restore();
++        return true;
++    }
++
+     float pressedProgress;
+     float pressedRemoveProgress;
+ 
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentSearchField.java b/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentSearchField.java
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/Components/FragmentSearchField.java
