@@ -62,7 +62,7 @@ object MainTabsHelper {
 
     @JvmStatic
     val isHidden: Boolean
-        get() = InuConfig.BOTTOM_TABS_HIDE.value || InuConfig.NAVIGATION_DRAWER.value
+        get() = InuConfig.BOTTOM_TABS_HIDE.value
 
     @JvmStatic
     val isContactsTabHidden: Boolean

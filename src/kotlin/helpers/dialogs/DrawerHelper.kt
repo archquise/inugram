@@ -80,7 +80,7 @@ object DrawerHelper {
     @JvmStatic
     @JvmOverloads
     fun createMainFragment(args: Bundle? = null): BaseFragment {
-        if (InuConfig.NAVIGATION_DRAWER.value) return DialogsActivity(args)
+        if (MainTabsHelper.isHidden) return DialogsActivity(args)
         val main = MainTabsActivity()
         if (args != null) main.prepareDialogsActivity(args)
         return main
@@ -585,7 +585,9 @@ object DrawerHelper {
 
             ITEM_NEW_MESSAGE -> {
                 // swapped in for New Group when a compose draft is pending
-                (nav.lastFragment as? DialogsActivity)?.openWriteContacts()
+                val top = nav.lastFragment
+                val dialogs = if (top is MainTabsActivity) top.currentVisibleFragment else top
+                (dialogs as? DialogsActivity)?.openWriteContacts()
                 close()
             }
 

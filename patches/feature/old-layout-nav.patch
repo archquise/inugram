@@ -8,12 +8,13 @@ Restore hamburger side drawer for old layout mode (DrawerLayoutContainer)
 Restore hamburger side drawer for old layout mode (DialogsActivity)
 ---
  .../ui/ActionBar/DrawerLayoutContainer.java   | 38 +++++++++++++++++--
- .../java/org/telegram/ui/DialogsActivity.java | 25 ++++++++++--
+ .../java/org/telegram/ui/DialogsActivity.java | 27 ++++++++++---
  .../java/org/telegram/ui/LaunchActivity.java  | 32 ++++++----------
  .../java/org/telegram/ui/LoginActivity.java   |  9 ++---
  .../ui/TwoStepVerificationActivity.java       |  5 +--
  .../ui/TwoStepVerificationSetupActivity.java  | 10 ++---
- 6 files changed, 75 insertions(+), 44 deletions(-)
+ .../org/telegram/ui/ViewPagerActivity.java    |  2 +-
+ 7 files changed, 77 insertions(+), 46 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/DrawerLayoutContainer.java b/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/DrawerLayoutContainer.java
 index 0000000..0000000 100644
@@ -133,7 +134,7 @@ index 0000000..0000000 100644
          } else {
              if (searchString != null || folderId != 0 || communityId != 0) {
                  actionBar.setBackButtonDrawable(backDrawable = new BackDrawable(false));
-+            } else if (!hasMainTabs && desu.inugram.InuConfig.NAVIGATION_DRAWER.getValue()) {
++            } else if (desu.inugram.InuConfig.NAVIGATION_DRAWER.getValue()) {
 +                org.telegram.ui.ActionBar.MenuDrawable menuDrawable = new org.telegram.ui.ActionBar.MenuDrawable();
 +                menuDrawable.setRoundCap();
 +                actionBar.setBackButtonDrawable(menuDrawable);
@@ -145,7 +146,7 @@ index 0000000..0000000 100644
                      return;
                  }
                  if (id == -1) {
-+                    if (!hasMainTabs && !onlySelect && !actionBar.isActionModeShowed() && desu.inugram.InuConfig.NAVIGATION_DRAWER.getValue()
++                    if (!onlySelect && !actionBar.isActionModeShowed() && desu.inugram.InuConfig.NAVIGATION_DRAWER.getValue()
 +                            && folderId == 0 && communityId == 0 && searchString == null
 +                            && desu.inugram.helpers.dialogs.DrawerHelper.INSTANCE.toggleDrawer(parentLayout)) {
 +                        return;
@@ -162,11 +163,20 @@ index 0000000..0000000 100644
          dialogStoriesCell.allowGlobalUpdates = false;
          dialogStoriesCell.setVisibility(View.GONE);
          animateToHasStories = false;
+@@ -5421,7 +5431,7 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
+         undoView[1] = null;
+ 
+         if (hasMainTabs) {
+-            actionBar.getTitlesContainer().setTranslationX(dp(4));
++            if (!desu.inugram.InuConfig.NAVIGATION_DRAWER.getValue()) actionBar.getTitlesContainer().setTranslationX(dp(4));
+             actionBar.setTitleColor(getThemedColor(Theme.key_telegram_color_dialogsLogo));
+         }
+ 
 @@ -5950,6 +5960,9 @@ public class DialogsActivity extends BaseFragment implements NotificationCenter.
              yoff = -(actionBar.getHeight() - AndroidUtilities.rectTmp2.centerY()) - dp(16);
              xoff = AndroidUtilities.rectTmp2.centerX() - dp(16);
              xoff += dp(4);
-+            if (!hasMainTabs && desu.inugram.InuConfig.NAVIGATION_DRAWER.getValue()) {
++            if (desu.inugram.InuConfig.NAVIGATION_DRAWER.getValue()) {
 +                xoff -= dp(4);
 +            }
              if (animatedStatusView != null) {
@@ -369,3 +379,16 @@ index 0000000..0000000 100644
          } else {
              super.finishFragment();
          }
+diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ViewPagerActivity.java b/TMessagesProj/src/main/java/org/telegram/ui/ViewPagerActivity.java
+index 0000000..0000000 100644
+--- a/TMessagesProj/src/main/java/org/telegram/ui/ViewPagerActivity.java
++++ b/TMessagesProj/src/main/java/org/telegram/ui/ViewPagerActivity.java
+@@ -29,7 +29,7 @@ public abstract class ViewPagerActivity extends BaseFragment {
+     protected final SparseArray<FragmentState> fragmentsArr = new SparseArray<>();
+ 
+     protected FrameLayout contentView;
+-    protected ViewPagerActivityPagerLayout viewPager;
++    public ViewPagerActivityPagerLayout viewPager;
+     private int initialFragmentPosition = -1;
+ 
+     abstract protected int getStartPosition();

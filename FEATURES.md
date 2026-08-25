@@ -9,7 +9,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 
 ## appearance & general
 
-- navigation drawer instead of bottom tabs, like in older Telegram versions
+- navigation drawer, like in older Telegram versions; can be used alongside or instead of the bottom tabs
   - 🐶 an option to (ab)use predictive back to open the drawer
 - monet (material you) theme support - *based on [NagramX](https://github.com/risin42/NagramX)*, 🐶 improved. plus a quick switcher in appearance settings (light/dark/amoled/auto)
 - 🐶 classic ui mode for folders bar, shared media tabs, global search and chat elements (reverts the >12.6 "liquid glass" look)
@@ -299,6 +299,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - stale unread badges on global-search top peers
 - stale unread mention pointer after reading mention on another device (mention button jumping to old message)
 - folder pins silently missing when the pinned dialog isn't in the local dialogs cache (now fetched from server)
+- folder tab unread counters slowly drifting to zero (badge disappearing while the list still shows unread chats) as chats got read
 - photo/video gallery performance improvements
 - edits (incl. crop) silently lost when the gallery refreshed under an open photo editor (fresh screenshots); also fixes fresh screenshots sometimes not appearing in the attach sheet or making it flash
 - messages consisting of only 2 or 3 emojis are huge in chat search results
