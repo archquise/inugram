@@ -72,8 +72,8 @@ index 0000000..0000000 100644
  		final int additionalList = dp(48) + (int) topPanelLayout.getAnimatedHeightWithPadding(dp(7));
 -		final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(DialogsActivity.MAIN_TABS_MARGIN);
 -		final int mainTabTop = mainTabBottom - dp(DialogsActivity.MAIN_TABS_HEIGHT);
-+		final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(MainTabsHelper.getMainTabsMargin());
-+		final int mainTabTop = mainTabBottom - dp(MainTabsHelper.getMainTabsHeight());
++		final int mainTabBottom = fragmentView.getMeasuredHeight() - MainTabsHelper.getMainTabsBottomOffset(navigationBarHeight);
++		final int mainTabTop = mainTabBottom - MainTabsHelper.getMainTabsBlurHeight(navigationBarHeight);
  
  		iBlur3PositionActionBar.set(0, -additionalList, fragmentView.getMeasuredWidth(), actionBar.getMeasuredHeight() + additionalList);
  		iBlur3PositionMainTabs.set(0, mainTabTop, fragmentView.getMeasuredWidth(), mainTabBottom);
@@ -198,8 +198,8 @@ index 0000000..0000000 100644
  
 -        final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(DialogsActivity.MAIN_TABS_MARGIN);
 -        final int mainTabTop = mainTabBottom - dp(DialogsActivity.MAIN_TABS_HEIGHT);
-+        final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(MainTabsHelper.getMainTabsMargin());
-+        final int mainTabTop = mainTabBottom - dp(MainTabsHelper.getMainTabsHeight());
++        final int mainTabBottom = fragmentView.getMeasuredHeight() - MainTabsHelper.getMainTabsBottomOffset(navigationBarHeight);
++        final int mainTabTop = mainTabBottom - MainTabsHelper.getMainTabsBlurHeight(navigationBarHeight);
  
          iBlur3PositionActionBar.set(0, -additionalList, fragmentView.getMeasuredWidth(), actionBar.getMeasuredHeight() + additionalList + additionalSearch );
          iBlur3PositionMainTabs.set(0, mainTabTop, fragmentView.getMeasuredWidth(), mainTabBottom);
@@ -251,8 +251,8 @@ index 0000000..0000000 100644
          final int additionalList = dp(48);
 -        final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(DialogsActivity.MAIN_TABS_MARGIN);
 -        final int mainTabTop = mainTabBottom - dp(DialogsActivity.MAIN_TABS_HEIGHT);
-+        final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(MainTabsHelper.getMainTabsMargin());
-+        final int mainTabTop = mainTabBottom - dp(MainTabsHelper.getMainTabsHeight());
++        final int mainTabBottom = fragmentView.getMeasuredHeight() - MainTabsHelper.getMainTabsBottomOffset(navigationBarHeight);
++        final int mainTabTop = mainTabBottom - MainTabsHelper.getMainTabsBlurHeight(navigationBarHeight);
  
          final int actionBarHeight = actionBar.getMeasuredHeight()
              + dp(DialogsActivity.SEARCH_FIELD_HEIGHT)
@@ -516,8 +516,8 @@ index 0000000..0000000 100644
          final int additionalList = dp(48);
 -        final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(DialogsActivity.MAIN_TABS_MARGIN);
 -        final int mainTabTop = mainTabBottom - dp(DialogsActivity.MAIN_TABS_HEIGHT);
-+        final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(MainTabsHelper.getMainTabsMargin());
-+        final int mainTabTop = mainTabBottom - dp(MainTabsHelper.getMainTabsHeight());
++        final int mainTabBottom = fragmentView.getMeasuredHeight() - MainTabsHelper.getMainTabsBottomOffset(navigationBarHeight);
++        final int mainTabTop = mainTabBottom - MainTabsHelper.getMainTabsBlurHeight(navigationBarHeight);
  
          iBlur3PositionActionBar.set(0, -additionalList, fragmentView.getMeasuredWidth(), actionBar.getMeasuredHeight() + additionalList);
          iBlur3PositionMainTabs.set(0, mainTabTop, fragmentView.getMeasuredWidth(), mainTabBottom);
@@ -549,8 +549,8 @@ index 0000000..0000000 100644
          final int additionalList = dp(48);
 -        final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(DialogsActivity.MAIN_TABS_MARGIN);
 -        final int mainTabTop = mainTabBottom - dp(DialogsActivity.MAIN_TABS_HEIGHT);
-+        final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(MainTabsHelper.getMainTabsMargin());
-+        final int mainTabTop = mainTabBottom - dp(MainTabsHelper.getMainTabsHeight());
++        final int mainTabBottom = fragmentView.getMeasuredHeight() - MainTabsHelper.getMainTabsBottomOffset(navigationBarHeight);
++        final int mainTabTop = mainTabBottom - MainTabsHelper.getMainTabsBlurHeight(navigationBarHeight);
  
          iBlur3PositionActionBar.set(0, -additionalList, fragmentView.getMeasuredWidth(), actionBar.getMeasuredHeight() + additionalList);
          iBlur3PositionMainTabs.set(0, mainTabTop, fragmentView.getMeasuredWidth(), mainTabBottom);
@@ -583,8 +583,8 @@ index 0000000..0000000 100644
  
 -        final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(DialogsActivity.MAIN_TABS_MARGIN);
 -        final int mainTabTop = mainTabBottom - dp(DialogsActivity.MAIN_TABS_HEIGHT);
-+        final int mainTabBottom = fragmentView.getMeasuredHeight() - navigationBarHeight - dp(MainTabsHelper.getMainTabsMargin());
-+        final int mainTabTop = mainTabBottom - dp(MainTabsHelper.getMainTabsHeight());
++        final int mainTabBottom = fragmentView.getMeasuredHeight() - MainTabsHelper.getMainTabsBottomOffset(navigationBarHeight);
++        final int mainTabTop = mainTabBottom - MainTabsHelper.getMainTabsBlurHeight(navigationBarHeight);
  
          iBlur3PositionActionBar.set(0, -additionalList, fragmentView.getMeasuredWidth(), actionBar.getMeasuredHeight() + additionalList + additionalSearch );
          iBlur3PositionMainTabs.set(0, mainTabTop, fragmentView.getMeasuredWidth(), mainTabBottom);

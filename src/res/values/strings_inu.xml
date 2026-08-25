@@ -478,6 +478,9 @@
     <string name="InuHiddenCaptionDescription">Captions removed</string>
     <string name="InuHiddenSendersAndCaptionDescription">Sender names and captions removed</string>
 
+    <string name="InuAccountSwitchShortcut">Account switcher shortcut</string>
+    <string name="InuAccountSwitchShortcutInfo">Add a long-press shortcut on the app icon that asks which account to open</string>
+
     <string name="InuTextClassifierMode">Text classifier mode</string>
     <string name="InuTextClassifierModeInfo">Text classifier is a system component that auto-expands selection when double-tapping text</string>
     <string name="InuTextClassifierModeNative">Native</string>

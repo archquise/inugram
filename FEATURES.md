@@ -176,6 +176,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - password autofill hints in login (for password managers)
 - account limit raised to 8 (premium gating disabled)
 - 🐶 customizable account order
+- 🐶 launcher shortcut that asks which account to open
 - per-account passcodes, hidden accounts, panic code, hidden settings deeplink - *ported from [Nekogram](https://github.com/Nekogram/Nekogram)*
 - 🐶 paranoia mode: pick chats/channels to hide everywhere; all secret chats hidden too; exit by typing a custom code in chat search
   - optional whitelist mode: hide everything *except* the picked chats (service notifications stay visible)

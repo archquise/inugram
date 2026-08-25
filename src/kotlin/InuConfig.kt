@@ -837,6 +837,9 @@ object InuConfig {
     val ACCOUNT_ORDER = StringItem("account_order", "", exportable = false)
 
     @JvmField
+    val ACCOUNT_SWITCH_SHORTCUT = BoolItem("account_switch_shortcut", false)
+
+    @JvmField
     val FASTER_DOWNLOADS = BoolItem("faster_downloads", true)
 
     @JvmField
