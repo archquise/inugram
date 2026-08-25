@@ -75,7 +75,7 @@ index 0000000..0000000 100644
                  subtitle = LocaleController.formatDateAudio(newMessageObject.messageOwner.date, false);
              }
              actionBarContainer.setSubtitle(subtitle, animated);
-+            desu.inugram.helpers.media.PhotoViewerHelper.setFooter(newMessageObject);
++            desu.inugram.helpers.media.PhotoViewerHelper.setFooter(menuItem, newMessageObject);
  
              boolean isInvoice = newMessageObject.isInvoice();
              boolean noforwards = MessagesController.getInstance(currentAccount).isPeerNoForwards(newMessageObject.getDialogId()) || (newMessageObject.messageOwner != null && newMessageObject.messageOwner.noforwards) || newMessageObject.hasRevealedExtendedMedia();
@@ -99,7 +99,7 @@ index 0000000..0000000 100644
                  } else {
                      actionBarContainer.setSubtitle("", animated);
                  }
-+                desu.inugram.helpers.media.PhotoViewerHelper.setFooter(imageLocation, currentAccount);
++                desu.inugram.helpers.media.PhotoViewerHelper.setFooter(menuItem, imageLocation, currentAccount);
                  menuItem.showSubItem(gallery_menu_report);
              }
  

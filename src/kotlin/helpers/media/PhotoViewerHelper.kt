@@ -1,6 +1,5 @@
 package desu.inugram.helpers.media
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.TypedValue
@@ -28,28 +27,25 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.concurrent.ConcurrentHashMap
 
-@SuppressLint("StaticFieldLeak")
 object PhotoViewerHelper {
     private const val MENU_COPY_PHOTO = 100
     private const val MENU_COPY_FRAME = 101
     private const val MENU_FOOTER = 102
-
-    private var footerGap: View? = null
-    private var footerItem: ActionBarMenuSubItem? = null
+    private const val MENU_FOOTER_GAP = 103
 
     @JvmStatic
     fun gifAsVideo(msg: MessageObject?): Boolean = msg != null && msg.isNewGif && InuConfig.GIF_SEEKBAR.value
 
     @JvmStatic
-    fun setFooter(msg: MessageObject?) {
-        if (msg == null) return applyFooter(null)
+    fun setFooter(menuItem: ActionBarMenuItem, msg: MessageObject?) {
+        if (msg == null) return applyFooter(menuItem, null)
         val dc = msg.document?.dc_id?.takeIf { it != 0 }
             ?: (MessageObject.getMedia(msg) as? TLRPC.TL_messageMediaPhoto)?.photo?.dc_id?.takeIf { it != 0 }
-            ?: return applyFooter(null)
+            ?: return applyFooter(menuItem, null)
         val file = runCatching {
             FileLoader.getInstance(msg.currentAccount).getPathToMessage(msg.messageOwner)
         }.getOrNull()
-        applyFooter(dc, detectPlatform(file, isPfp = false))
+        applyFooter(menuItem, dc, detectPlatform(file, isPfp = false))
     }
 
     @JvmStatic
@@ -73,8 +69,8 @@ object PhotoViewerHelper {
     }
 
     @JvmStatic
-    fun setFooter(location: ImageLocation?, account: Int) {
-        val dc = location?.dc_id?.takeIf { it != 0 } ?: return applyFooter(null)
+    fun setFooter(menuItem: ActionBarMenuItem, location: ImageLocation?, account: Int) {
+        val dc = location?.dc_id?.takeIf { it != 0 } ?: return applyFooter(menuItem, null)
         val hasVideo = location.photo?.video_sizes?.isEmpty() == false
         val platform = if (hasVideo) null else {
             val file = runCatching {
@@ -84,15 +80,15 @@ object PhotoViewerHelper {
             }.getOrNull()
             detectPlatform(file, isPfp = true)
         }
-        applyFooter(dc, platform)
+        applyFooter(menuItem, dc, platform)
     }
 
-    private fun applyFooter(dc: Int, platform: String?) =
-        applyFooter(if (platform != null) "DC $dc • $platform" else "DC $dc")
+    private fun applyFooter(menuItem: ActionBarMenuItem, dc: Int, platform: String?) =
+        applyFooter(menuItem, if (platform != null) "DC $dc • $platform" else "DC $dc")
 
-    private fun applyFooter(text: String?) {
-        val gap = footerGap ?: return
-        val item = footerItem ?: return
+    private fun applyFooter(menuItem: ActionBarMenuItem, text: String?) {
+        val gap = menuItem.getSubItem(MENU_FOOTER_GAP) ?: return
+        val item = menuItem.getSubItem(MENU_FOOTER) as? ActionBarMenuSubItem ?: return
         val visible = text != null
         gap.visibility = if (visible) View.VISIBLE else View.GONE
         item.visibility = if (visible) View.VISIBLE else View.GONE
@@ -157,8 +153,8 @@ object PhotoViewerHelper {
 
     @JvmStatic
     fun addFooter(menuItem: ActionBarMenuItem) {
-        footerGap = menuItem.addColoredGap().also { it.setColor(0xff181818.toInt()) }
-        footerItem = menuItem.addSubItem(MENU_FOOTER, 0, "").also {
+        menuItem.addColoredGap(MENU_FOOTER_GAP).setColor(0xff181818.toInt())
+        menuItem.addSubItem(MENU_FOOTER, 0, "").also {
             it.setColors(0xfffafafa.toInt(), 0xfffafafa.toInt())
             it.textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13f)
             it.textView.includeFontPadding = false
@@ -167,14 +163,14 @@ object PhotoViewerHelper {
             it.isClickable = false
             it.isFocusable = false
         }
-        applyFooter(null)
+        applyFooter(menuItem, null)
     }
 
     @JvmStatic
     fun resetMenuItems(menuItem: ActionBarMenuItem) {
         menuItem.hideSubItem(MENU_COPY_PHOTO)
         menuItem.hideSubItem(MENU_COPY_FRAME)
-        applyFooter(null)
+        applyFooter(menuItem, null)
     }
 
     @JvmStatic
