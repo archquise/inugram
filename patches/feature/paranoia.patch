@@ -93,7 +93,7 @@ diff --git a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesStorage.
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesStorage.java
 +++ b/TMessagesProj/src/main/java/org/telegram/messenger/MessagesStorage.java
-@@ -10183,6 +10183,7 @@ public class MessagesStorage extends BaseController {
+@@ -10193,6 +10193,7 @@ public class MessagesStorage extends BaseController {
                      if (id == -1) {
                          continue;
                      }
@@ -101,7 +101,7 @@ index 0000000..0000000 100644
                      dids.add(id);
                      if (users != null && chats != null) {
                          if (DialogObject.isUserDialog(id)) {
-@@ -10268,6 +10269,7 @@ public class MessagesStorage extends BaseController {
+@@ -10278,6 +10279,7 @@ public class MessagesStorage extends BaseController {
                      if (id == -1) {
                          continue;
                      }
@@ -109,7 +109,7 @@ index 0000000..0000000 100644
                      dids.add(id);
                      if (DialogObject.isUserDialog(id)) {
                          usersToLoad.add(id);
-@@ -10302,6 +10304,7 @@ public class MessagesStorage extends BaseController {
+@@ -10312,6 +10314,7 @@ public class MessagesStorage extends BaseController {
                      if (DialogObject.isFolderDialogId(dialogId)) {
                          continue;
                      }
@@ -117,7 +117,7 @@ index 0000000..0000000 100644
                      if (add) {
                          dids.add(dialogId);
                      }
-@@ -18270,6 +18273,7 @@ public class MessagesStorage extends BaseController {
+@@ -18287,6 +18290,7 @@ public class MessagesStorage extends BaseController {
              }
              while (cursor.next()) {
                  long id = cursor.longValue(0);
@@ -125,7 +125,7 @@ index 0000000..0000000 100644
                  DialogsSearchAdapter.DialogSearchResult dialogSearchResult = new DialogsSearchAdapter.DialogSearchResult();
                  dialogSearchResult.date = cursor.intValue(1);
                  dialogsResult.put(id, dialogSearchResult);
-@@ -18545,6 +18549,9 @@ public class MessagesStorage extends BaseController {
+@@ -18562,6 +18566,9 @@ public class MessagesStorage extends BaseController {
                  cursor = getDatabase().queryFinalized("SELECT u.data, u.status, u.name, u.uid FROM users as u INNER JOIN contacts as c ON u.uid = c.uid");
                  while (cursor.next()) {
                      long uid = cursor.longValue(3);

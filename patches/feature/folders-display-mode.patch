@@ -5,11 +5,11 @@ Subject: dialog folders display mode customizations
 
 ---
  .../messenger/MessagesController.java         |   1 +
- .../telegram/messenger/MessagesStorage.java   |  26 +++++
+ .../telegram/messenger/MessagesStorage.java   |  34 ++++++
  .../ui/Components/FilterTabsView.java         | 100 ++++++++++++------
  .../java/org/telegram/ui/DialogsActivity.java |  17 ++-
  .../org/telegram/ui/FilterCreateActivity.java |   4 +
- 5 files changed, 114 insertions(+), 34 deletions(-)
+ 5 files changed, 122 insertions(+), 34 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java b/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
 index 0000000..0000000 100644
@@ -93,17 +93,25 @@ index 0000000..0000000 100644
          boolean orderChanged = false;
          for (int a = 0, N = dialogFilters.size(); a < N; a++) {
              MessagesController.DialogFilter filter = dialogFilters.get(a);
-@@ -6072,6 +6089,9 @@ public class MessagesStorage extends BaseController {
+@@ -6072,6 +6089,17 @@ public class MessagesStorage extends BaseController {
                      continue;
                  }
                  long did = array.keyAt(a);
-+                if (FolderHelper.shouldExcludeFromCounter(currentAccount, did)) {
++                boolean inu_excluded = FolderHelper.shouldExcludeFromCounter(currentAccount, did);
++                if (inu_excluded && read) {
++                    if (b == 0) {
++                        dialogsWithUnread.remove(did);
++                    } else {
++                        dialogsWithMentions.remove(did);
++                    }
++                }
++                if (inu_excluded) {
 +                    continue;
 +                }
                  if (read) {
                      if (b == 0) {
                          dialogsWithUnread.remove(did);
-@@ -6135,6 +6155,11 @@ public class MessagesStorage extends BaseController {
+@@ -6135,6 +6163,11 @@ public class MessagesStorage extends BaseController {
              getUsersInternal(usersToLoad, users);
              for (int a = 0, N = users.size(); a < N; a++) {
                  TLRPC.User user = users.get(a);
@@ -115,7 +123,7 @@ index 0000000..0000000 100644
                  boolean muted = getMessagesController().isDialogMuted(user.id, 0);
                  Integer folderId = dialogsByFolders.get(user.id);
                  int idx1 = folderId == null || folderId < 0 || folderId > 1 ? 0 : folderId;
-@@ -17893,6 +17918,7 @@ public class MessagesStorage extends BaseController {
+@@ -17893,6 +17926,7 @@ public class MessagesStorage extends BaseController {
      }
  
      public void resetAllUnreadCounters(boolean muted) {
