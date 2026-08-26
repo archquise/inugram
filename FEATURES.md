@@ -307,7 +307,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - folder pins silently missing when the pinned dialog isn't in the local dialogs cache (now fetched from server)
 - folder tab unread counters slowly drifting to zero (badge disappearing while the list still shows unread chats) as chats got read
 - photo/video gallery performance improvements
-- edits (incl. crop) silently lost when the gallery refreshed under an open photo editor (fresh screenshots); also fixes fresh screenshots sometimes not appearing in the attach sheet or making it flash
+- edits (incl. crop) survive gallery refreshes and the source file being replaced by another app while its editor is open; also fixes fresh screenshots sometimes not appearing in the attach sheet or making it flash
 - messages consisting of only 2 or 3 emojis are huge in chat search results
 - admin logs scroll jumping when loading events
 - fix glitch when quickly dismissing photo editor after cropping
