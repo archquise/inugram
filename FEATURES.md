@@ -226,6 +226,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - hide voice hint
 - hide paid reaction upsell
 - hide hashtag suggestions in chat input
+- hide rich text editor button in chat input
 - hide repost to story
 - 🐶 hide bot commands and webview buttons
 - hide intro greeting + non-clickable custom intro sticker

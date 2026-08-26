@@ -345,6 +345,9 @@ object InuConfig {
     val HIDE_AI_EDITOR = BoolItem("hide_ai_editor", false)
 
     @JvmField
+    val HIDE_RICH_EDITOR_BUTTON = BoolItem("hide_rich_editor_button", false)
+
+    @JvmField
     val HIDE_MESSAGE_SUMMARY = BoolItem("hide_message_summary", false)
 
     @JvmField

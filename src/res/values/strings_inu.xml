@@ -182,6 +182,7 @@
     <string name="InuSimpleAttachPopupAnimation">Simple attach popup animation</string>
     <string name="InuHidePaidReactionUpsell">Hide paid reaction upsell</string>
     <string name="InuHideHashtagSuggestions">Hide hashtag suggestions</string>
+    <string name="InuHideRichEditorButton">Hide rich text editor button</string>
     <string name="InuDisableProfileScrollSnap">Disable profile scroll snap</string>
     <string name="InuDisableProfileScrollSnapInfo">Don\'t snap the profile header to fixed positions when scrolling</string>
     <string name="InuReduceProfileMotion">Reduce profile motion</string>
