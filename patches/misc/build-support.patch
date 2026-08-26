@@ -17,8 +17,8 @@ Subject: build support stuff for fork-specific code: - added kotlin - bumped min
  TMessagesProj_AppTests/build.gradle           |   5 +-
  build.gradle                                  |  12 +-
  gradle.properties                             |   2 +-
- settings.gradle                               |   7 +-
- 14 files changed, 138 insertions(+), 355 deletions(-)
+ settings.gradle                               |  42 +++++-
+ 14 files changed, 173 insertions(+), 355 deletions(-)
 
 diff --git a/TMessagesProj/build.gradle b/TMessagesProj/build.gradle
 index 0000000..0000000 100644
@@ -919,7 +919,42 @@ diff --git a/settings.gradle b/settings.gradle
 index 0000000..0000000 100644
 --- a/settings.gradle
 +++ b/settings.gradle
-@@ -1,6 +1,5 @@
+@@ -1,6 +1,40 @@
++import java.nio.channels.FileChannel
++import java.nio.channels.FileLock
++import java.nio.file.StandardOpenOption
++
++abstract class InuBuildLock implements BuildService<Params>, AutoCloseable {
++    interface Params extends BuildServiceParameters {
++        Property<String> getLockPath()
++    }
++
++    private final FileChannel channel
++    private final FileLock lock
++
++    InuBuildLock() {
++        def file = new File(parameters.lockPath.get())
++        file.parentFile.mkdirs()
++        channel = FileChannel.open(file.toPath(), StandardOpenOption.CREATE, StandardOpenOption.WRITE)
++        def acquired = channel.tryLock()
++        if (acquired == null) {
++            println "> Waiting for another build to release ${file}"
++            acquired = channel.lock()
++        }
++        lock = acquired
++    }
++
++    @Override
++    void close() {
++        lock.release()
++        channel.close()
++    }
++}
++
++gradle.sharedServices.registerIfAbsent('inuBuildLock', InuBuildLock) {
++    parameters.lockPath = new File(settingsDir, '.gradle/inu-build.lock').absolutePath
++}.get()
++
  include ':TMessagesProj'
  include ':TMessagesProj_App'
 -include ':TMessagesProj_AppHuawei'
