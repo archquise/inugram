@@ -320,7 +320,7 @@ diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java b/TMe
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java
 +++ b/TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java
-@@ -11306,7 +11306,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -11313,7 +11313,7 @@ public class ChatActivity extends BaseFragment implements
          if (translateItem == null) {
              return;
          }
@@ -329,7 +329,7 @@ index 0000000..0000000 100644
      }
  
      private Animator infoTopViewAnimator;
-@@ -24826,6 +24826,10 @@ public class ChatActivity extends BaseFragment implements
+@@ -24833,6 +24833,10 @@ public class ChatActivity extends BaseFragment implements
      }
  
      private void saveGeneralScroll() {
@@ -340,7 +340,7 @@ index 0000000..0000000 100644
          int scrollByCellHeight = 0;
          ChatMessageCell scrollByCell = null;
          for (int i = 0; i < chatListView.getChildCount(); ++i) {
-@@ -24880,16 +24884,19 @@ public class ChatActivity extends BaseFragment implements
+@@ -24887,16 +24891,19 @@ public class ChatActivity extends BaseFragment implements
                  boolean update = false;
                  if (cellMessageObject.getId() == messageObject.getId()) {
                      cellMessageObject.messageOwner.translatedText = messageObject.messageOwner.translatedText;
@@ -366,7 +366,7 @@ index 0000000..0000000 100644
                      }
                  }
                  MessageObject.GroupedMessages group = groupedMessagesMap.get(messageObject.getGroupId());
-@@ -24918,6 +24925,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -24925,6 +24932,7 @@ public class ChatActivity extends BaseFragment implements
                          saveGeneralScroll();
                      }
                      cellMessageObject.forceUpdate = true;
@@ -374,7 +374,7 @@ index 0000000..0000000 100644
                      cell.setMessageObject(cellMessageObject, cell.getCurrentMessagesGroup(), cell.isPinnedBottom(), cell.isPinnedTop(), cell.isFirstInChat(), cell.isLastInChatList());
                      if (group != null) {
                          if (chatListItemAnimator != null) {
-@@ -32062,169 +32070,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -32069,169 +32077,7 @@ public class ChatActivity extends BaseFragment implements
                      });
                      cell.setOnLongClickListener(v1 -> ChatHelper.onMenuOptionLongClick(this, popupLayout, cell, options, i, selectedObject, selectedObjectGroup));
                      if (option == OPTION_TRANSLATE) {
@@ -545,7 +545,7 @@ index 0000000..0000000 100644
                      }
                  }
                  if (selectedObject != null && selectedObject.messageOwner != null && selectedObject.messageOwner.video_processing_pending) {
-@@ -46083,7 +45929,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -46090,7 +45936,7 @@ public class ChatActivity extends BaseFragment implements
                      options.add(OPTION_PIN);
                      icons.add(R.drawable.msg_pin);
                  }
@@ -554,7 +554,7 @@ index 0000000..0000000 100644
                      items.add(LocaleController.getString(R.string.TranslateMessage));
                      options.add(OPTION_TRANSLATE);
                      icons.add(R.drawable.msg_translate);
-@@ -46430,7 +46276,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -46437,7 +46283,7 @@ public class ChatActivity extends BaseFragment implements
                      options.add(OPTION_PIN);
                      icons.add(R.drawable.msg_pin);
                  }

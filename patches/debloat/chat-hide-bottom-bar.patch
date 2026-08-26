@@ -41,7 +41,7 @@ index 0000000..0000000 100644
                      int j = 0;
  
                      int childMaxTop = Integer.MAX_VALUE;
-@@ -8423,6 +8427,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -8430,6 +8434,7 @@ public class ChatActivity extends BaseFragment implements
              }
          });
          bottomChannelButtonsLayout.setButtonOnFullyVisibleListener(ChatActivityChannelButtonsLayout.BUTTON_GIFT, (v, id, firstTime) -> {
@@ -49,7 +49,7 @@ index 0000000..0000000 100644
              if (bottomGiftHintView == null && firstTime && (bottomSuggestHintView == null || !bottomSuggestHintView.shown()) && HintsController.Hint.ChannelGiftHint.show()) {
                  AndroidUtilities.runOnUIThread(() -> {
                      if (getContext() == null) return;
-@@ -8442,6 +8447,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -8449,6 +8454,7 @@ public class ChatActivity extends BaseFragment implements
              }
          });
          bottomChannelButtonsLayout.setButtonOnFullyVisibleListener(ChatActivityChannelButtonsLayout.BUTTON_DIRECT, (v, id, firstTime) -> {
@@ -57,7 +57,7 @@ index 0000000..0000000 100644
              if (bottomSuggestHintView == null && firstTime && HintsController.Hint.ChannelSuggestHint.show()) {
                  AndroidUtilities.runOnUIThread(() -> {
                      if (getContext() == null) return;
-@@ -17795,7 +17801,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -17802,7 +17808,7 @@ public class ChatActivity extends BaseFragment implements
              float canvasOffsetX = chatListView.getLeft() + cell.getX();
              float canvasOffsetY = chatListView.getY() + cell.getY() + cell.getPaddingTop();
              float alpha = cell.shouldDrawAlphaLayer() ? cell.getAlpha() : 1f;
@@ -66,7 +66,7 @@ index 0000000..0000000 100644
              canvas.translate(canvasOffsetX, canvasOffsetY);
              cell.setInvalidatesParent(true);
              if (type == 0) {
-@@ -18020,6 +18026,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -18027,6 +18033,7 @@ public class ChatActivity extends BaseFragment implements
                                      - inputIslandHeightCurrent
                                      - dp(NonIslandHelper.chatElements() ? 0 : 9)
                                      - (mentionContainer != null ? mentionContainer.clipBottom() : 0);
@@ -74,7 +74,7 @@ index 0000000..0000000 100644
  
                              canvas.clipRect(0, listTop + (mentionContainer != null ? mentionContainer.clipTop() : 0), getMeasuredWidth(), viewClipBottom2);
                              canvas.translate(0, chatListView.getY());
-@@ -18040,6 +18047,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -18047,6 +18054,7 @@ public class ChatActivity extends BaseFragment implements
                              - inputIslandHeightCurrent
                              - getTopicTabsSideSize(TopicsTabsView.Position.BOTTOM)
                              - dp(NonIslandHelper.chatElements() ? 0 : 9);
@@ -82,7 +82,7 @@ index 0000000..0000000 100644
  
                          float clipTop = 0, clipBottom = 0;
                          if (mentionContainer != null) {
-@@ -20156,6 +20164,9 @@ public class ChatActivity extends BaseFragment implements
+@@ -20163,6 +20171,9 @@ public class ChatActivity extends BaseFragment implements
                      + windowInsetsStateHolder.getAnimatedMaxBottomInset()
                      + getTopicTabsSideSize(TopicsTabsView.Position.BOTTOM)
                      + inputIslandHeightCurrent);
@@ -92,7 +92,7 @@ index 0000000..0000000 100644
                  return object;
              }
          }
-@@ -20358,10 +20369,9 @@ public class ChatActivity extends BaseFragment implements
+@@ -20365,10 +20376,9 @@ public class ChatActivity extends BaseFragment implements
                  object.radius = imageReceiver.getRoundRadius(true);
                  object.clipTopAddition = (int) (chatListViewPaddingTop - chatListViewPaddingVisibleOffset - AndroidUtilities.dp(4));
                  object.clipBottomAddition = (int) (blurredViewBottomOffset
@@ -105,7 +105,7 @@ index 0000000..0000000 100644
                  return object;
              }
              return null;
-@@ -22102,7 +22112,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -22109,7 +22119,7 @@ public class ChatActivity extends BaseFragment implements
                  updateTopPanel(true);
              }
              if (headerItem != null) {
@@ -114,7 +114,7 @@ index 0000000..0000000 100644
              }
          } else if (id == NotificationCenter.didReceiveNewMessages) {
              FileLog.d("ChatActivity didReceiveNewMessages start");
-@@ -27798,7 +27808,10 @@ public class ChatActivity extends BaseFragment implements
+@@ -27805,7 +27815,10 @@ public class ChatActivity extends BaseFragment implements
  
          boolean accentTextButton = false;
          boolean forceVisible = false;
@@ -126,7 +126,7 @@ index 0000000..0000000 100644
          boolean showGiftButton = false;
          boolean showSuggestButton = false;
          boolean showSearchButton = chatMode == MODE_DEFAULT && ChatObject.isChannelOrGiga(currentChat);
-@@ -27886,6 +27899,11 @@ public class ChatActivity extends BaseFragment implements
+@@ -27893,6 +27906,11 @@ public class ChatActivity extends BaseFragment implements
                  bottomOverlayChatText.setTag(null);
                  bottomOverlayChatText.setText(LocaleController.getString(R.string.HidePinnedMessagesNoCaps));
              }
@@ -138,7 +138,7 @@ index 0000000..0000000 100644
              showBottomOverlayProgress(false, false);
          } else if (currentUser != null && currentUser.id == UserObject.VERIFY) {
              if (!getMessagesController().isDialogMuted(dialog_id, getTopicId())) {
-@@ -46619,7 +46637,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -46626,7 +46644,7 @@ public class ChatActivity extends BaseFragment implements
              pollAddVisibility = animatorPollAddAnswerVisibility.getFloatValue();
          }
  
