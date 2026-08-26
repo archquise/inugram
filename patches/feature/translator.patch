@@ -9,9 +9,9 @@ Subject: translator-related features
  .../java/org/telegram/ui/ArticleViewer.java   |  17 +-
  .../telegram/ui/Cells/ChatMessageCell.java    |  42 +++-
  .../ui/Cells/TextSelectionHelper.java         |   1 +
- .../java/org/telegram/ui/ChatActivity.java    | 190 ++----------------
+ .../java/org/telegram/ui/ChatActivity.java    | 194 ++----------------
  .../org/telegram/ui/web/WebActionBar.java     |   3 +
- 7 files changed, 83 insertions(+), 190 deletions(-)
+ 7 files changed, 87 insertions(+), 190 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/messenger/MessageObject.java b/TMessagesProj/src/main/java/org/telegram/messenger/MessageObject.java
 index 0000000..0000000 100644
@@ -329,18 +329,22 @@ index 0000000..0000000 100644
      }
  
      private Animator infoTopViewAnimator;
-@@ -24833,6 +24833,10 @@ public class ChatActivity extends BaseFragment implements
+@@ -24833,6 +24833,14 @@ public class ChatActivity extends BaseFragment implements
      }
  
      private void saveGeneralScroll() {
-+        if (chatListView != null && chatLayoutManager != null && forwardEndReached[0] && !chatListView.canScrollVertically(1)) {
-+            chatLayoutManager.scrollToPositionWithOffset(0, 0);
-+            return;
++        if (chatListView != null && chatLayoutManager != null && forwardEndReached[0]) {
++            // canScrollVertically() is unusable here: the message menu disables scrolling while open
++            View bottomChild = chatLayoutManager.findViewByPosition(0);
++            if (bottomChild != null && chatListView.getMeasuredHeight() - bottomChild.getBottom() - chatListView.getPaddingBottom() >= 0) {
++                chatLayoutManager.scrollToPositionWithOffset(0, 0);
++                return;
++            }
 +        }
          int scrollByCellHeight = 0;
          ChatMessageCell scrollByCell = null;
          for (int i = 0; i < chatListView.getChildCount(); ++i) {
-@@ -24887,16 +24891,19 @@ public class ChatActivity extends BaseFragment implements
+@@ -24887,16 +24895,19 @@ public class ChatActivity extends BaseFragment implements
                  boolean update = false;
                  if (cellMessageObject.getId() == messageObject.getId()) {
                      cellMessageObject.messageOwner.translatedText = messageObject.messageOwner.translatedText;
@@ -366,7 +370,7 @@ index 0000000..0000000 100644
                      }
                  }
                  MessageObject.GroupedMessages group = groupedMessagesMap.get(messageObject.getGroupId());
-@@ -24925,6 +24932,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -24925,6 +24936,7 @@ public class ChatActivity extends BaseFragment implements
                          saveGeneralScroll();
                      }
                      cellMessageObject.forceUpdate = true;
@@ -374,7 +378,7 @@ index 0000000..0000000 100644
                      cell.setMessageObject(cellMessageObject, cell.getCurrentMessagesGroup(), cell.isPinnedBottom(), cell.isPinnedTop(), cell.isFirstInChat(), cell.isLastInChatList());
                      if (group != null) {
                          if (chatListItemAnimator != null) {
-@@ -32069,169 +32077,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -32069,169 +32081,7 @@ public class ChatActivity extends BaseFragment implements
                      });
                      cell.setOnLongClickListener(v1 -> ChatHelper.onMenuOptionLongClick(this, popupLayout, cell, options, i, selectedObject, selectedObjectGroup));
                      if (option == OPTION_TRANSLATE) {
@@ -545,7 +549,7 @@ index 0000000..0000000 100644
                      }
                  }
                  if (selectedObject != null && selectedObject.messageOwner != null && selectedObject.messageOwner.video_processing_pending) {
-@@ -46090,7 +45936,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -46090,7 +45940,7 @@ public class ChatActivity extends BaseFragment implements
                      options.add(OPTION_PIN);
                      icons.add(R.drawable.msg_pin);
                  }
@@ -554,7 +558,7 @@ index 0000000..0000000 100644
                      items.add(LocaleController.getString(R.string.TranslateMessage));
                      options.add(OPTION_TRANSLATE);
                      icons.add(R.drawable.msg_translate);
-@@ -46437,7 +46283,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -46437,7 +46287,7 @@ public class ChatActivity extends BaseFragment implements
                      options.add(OPTION_PIN);
                      icons.add(R.drawable.msg_pin);
                  }
