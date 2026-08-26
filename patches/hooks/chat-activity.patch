@@ -7,8 +7,8 @@ Subject: hooks into various places inside ChatActivity
  .../messenger/MessagesController.java         |   2 +-
  .../ui/ActionBar/ActionBarMenuItem.java       |   4 +
  .../java/org/telegram/ui/AvatarPreviewer.java |   4 +-
- .../java/org/telegram/ui/ChatActivity.java    | 117 +++++++++++-------
- 4 files changed, 83 insertions(+), 44 deletions(-)
+ .../java/org/telegram/ui/ChatActivity.java    | 118 +++++++++++-------
+ 4 files changed, 84 insertions(+), 44 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java b/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
 index 0000000..0000000 100644
@@ -483,11 +483,19 @@ index 0000000..0000000 100644
                  if (message.getDocumentName().toLowerCase().endsWith("attheme")) {
                      File locFile = null;
                      if (message.messageOwner.attachPath != null && message.messageOwner.attachPath.length() != 0) {
-@@ -46269,6 +46301,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -45840,6 +45872,7 @@ public class ChatActivity extends BaseFragment implements
                  options.add(OPTION_DELETE);
                  icons.add(deleteIconRes);
              }
-+            ChatHelper.finalizeMessageMenu(items, options, icons, this, selectedObject, selectedObjectGroup, dialog_id, noforwards);
++            ChatHelper.finalizeMessageMenu(items, options, icons, this, selectedObject, selectedObjectGroup, dialog_id, noforwards, false);
+         } else if (type == 20) {
+             items.add(LocaleController.getString(R.string.Retry));
+             options.add(OPTION_RETRY);
+@@ -46269,6 +46302,7 @@ public class ChatActivity extends BaseFragment implements
+                 options.add(OPTION_DELETE);
+                 icons.add(deleteIconRes);
+             }
++            ChatHelper.finalizeMessageMenu(items, options, icons, this, selectedObject, selectedObjectGroup, dialog_id, noforwards, true);
          }
  
          if (showWelcomeMessageRevertOption(primaryMessage)) {

@@ -250,9 +250,10 @@ object ChatHelper {
         selectedObject: MessageObject,
         selectedObjectGroup: MessageObject.GroupedMessages?,
         dialogId: Long,
-        noforwards: Boolean
+        noforwards: Boolean,
+        allowSendActions: Boolean
     ) {
-        if (!noforwards && activity.currentChat != null && !ChatObject.isChannelAndNotMegaGroup(activity.currentChat)) {
+        if (allowSendActions && !noforwards && activity.currentChat != null && !ChatObject.isChannelAndNotMegaGroup(activity.currentChat)) {
             items.add(LocaleController.getString(R.string.InuReplyIn))
             options.add(OPTION_REPLY_IN)
             icons.add(R.drawable.menu_reply)
@@ -281,7 +282,7 @@ object ChatHelper {
             icons.add(R.drawable.magic_stick_solar)
         }
 
-        if (!noforwards && dialogId != UserConfig.getInstance(activity.currentAccount).clientUserId) {
+        if (allowSendActions && !noforwards && dialogId != UserConfig.getInstance(activity.currentAccount).clientUserId) {
             items.add(LocaleController.getString(R.string.InuSaveToSavedMessages))
             options.add(OPTION_SAVE)
             icons.add(R.drawable.msg_saved)
@@ -293,7 +294,7 @@ object ChatHelper {
             icons.add(R.drawable.msg_forward_noquote)
         }
 
-        if (isMenuItemEnabled(MessageMenuConfig.Item.REPEAT) &&
+        if (allowSendActions && isMenuItemEnabled(MessageMenuConfig.Item.REPEAT) &&
             canRepeatMessage(activity, selectedObject, selectedObjectGroup)
         ) {
             items.add(LocaleController.getString(R.string.InuRepeat))
@@ -343,6 +344,16 @@ object ChatHelper {
                 options.add(OPTION_SAVE_STICKER_TO_DOWNLOADS)
                 icons.add(R.drawable.msg_download)
             }
+        }
+
+        if (!options.contains(ChatActivity.OPTION_COPY_LINK) &&
+            !selectedObject.isEphemeral && !selectedObject.isSponsored && !activity.isInScheduleMode &&
+            ChatObject.isChannel(activity.currentChat) && !ChatObject.isMonoForum(activity.currentChat) &&
+            selectedObject.dialogId == dialogId
+        ) {
+            items.add(LocaleController.getString(R.string.CopyLink))
+            options.add(ChatActivity.OPTION_COPY_LINK)
+            icons.add(R.drawable.msg_link)
         }
 
         items.add(LocaleController.getString(R.string.InuMessageDetails))
