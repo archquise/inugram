@@ -7,8 +7,8 @@ Subject: hooks into various places inside ChatActivity
  .../messenger/MessagesController.java         |   2 +-
  .../ui/ActionBar/ActionBarMenuItem.java       |   4 +
  .../java/org/telegram/ui/AvatarPreviewer.java |   4 +-
- .../java/org/telegram/ui/ChatActivity.java    | 113 +++++++++++-------
- 4 files changed, 81 insertions(+), 42 deletions(-)
+ .../java/org/telegram/ui/ChatActivity.java    | 117 +++++++++++-------
+ 4 files changed, 83 insertions(+), 44 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java b/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
 index 0000000..0000000 100644
@@ -121,9 +121,12 @@ index 0000000..0000000 100644
      public TLRPC.Chat replyOriginalChat;
      public boolean isComments;
      public boolean isTopic;
-@@ -798,7 +801,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -796,9 +799,9 @@ public class ChatActivity extends BaseFragment implements
+     private MessageObject.GroupedMessages forwardingMessageGroup;
+     private MessageObject.GroupedMessages replyingQuoteGroup;
      public MessageObject replyingTopMessage;
-     private ReplyQuote replyingQuote;
+-    private ReplyQuote replyingQuote;
++    public ReplyQuote replyingQuote;
      private boolean ignoreDraft;
 -    private MessageObject replyingMessageObject;
 +    public MessageObject replyingMessageObject;
@@ -286,6 +289,15 @@ index 0000000..0000000 100644
          if (isPeerNoForwards() || hasSelectedNoforwardsMessage()) {
              // We should update text if user changed locale without re-opening chat activity
              String str;
+@@ -12823,7 +12834,7 @@ public class ChatActivity extends BaseFragment implements
+         }
+     }
+ 
+-    private void afterMessageSend() {
++    public void afterMessageSend() {
+         messageSuggestionParams = null;
+         if (threadMessageId == 0 || isTopic) {
+             if (isTopic) {
 @@ -14364,7 +14375,7 @@ public class ChatActivity extends BaseFragment implements
          getConnectionsManager().bindRequestToGuid(linkSearchRequestId, classGuid);
      }

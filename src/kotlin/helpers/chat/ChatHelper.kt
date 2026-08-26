@@ -704,8 +704,10 @@ object ChatHelper {
         group: MessageObject.GroupedMessages?,
     ): List<Int> {
         val canForward = canForwardRepeat(activity, selected)
+        val hasReply = getPendingReply(activity) != null
+        val hasCopyTarget = repeatCopyTarget(activity, selected, group) != null
         val modes = ArrayList<Int>(2)
-        if (canForward || repeatCopyTarget(activity, selected, group) != null) {
+        if (hasCopyTarget || (canForward && !(hasReply && group != null && !group.isDocuments))) {
             modes.add(InuConfig.RepeatModeItem.COPY)
         }
         if (canForward) modes.add(InuConfig.RepeatModeItem.FORWARD)
@@ -741,28 +743,107 @@ object ChatHelper {
         group: MessageObject.GroupedMessages?,
         copy: Boolean,
     ) {
-        if (copy && !canForwardRepeat(activity, selected)) {
-            val target = repeatCopyTarget(activity, selected, group) ?: return
-            val helper = SendMessagesHelper.getInstance(activity.currentAccount)
-            if (target.isAnyKindOfSticker) {
-                helper.sendSticker(
-                    target.document, null, activity.dialogId, null, activity.threadMessage, null, null, null,
-                    true, 0, 0, false, null, activity.messageChatSendParams, 0L,
-                    activity.sendMonoForumPeerId, activity.sendMessageSuggestionParams,
-                )
-            } else {
-                val params = SendMessagesHelper.SendMessageParams.of(
-                    target.messageOwner.message, activity.dialogId, null, activity.threadMessage,
-                    null, false, target.messageOwner.entities, null, null, true, 0, 0, null, false,
-                )
-                params.monoForumPeer = activity.sendMonoForumPeerId
-                params.suggestionParams = activity.sendMessageSuggestionParams
-                helper.sendMessage(params)
-            }
+        val replyTo = if (copy) getPendingReply(activity) else null
+        val quote = if (replyTo != null) activity.replyingQuote else null
+        if (quote != null && quote.outdated) {
+            activity.showQuoteMessageUpdate()
+            return
+        }
+        if (copy && (replyTo != null || !canForwardRepeat(activity, selected))) {
+            val target = repeatCopyTarget(activity, selected, group)
+                ?: selected.takeIf { replyTo != null }
+                ?: return
+            sendAsCopy(activity, target, replyTo, quote)
+            if (replyTo != null) activity.afterMessageSend()
             return
         }
         val messages = group?.messages?.let { ArrayList<MessageObject>(it) } ?: arrayListOf(selected)
         activity.forwardMessages(messages, copy, false, true, 0, 0L)
+    }
+
+    private fun sendAsCopy(
+        activity: ChatActivity,
+        target: MessageObject,
+        replyTo: MessageObject?,
+        quote: ChatActivity.ReplyQuote?,
+    ) {
+        val helper = SendMessagesHelper.getInstance(activity.currentAccount)
+        val did = activity.dialogId
+        val threadMsg = activity.threadMessage
+        val mono = activity.sendMonoForumPeerId
+        val suggest = activity.sendMessageSuggestionParams
+        val msg = target.messageOwner
+
+        if (target.isAnyKindOfSticker) {
+            helper.sendSticker(
+                target.document, null, did, replyTo, threadMsg, null, quote, null,
+                true, 0, 0, false, null, activity.messageChatSendParams, 0L, mono, suggest,
+            )
+            return
+        }
+
+        val media = msg.media
+        if (media != null
+            && media !is TLRPC.TL_messageMediaEmpty
+            && media !is TLRPC.TL_messageMediaWebPage
+            && media !is TLRPC.TL_messageMediaGame
+            && media !is TLRPC.TL_messageMediaInvoice
+        ) {
+            val params: SendMessagesHelper.SendMessageParams? = when {
+                media.photo is TLRPC.TL_photo -> SendMessagesHelper.SendMessageParams.of(
+                    media.photo as TLRPC.TL_photo, null, did, replyTo, threadMsg,
+                    msg.message, msg.entities, null, null, true, 0, 0,
+                    media.ttl_seconds, target, false,
+                )
+                media.document is TLRPC.TL_document -> SendMessagesHelper.SendMessageParams.of(
+                    media.document as TLRPC.TL_document, null, msg.attachPath, did, replyTo, threadMsg,
+                    msg.message, msg.entities, null, null, true, 0, 0,
+                    media.ttl_seconds, target, null, false,
+                )
+                media is TLRPC.TL_messageMediaVenue || media is TLRPC.TL_messageMediaGeo ->
+                    SendMessagesHelper.SendMessageParams.of(media, did, replyTo, threadMsg, null, null, true, 0, 0)
+                media.phone_number != null -> {
+                    val user = TLRPC.TL_userContact_old2()
+                    user.phone = media.phone_number
+                    user.first_name = media.first_name
+                    user.last_name = media.last_name
+                    user.id = media.user_id
+                    SendMessagesHelper.SendMessageParams.of(user, did, replyTo, threadMsg, null, null, true, 0, 0)
+                }
+                else -> null
+            }
+            if (params != null) {
+                params.replyQuote = quote
+                params.monoForumPeer = mono
+                params.suggestionParams = suggest
+                helper.sendMessage(params)
+                return
+            }
+        }
+
+        if (msg.message != null) {
+            var webPage: TLRPC.WebPage? = null
+            if (media is TLRPC.TL_messageMediaWebPage) {
+                webPage = media.webpage
+            }
+            val params = SendMessagesHelper.SendMessageParams.of(
+                msg.message, did, replyTo, threadMsg,
+                webPage, webPage != null, msg.entities, null, null, true, 0, 0, null, false,
+            )
+            params.replyQuote = quote
+            params.monoForumPeer = mono
+            params.suggestionParams = suggest
+            helper.sendMessage(params)
+            return
+        }
+
+        activity.forwardMessages(arrayListOf(target), true, false, true, 0, 0L)
+    }
+
+    private fun getPendingReply(activity: ChatActivity): MessageObject? {
+        val reply = activity.replyingMessageObject ?: return null
+        if (reply === activity.threadMessage || reply.isTopicMainMessage) return null
+        return reply
     }
 
     // photo → full cached photo file; video/gif/round → cached poster thumb (matches photo viewer's "copy frame" intent).
