@@ -550,7 +550,7 @@ object ChatHelper {
                 if (replyMsg.groupId != 0L) {
                     val group = activity.getGroup(replyMsg.groupId)
                     if (group != null) {
-                        replyMsg = group.captionMessage
+                        replyMsg = group.captionMessage ?: replyMsg
                     }
                 }
                 val args = Bundle().apply {
