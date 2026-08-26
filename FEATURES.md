@@ -312,6 +312,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - dialogs list briefly flashing over the lockscreen after ending/declining a call
 - fix camera2api a/v sync issue in round messages
 - forward bar showing stale message count/senders after deselecting messages in the forward options sheet
+- forwarding with captions removed no longer blanks out text-only messages in the optimistic copy (stock only checked `media != null`, but locally-sent text messages carry `messageMediaEmpty` sometimes)
 - cross-peer reply: clear stale quote so a leftover quote-reply target doesn't override the new one at send
 - emoji suggestion panel popping up after sending a message (late `:keyword` lookup callback ignored the input having been cleared)
 - phantom empty dialog rows after peeking a non-joined channel / discuss group
