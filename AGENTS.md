@@ -21,9 +21,11 @@ the same change.
 9. **Never touch `TLRPC.java`** — auto-generated, rebasing changes there is hell.
 10. **Never touch stock DB schema or `LAST_DB_VERSION`** — fork state goes in `inu_*` tables / `inu_kv` via `InuDatabaseHelper`.
 11. **No LSP.** To verify compilation, run `pnpm run build-debug` (outside the sandbox, slow, use sparingly).
-12. **Never install/launch the app yourself.** No `adb install`, `adb shell am start`, `adb uninstall`, `adb logcat` — nothing that touches the user's device. Building is fine; deploying and testing is the user's call. Ask them to install/run and paste logs.
+12. **Never install/launch the app yourself.** No `adb install`, `adb shell am start`, `adb uninstall`. Building is fine, read-only operations are fine too; deploying and testing is the user's call.
 13. **Debug logs use `android.util.Log.d`**, not `FileLog`.
 14. **Prefer non-`_solar` icons** when an alternative exists.
+
+> you are allowed to violate them if the user explicitly asks for this
 
 ## Patch groups & naming
 
