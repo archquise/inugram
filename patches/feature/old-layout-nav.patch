@@ -8,13 +8,15 @@ Restore hamburger side drawer for old layout mode (DrawerLayoutContainer)
 Restore hamburger side drawer for old layout mode (DialogsActivity)
 ---
  .../ui/ActionBar/DrawerLayoutContainer.java   | 38 +++++++++++++++++--
+ .../ui/Components/ProfileActionsView.java     | 10 ++++-
  .../java/org/telegram/ui/DialogsActivity.java | 27 ++++++++++---
  .../java/org/telegram/ui/LaunchActivity.java  | 32 ++++++----------
  .../java/org/telegram/ui/LoginActivity.java   |  9 ++---
+ .../java/org/telegram/ui/ProfileActivity.java | 12 +++++-
  .../ui/TwoStepVerificationActivity.java       |  5 +--
  .../ui/TwoStepVerificationSetupActivity.java  | 10 ++---
  .../org/telegram/ui/ViewPagerActivity.java    |  2 +-
- 7 files changed, 77 insertions(+), 46 deletions(-)
+ 9 files changed, 97 insertions(+), 48 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/DrawerLayoutContainer.java b/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/DrawerLayoutContainer.java
 index 0000000..0000000 100644
@@ -99,6 +101,41 @@ index 0000000..0000000 100644
      @Override
      protected void dispatchDraw(@NonNull Canvas canvas) {
          if (actionBarLayout != null && actionBarLayout.getParent() == this) {
+diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Components/ProfileActionsView.java b/TMessagesProj/src/main/java/org/telegram/ui/Components/ProfileActionsView.java
+index 0000000..0000000 100644
+--- a/TMessagesProj/src/main/java/org/telegram/ui/Components/ProfileActionsView.java
++++ b/TMessagesProj/src/main/java/org/telegram/ui/Components/ProfileActionsView.java
+@@ -107,6 +107,7 @@ public class ProfileActionsView extends View {
+     public static final int KEY_EDIT_USERNAME = 15;
+     public static final int KEY_EDIT_INFO = 16;
+     public static final int KEY_SETTINGS = 17;
++    public static final int KEY_QR = 100; // inu
+ 
+     private boolean isApplying;
+     private boolean isNotificationsEnabled;
+@@ -650,6 +651,12 @@ public class ProfileActionsView extends View {
+         actions.add(action);
+     }
+ 
++    public void inu_addQr() {
++        final Action action = new Action(ActionButton.QR);
++        action.key = KEY_QR;
++        actions.add(action);
++    }
++
+     public void startAnimatedActions() {
+         if (mode == MODE_MY_PROFILE) {
+             int c = actions.size();
+@@ -1236,7 +1243,8 @@ public class ProfileActionsView extends View {
+         SET_PHOTO(R.string.ProfileActionsEditPhoto2, R.drawable.filled_profile_photo, R.drawable.outline_profile_photo),
+         EDIT_USERNAME(R.string.ProfileActionsEditUsername, R.drawable.filled_profile_edit_24, R.drawable.outline_profile_edit_24),
+         EDIT_INFO(R.string.ProfileActionsEditInfo, R.drawable.filled_profile_edit_24, R.drawable.outline_profile_edit_24),
+-        SETTINGS(R.string.Settings, R.drawable.filled_profile_settings, R.drawable.outline_profile_settings),;
++        SETTINGS(R.string.Settings, R.drawable.filled_profile_settings, R.drawable.outline_profile_settings),
++        QR(R.string.QrCode, R.drawable.header_qr_24, R.drawable.outline_header_qr_24),;
+ 
+         final @StringRes int title;
+         final @DrawableRes int filledIcon;
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/DialogsActivity.java b/TMessagesProj/src/main/java/org/telegram/ui/DialogsActivity.java
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/DialogsActivity.java
@@ -335,6 +372,36 @@ index 0000000..0000000 100644
                  }
  
                  NotificationCenter.getInstance(currentAccount).postNotificationName(NotificationCenter.mainUserInfoChanged);
+diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ProfileActivity.java b/TMessagesProj/src/main/java/org/telegram/ui/ProfileActivity.java
+index 0000000..0000000 100644
+--- a/TMessagesProj/src/main/java/org/telegram/ui/ProfileActivity.java
++++ b/TMessagesProj/src/main/java/org/telegram/ui/ProfileActivity.java
+@@ -3997,6 +3997,12 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
+                     case ProfileActionsView.KEY_SETTINGS:
+                         presentFragment(new SettingsActivity());
+                         break;
++                    case ProfileActionsView.KEY_QR: {
++                        Bundle args = new Bundle();
++                        args.putLong("user_id", userId);
++                        presentFragment(new QrActivity(args));
++                        break;
++                    }
+                 }
+             });
+         }
+@@ -5753,7 +5759,11 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
+                     actionsView.beginApplyingActions();
+                     actionsView.addCameraAction();
+                     actionsView.addEditInfo();
+-                    actionsView.addSettings();
++                    if (myProfile && !hasMainTabs) {
++                        actionsView.inu_addQr();
++                    } else {
++                        actionsView.addSettings();
++                    }
+                     actionsView.commitActions();
+                 } else {
+                     writeButton.setAnimation(cameraDrawable);
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/TwoStepVerificationActivity.java b/TMessagesProj/src/main/java/org/telegram/ui/TwoStepVerificationActivity.java
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/TwoStepVerificationActivity.java
