@@ -95,6 +95,9 @@ class DrawerProfileCell(context: Context, private val drawerLayoutContainer: Dra
 
         avatarImageView = BackupImageView(context)
         avatarImageView.imageReceiver.setRoundRadius(AndroidUtilities.dp(32f))
+        avatarImageView.setOnClickListener {
+            DrawerHelper.openMyProfile(drawerLayoutContainer)
+        }
         addView(avatarImageView, LayoutHelper.createFrame(64, 64f, Gravity.LEFT or Gravity.BOTTOM, 16f, 0f, 0f, 67f))
 
         nameTextView = object : SimpleTextView(context) {

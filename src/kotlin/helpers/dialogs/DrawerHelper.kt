@@ -529,8 +529,8 @@ object DrawerHelper {
         val account = UserConfig.selectedAccount
         val close = { drawerLayoutContainer.inu_drawer?.closeDrawer(false) }
 
-        // Profile cell (position 0): toggle accounts list. The arrow is purely
-        // a rotation indicator — clicks come in on the whole cell.
+        // Profile cell outside the avatar: toggle accounts list. The arrow is purely
+        // a rotation indicator — clicks come in on the rest of the cell.
         if (position == 0) {
             if (view is DrawerProfileCell) {
                 adapter.setAccountsShown(!adapter.isAccountsShown(), true)
@@ -566,11 +566,7 @@ object DrawerHelper {
 
         when (adapter.getId(position)) {
             ITEM_MY_PROFILE -> {
-                val args = Bundle()
-                args.putLong("user_id", UserConfig.getInstance(account).getClientUserId())
-                args.putBoolean("my_profile", true)
-                nav.presentFragment(ProfileActivity(args))
-                close()
+                openMyProfile(drawerLayoutContainer)
             }
 
             ITEM_NEW_GROUP -> {
@@ -630,6 +626,14 @@ object DrawerHelper {
 
             else -> close()
         }
+    }
+
+    fun openMyProfile(drawerLayoutContainer: DrawerLayoutContainer) {
+        val args = Bundle()
+        args.putLong("user_id", UserConfig.getInstance(UserConfig.selectedAccount).getClientUserId())
+        args.putBoolean("my_profile", true)
+        drawerLayoutContainer.parentActionBarLayout.presentFragment(ProfileActivity(args))
+        drawerLayoutContainer.inu_drawer?.closeDrawer(false)
     }
 
     // Stock DrawerLayoutAdapter item IDs — these are stable identifiers from the stock drawer.
