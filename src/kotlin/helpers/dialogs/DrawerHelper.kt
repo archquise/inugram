@@ -135,7 +135,20 @@ object DrawerHelper {
         drawerLayoutContainer: DrawerLayoutContainer,
         actionBarLayout: INavigationLayout,
     ) {
-        val sm = RecyclerListView(context)
+        val sm = object : RecyclerListView(context) {
+            override fun findChildViewUnder(x: Float, y: Float): View? {
+                for (i in 0 until childCount) {
+                    val child = getChildAt(i)
+                    if (child is DrawerProfileCell &&
+                        x >= child.left && x <= child.right &&
+                        y >= child.top && y <= child.bottom
+                    ) {
+                        return child
+                    }
+                }
+                return super.findChildViewUnder(x, y)
+            }
+        }
         sm.layoutManager = LinearLayoutManager(context)
         val itemAnimator = SideMenultItemAnimator(sm)
         val newAdapter = DrawerLayoutAdapter(context, itemAnimator, drawerLayoutContainer, ::applyProxyEnabled)
@@ -529,12 +542,7 @@ object DrawerHelper {
         val account = UserConfig.selectedAccount
         val close = { drawerLayoutContainer.inu_drawer?.closeDrawer(false) }
 
-        // Profile cell outside the avatar: toggle accounts list. The arrow is purely
-        // a rotation indicator — clicks come in on the rest of the cell.
         if (position == 0) {
-            if (view is DrawerProfileCell) {
-                adapter.setAccountsShown(!adapter.isAccountsShown(), true)
-            }
             return
         }
 
