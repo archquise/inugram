@@ -91,6 +91,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - send message to discussion group without joining
 - 🐶 member count on the join request sheet (instead of "private group/channel"; like tdesktop)
 - 🐶 search: media-type filter + "show only matches"
+- tapping a hashtag in a public channel defaults to the "This Chat" tab
 - 🐶 "from user" picker in search also finds users not in chat (like tdesktop)
 - static pinned reactions in the reaction bar
 - 🐶 reachable reactions bar (moved to the bottom of message menu)

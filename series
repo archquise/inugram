@@ -293,3 +293,4 @@ bugfix/chat-reply-line-leak.patch
 bugfix/bot-location-context.patch
 bugfix/story-viewer-leaks.patch
 bugfix/video-speed-artifacts.patch
+feature/hashtag-default-tab.patch
