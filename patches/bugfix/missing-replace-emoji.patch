@@ -4,32 +4,32 @@ Date: Sun, 19 Apr 2026 05:33:38 +0300
 Subject: added some missing Emoji.replaceEmoji calls in various places
 
 ---
- .../ui/ActionBar/ActionBarMenuItem.java       | 16 +++++++++++-
+ .../ui/ActionBar/ActionBarMenuItem.java       | 16 ++++++++++-
  .../telegram/ui/Cells/AudioPlayerCell.java    |  5 +++-
  .../org/telegram/ui/Cells/ChatActionCell.java |  2 ++
  .../org/telegram/ui/Cells/DialogCell.java     |  1 +
  .../ui/Cells/GroupCallInvitedCell.java        |  5 +++-
  .../telegram/ui/Cells/GroupCallUserCell.java  |  5 +++-
- .../telegram/ui/Cells/ManageChatUserCell.java |  3 ++-
- .../telegram/ui/Cells/MemberRequestCell.java  |  9 +++++--
+ .../telegram/ui/Cells/ManageChatUserCell.java |  3 +-
+ .../telegram/ui/Cells/MemberRequestCell.java  |  9 ++++--
  .../org/telegram/ui/Cells/MentionCell.java    |  2 ++
- .../org/telegram/ui/Cells/SharedLinkCell.java |  6 ++++-
+ .../org/telegram/ui/Cells/SharedLinkCell.java |  6 +++-
  .../ui/Cells/SharingLiveLocationCell.java     |  2 +-
- .../telegram/ui/ChannelAdminLogActivity.java  |  3 ++-
- .../java/org/telegram/ui/ChatActivity.java    | 26 ++++++++++++-------
- .../ui/Components/AudioPlayerAlert.java       |  3 +++
+ .../telegram/ui/ChannelAdminLogActivity.java  |  3 +-
+ .../java/org/telegram/ui/ChatActivity.java    | 28 +++++++++++--------
+ .../ui/Components/AudioPlayerAlert.java       |  3 ++
  .../telegram/ui/Components/EditTextEmoji.java |  2 +-
- .../telegram/ui/Components/ItemOptions.java   | 13 ++++++----
+ .../telegram/ui/Components/ItemOptions.java   | 13 +++++----
  .../ui/Components/MessagePreviewView.java     |  4 ++-
- .../ui/Components/SenderSelectPopup.java      | 12 ++++++---
+ .../ui/Components/SenderSelectPopup.java      | 12 +++++---
  .../org/telegram/ui/LocationActivity.java     |  4 ++-
- .../org/telegram/ui/MainTabsActivity.java     |  3 ++-
+ .../org/telegram/ui/MainTabsActivity.java     |  3 +-
  .../org/telegram/ui/MessageAuthorView.java    |  4 ++-
  .../java/org/telegram/ui/MessageSeenView.java |  7 +++--
  .../java/org/telegram/ui/PhotoViewer.java     |  1 +
- .../org/telegram/ui/SettingsActivity.java     |  6 +++--
- .../recorder/CaptionContainerView.java        | 13 ++++++++++
- 25 files changed, 119 insertions(+), 38 deletions(-)
+ .../org/telegram/ui/SettingsActivity.java     |  6 ++--
+ .../recorder/CaptionContainerView.java        | 13 +++++++++
+ 25 files changed, 120 insertions(+), 39 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ActionBarMenuItem.java b/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ActionBarMenuItem.java
 index 0000000..0000000 100644
@@ -376,6 +376,15 @@ diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java b/TMe
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java
 +++ b/TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java
+@@ -11296,7 +11296,7 @@ public class ChatActivity extends BaseFragment implements
+         String from = LocaleController.getString(R.string.SearchFrom);
+         Spannable spannable = new SpannableString(from + " " + name);
+         spannable.setSpan(new ForegroundColorSpan(getThemedColor(Theme.key_actionBarDefaultSubtitle)), from.length() + 1, spannable.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+-        searchItem.setSearchFieldCaption(spannable);
++        searchItem.setSearchFieldCaption(Emoji.replaceEmoji(spannable, searchItem.getSearchField().getPaint().getFontMetricsInt(), false));
+         mentionContainer.getAdapter().searchUsernameOrHashtag(null, 0, null, false, true);
+         searchItem.setSearchFieldHint(null);
+         searchItem.clearSearchText();
 @@ -15406,11 +15406,11 @@ public class ChatActivity extends BaseFragment implements
                              }
                          }
