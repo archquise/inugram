@@ -61,8 +61,8 @@ diff --git a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesControll
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
 +++ b/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
-@@ -8939,6 +8939,9 @@ public class MessagesController extends BaseController implements NotificationCe
-                 }
+@@ -8947,6 +8947,9 @@ public class MessagesController extends BaseController implements NotificationCe
+                 totalBlockedCount = desu.inugram.helpers.security.ParanoiaHelper.adjustBlockedTotal(currentAccount, totalBlockedCount);
                  loadingBlockedPeers = false;
                  getNotificationCenter().postNotificationName(NotificationCenter.blockedUsersDidLoad);
 +                if (!blockedEndReached && desu.inugram.helpers.chat.BlockedMessagesHelper.isEnabled()) {

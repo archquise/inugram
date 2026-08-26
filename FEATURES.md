@@ -187,6 +187,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
   - optionally silence all notifications while enabled
   - optionally hide all other accounts while enabled
   - optionally collapse folder tabs (show only All Chats) while enabled
+  - optionally hide your own stories (ring, profile tabs, archive) while enabled
   - optional launcher long-press shortcut to enter it quickly (hidden while active)
 - biometric confirmation before deleting/clearing a chat or logging out - *inspired by [Cherrygram](https://github.com/arsLan4k1390/Cherrygram)*
 

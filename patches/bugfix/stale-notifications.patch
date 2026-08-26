@@ -13,7 +13,7 @@ diff --git a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesControll
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
 +++ b/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
-@@ -20640,6 +20640,7 @@ public class MessagesController extends BaseController implements NotificationCe
+@@ -20648,6 +20648,7 @@ public class MessagesController extends BaseController implements NotificationCe
                      } else if (baseUpdate instanceof TL_update.TL_updateReadChannelDiscussionInbox) {
                          TL_update.TL_updateReadChannelDiscussionInbox update = (TL_update.TL_updateReadChannelDiscussionInbox) baseUpdate;
                          getNotificationCenter().postNotificationName(NotificationCenter.threadMessagesRead, -update.channel_id, update.top_msg_id, update.read_max_id, 0);
@@ -21,7 +21,7 @@ index 0000000..0000000 100644
                          if ((update.flags & 1) != 0) {
                              getMessagesStorage().updateRepliesMaxReadId(update.broadcast_id, update.broadcast_post, update.read_max_id, 0,true);
                              getNotificationCenter().postNotificationName(NotificationCenter.commentsRead, update.broadcast_id, update.broadcast_post, update.read_max_id);
-@@ -21284,6 +21285,7 @@ public class MessagesController extends BaseController implements NotificationCe
+@@ -21292,6 +21293,7 @@ public class MessagesController extends BaseController implements NotificationCe
      }
  
      public void checkUnreadReactions(long dialogId, long topicId, SparseBooleanArray unreadReactions) {
@@ -185,7 +185,7 @@ diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Stories/StoriesControll
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/Stories/StoriesController.java
 +++ b/TMessagesProj/src/main/java/org/telegram/ui/Stories/StoriesController.java
-@@ -1326,6 +1326,7 @@ public class StoriesController {
+@@ -1341,6 +1341,7 @@ public class StoriesController {
              int maxStoryReadId = Math.max(dialogIdToMaxReadId.get(dialogId, 0), maxStoryId);
              dialogIdToMaxReadId.put(dialogId, maxStoryReadId);
              storiesStorage.updateMaxReadId(dialogId, maxStoryReadId);

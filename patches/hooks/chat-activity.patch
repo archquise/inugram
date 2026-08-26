@@ -4,11 +4,25 @@ Date: Fri, 10 Apr 2026 05:29:50 +0300
 Subject: hooks into various places inside ChatActivity
 
 ---
+ .../messenger/MessagesController.java         |   2 +-
  .../ui/ActionBar/ActionBarMenuItem.java       |   4 +
  .../java/org/telegram/ui/AvatarPreviewer.java |   4 +-
  .../java/org/telegram/ui/ChatActivity.java    | 113 +++++++++++-------
- 3 files changed, 80 insertions(+), 41 deletions(-)
+ 4 files changed, 81 insertions(+), 42 deletions(-)
 
+diff --git a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java b/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
+index 0000000..0000000 100644
+--- a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
++++ b/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
+@@ -158,7 +158,7 @@ public class MessagesController extends BaseController implements NotificationCe
+     public ArrayList<TLRPC.RecentMeUrl> hintDialogs = new ArrayList<>();
+     public final SparseArray<ArrayList<TLRPC.Dialog>> dialogsByFolder = new SparseArray<>();
+     private final LongSparseArray<ArrayList<TLRPC.Dialog>> dialogsByCommunity = new LongSparseArray<>();
+-    protected final ArrayList<TLRPC.Dialog> allDialogs = new ArrayList<>();
++    public final ArrayList<TLRPC.Dialog> allDialogs = new ArrayList<>();
+     public ArrayList<TLRPC.Dialog> dialogsForward = new ArrayList<>();
+     public ArrayList<TLRPC.Dialog> dialogsServerOnly = new ArrayList<>();
+     public ArrayList<TLRPC.Dialog> dialogsCanAddUsers = new ArrayList<>();
 diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ActionBarMenuItem.java b/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ActionBarMenuItem.java
 index 0000000..0000000 100644
 --- a/TMessagesProj/src/main/java/org/telegram/ui/ActionBar/ActionBarMenuItem.java
