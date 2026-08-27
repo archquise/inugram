@@ -1,5 +1,6 @@
 package desu.inugram.helpers.icons
 
+import android.util.SparseIntArray
 import org.telegram.messenger.R
 
 /*
@@ -294,9 +295,9 @@ object MaterialIconPack : IconPack() {
         R.drawable.msg_leave to R.drawable.material_msg_leave_24px,
         R.drawable.msg_gift_premium to R.drawable.material_msg_gift_premium_24px,
         R.drawable.msg_gallery to R.drawable.material_msg_gallery_24px,
-        R.drawable.video_muted to R.drawable.material_video_muted_24px,
-        R.drawable.media_unmute to R.drawable.material_video_muted_24px,
-        R.drawable.list_mute to R.drawable.material_video_muted_24px,
+        R.drawable.video_muted to R.drawable.material_video_muted_14px,
+        R.drawable.media_unmute to R.drawable.material_video_muted_14px,
+        R.drawable.list_mute to R.drawable.material_video_muted_14px,
         R.drawable.list_unmute to R.drawable.material_list_unmute_24px,
         R.drawable.video_mute to R.drawable.material_video_mute_24px,
         R.drawable.msg_unmute to R.drawable.material_msg_unmute_24px,
@@ -534,7 +535,7 @@ object MaterialIconPack : IconPack() {
         R.drawable.msg_stories_closefriends to R.drawable.material_msg_stories_closefriends_24px,
         R.drawable.msg_round_gif_m to R.drawable.material_msg_round_gif_m_24px,
         R.drawable.msg_psa to R.drawable.material_msg_psa_24px,
-        R.drawable.msg_pin_mini to R.drawable.material_msg_pin_mini_24px,
+        R.drawable.msg_pin_mini to R.drawable.material_msg_pin_mini_14px,
         R.drawable.msg_mini_lock2 to R.drawable.material_msg_mini_lock2_24px,
         R.drawable.msg_mini_forumarrow to R.drawable.material_msg_mini_forumarrow_24px,
         R.drawable.tabs_reorder to R.drawable.material_tabs_reorder_24px,
@@ -835,5 +836,7 @@ object MaterialIconPack : IconPack() {
         R.drawable.msg_newphone to R.drawable.material_msg_newphone_24px,
     )
 
-    override fun map(original: Int): Int = materialIcons[original] ?: original
+    override fun buildIcons() = SparseIntArray(materialIcons.size).apply {
+        materialIcons.forEach { (original, replacement) -> put(original, replacement) }
+    }
 }
