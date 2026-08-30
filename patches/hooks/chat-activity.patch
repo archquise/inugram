@@ -7,8 +7,8 @@ Subject: hooks into various places inside ChatActivity
  .../messenger/MessagesController.java         |   2 +-
  .../ui/ActionBar/ActionBarMenuItem.java       |   4 +
  .../java/org/telegram/ui/AvatarPreviewer.java |   4 +-
- .../java/org/telegram/ui/ChatActivity.java    | 118 +++++++++++-------
- 4 files changed, 84 insertions(+), 44 deletions(-)
+ .../java/org/telegram/ui/ChatActivity.java    | 122 ++++++++++++------
+ 4 files changed, 87 insertions(+), 45 deletions(-)
 
 diff --git a/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java b/TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java
 index 0000000..0000000 100644
@@ -280,6 +280,15 @@ index 0000000..0000000 100644
      }
  
      private void hideTagSelector() {
+@@ -11755,7 +11766,7 @@ public class ChatActivity extends BaseFragment implements
+         }
+     }
+ 
+-    private void checkShowBlur(boolean animated) {
++    public void checkShowBlur(boolean animated) {
+         boolean show = (parentLayout != null && parentLayout.isInPreviewMode() && !parentLayout.hasIntegratedBlurInPreview() && !inPreviewMode) || (forwardingPreviewView != null && forwardingPreviewView.isShowing());
+ 
+         if (show && (blurredView == null || blurredView.getTag() == null)) {
 @@ -12223,7 +12234,7 @@ public class ChatActivity extends BaseFragment implements
          updateSelectedMessageReactions();
      }
@@ -483,7 +492,16 @@ index 0000000..0000000 100644
                  if (message.getDocumentName().toLowerCase().endsWith("attheme")) {
                      File locFile = null;
                      if (message.messageOwner.attachPath != null && message.messageOwner.attachPath.length() != 0) {
-@@ -45840,6 +45872,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -44478,6 +44510,8 @@ public class ChatActivity extends BaseFragment implements
+             });
+         }
+ 
++        desu.inugram.helpers.chat.MessageLinkPreviewHelper.addMenuItem(this, options, str);
++
+         if (customTabs && !isHashtag || isMail) {
+             options.add(R.drawable.msg_openin, getString(R.string.OpenInSystemBrowser2), () -> {
+                 if (MessagesController.getInstance(currentAccount).isWebBrowserExceptionsLimitReached(true)) {
+@@ -45840,6 +45874,7 @@ public class ChatActivity extends BaseFragment implements
                  options.add(OPTION_DELETE);
                  icons.add(deleteIconRes);
              }
@@ -491,7 +509,7 @@ index 0000000..0000000 100644
          } else if (type == 20) {
              items.add(LocaleController.getString(R.string.Retry));
              options.add(OPTION_RETRY);
-@@ -46269,6 +46302,7 @@ public class ChatActivity extends BaseFragment implements
+@@ -46269,6 +46304,7 @@ public class ChatActivity extends BaseFragment implements
                  options.add(OPTION_DELETE);
                  icons.add(deleteIconRes);
              }
