@@ -811,6 +811,9 @@ object InuConfig {
     @JvmField
     val UPDATES_ENABLED = UpdatesEnabledItem()
 
+    @JvmField
+    val EXTRA_DEBUG_LOGS = BoolItem("extra_debug_logs", false, exportable = false)
+
     // internal state
     @JvmField
     val VOICE_HINT_SHOWN = BoolItem("voice_hint_shown", false, exportable = false)

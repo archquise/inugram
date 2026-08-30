@@ -300,3 +300,4 @@ bugfix/playback-progress-on-message-replace.patch
 bugfix/action-bar-overlay-animation.patch
 feature/hdr-images.patch
 feature/sort-albums-by-size.patch
+misc/debug-stale-reactions.patch

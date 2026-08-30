@@ -1,0 +1,77 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: alina sireneva <alina@tei.pet>
+Date: Mon, 31 Aug 2026 03:54:04 +0400
+Subject: temporary patch with extra debug logs for stale reactions
+
+---
+ .../main/java/org/telegram/ui/Cells/ChatMessageCell.java  | 2 ++
+ .../src/main/java/org/telegram/ui/ChatActivity.java       | 8 ++++++++
+ .../ui/Components/Reactions/ReactionsLayoutInBubble.java  | 2 +-
+ 3 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Cells/ChatMessageCell.java b/TMessagesProj/src/main/java/org/telegram/ui/Cells/ChatMessageCell.java
+index 0000000..0000000 100644
+--- a/TMessagesProj/src/main/java/org/telegram/ui/Cells/ChatMessageCell.java
++++ b/TMessagesProj/src/main/java/org/telegram/ui/Cells/ChatMessageCell.java
+@@ -7243,6 +7243,8 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
+                 } else {
+                     reactionsLayoutInBubble.setMessage(null, false, false, resourcesProvider);
+                 }
++            } else {
++                desu.inugram.helpers.chat.ReactionDebugHelper.onReactionsLayoutKept(this, messageObject);
+             }
+ 
+ 
+diff --git a/TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java b/TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java
+index 0000000..0000000 100644
+--- a/TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java
++++ b/TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java
+@@ -16255,6 +16255,7 @@ public class ChatActivity extends BaseFragment implements
+                     }
+                     updateReactionsMentionButton(true);
+                 }
++                desu.inugram.helpers.chat.ReactionDebugHelper.checkStaleUnread(messageCell, reactionsMentionCount);
+                 getDownloadController().checkUnviewedDownloads(messageCell.getId(), dialog_id);
+                 boolean allowPlayEffect = messageObject.getEffect() != null || ((messageObject.messageOwner.media != null && !messageObject.messageOwner.media.nopremium) || (messageObject.isAnimatedEmojiStickerSingle() && dialog_id > 0));
+                 if ((chatListItemAnimator == null || !chatListItemAnimator.isRunning()) && (!messageObject.isOutOwner() || messageObject.forcePlayEffect) && allowPlayEffect && !messageObject.messageOwner.premiumEffectWasPlayed && (messageObject.isPremiumSticker() || messageCell.getEffect() != null || messageObject.isAnimatedEmojiStickerSingle()) && emojiAnimationsOverlay.isIdle() && emojiAnimationsOverlay.checkPosition(messageCell, chatListViewPaddingTop, chatListView.getMeasuredHeight() - blurredViewBottomOffset)) {
+@@ -24414,6 +24415,9 @@ public class ChatActivity extends BaseFragment implements
+             long topicId = (long) args[1];
+             if (dialogId == dialog_id && ((!isTopic && (!ChatObject.isMonoForum(currentChat) || getTopicId() == 0)) || topicId == getTopicId())) {
+                 reactionsMentionCount = (int) args[2];
++                if (desu.inugram.helpers.chat.ReactionDebugHelper.isEnabled()) {
++                    FileLog.d("InuRx unread reactions counter did=" + dialogId + " topic=" + topicId + " count=" + reactionsMentionCount + " messages=" + args[3]);
++                }
+                 ArrayList<Integer> messages = null;
+                 if (args[2] != null) {
+                     messages = (ArrayList<Integer>) args[3];
+@@ -24422,6 +24426,9 @@ public class ChatActivity extends BaseFragment implements
+                     for (int i = 0; i < messages.size(); i++) {
+                         int messageId = messages.get(i);
+                         BaseCell cell = findMessageCell(messageId, true);
++                        if (desu.inugram.helpers.chat.ReactionDebugHelper.isEnabled()) {
++                            FileLog.d("InuRx unread reactions mid=" + messageId + " visibleCell=" + (cell != null) + " count=" + reactionsMentionCount);
++                        }
+                         if (cell != null && reactionsMentionCount > 0) {
+                             reactionsMentionCount--;
+                             getMessagesStorage().markMessageReactionsAsRead(getDialogId(), getTopicId(), messageId);
+@@ -27017,6 +27024,7 @@ public class ChatActivity extends BaseFragment implements
+                 }
+                 if (messageObject.type >= 0) {
+                     messageObject.reactionsChanged |= old.isBotPendingDraft && !messageObject.isBotPendingDraft;
++                    desu.inugram.helpers.chat.ReactionDebugHelper.onMessageObjectReplaced(old, messageObject);
+                     messageObject.copyStableParams(old);
+                     messages.set(index, messageObject);
+                     if (chatAdapter != null && !chatAdapter.isFiltered) {
+diff --git a/TMessagesProj/src/main/java/org/telegram/ui/Components/Reactions/ReactionsLayoutInBubble.java b/TMessagesProj/src/main/java/org/telegram/ui/Components/Reactions/ReactionsLayoutInBubble.java
+index 0000000..0000000 100644
+--- a/TMessagesProj/src/main/java/org/telegram/ui/Components/Reactions/ReactionsLayoutInBubble.java
++++ b/TMessagesProj/src/main/java/org/telegram/ui/Components/Reactions/ReactionsLayoutInBubble.java
+@@ -112,7 +112,7 @@ public class ReactionsLayoutInBubble {
+     HashMap<String, ReactionButton> lastDrawingReactionButtons = new HashMap<>();
+     HashMap<String, ReactionButton> lastDrawingReactionButtonsTmp = new HashMap<>();
+     View parentView;
+-    MessageObject messageObject;
++    public MessageObject messageObject;
+     Theme.ResourcesProvider resourcesProvider;
+     private Integer scrimViewReaction;
+     private float scrimProgress;
