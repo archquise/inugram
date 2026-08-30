@@ -209,6 +209,9 @@ object InuConfig {
     val SEND_MP4_DOCUMENT_AS_VIDEO = BoolItem("send_mp4_document_as_video", true)
 
     @JvmField
+    val SORT_ALBUMS_BY_SIZE = BoolItem("sort_albums_by_size", true)
+
+    @JvmField
     val AUTO_DISABLE_PROXY_ON_VPN = BoolItem("auto_disable_proxy_on_vpn", false)
 
     @JvmField

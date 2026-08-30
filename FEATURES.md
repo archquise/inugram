@@ -217,6 +217,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - faster downloads/uploads
 - auto-disable the configured proxy while a VPN is active
 - send MP4 files attached through Files as playable videos without conversion
+- sort attach panel albums by photo count instead of recency
 - original video quality option in quality picker when sending videos
 - remember last used settings in polls + reasonable defaults
 
