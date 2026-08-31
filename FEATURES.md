@@ -265,6 +265,8 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - recyclerlistview double-tap requires same view
 - list ripple left behind when the pressed row moves because another row changed height (selector was only re-synced on scroll)
 - link ripples in album captions work across the entire group
+- link long-tap menu no longer draws the lifted link 2dp to the left of the actual text (the scrim was being nudged onto the popup's scale pivot even when it isn't morphing into a rewritten url)
+- long-tap scrims (link / date / card / username / phone menus) block chat touches while open — the lifted text is pinned to screen coords captured on open, so scrolling, swipe-to-reply or swipe-back behind it detached it from its bubble
 - dead zones in list rows where a hidden clickable child kept stale bounds from a previous binding (e.g. top-right corner of a member row in profile after a tagged member was recycled)
 - share sheet search results unclickable near the top (the touch dead zone under the search field double-counted the status bar inset, swallowing taps on the first row of results)
 - chat list crash while flinging when RecyclerView exposes a stale child without a ViewHolder
