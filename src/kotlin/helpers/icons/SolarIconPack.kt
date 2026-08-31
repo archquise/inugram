@@ -409,7 +409,7 @@ object SolarIconPack : IconPack() {
         put(R.drawable.camera, R.drawable.camera_solar)
         put(R.drawable.filled_chatlist_reaction, R.drawable.msg_reactions_filled_solar)
         put(R.drawable.filled_profile_edit_24, R.drawable.group_edit_profile_solar)
-        put(R.drawable.filled_profile_photo, R.drawable.camera_solar)
+        put(R.drawable.filled_profile_photo, R.drawable.filled_add_photo_solar)
         put(R.drawable.filter_all, R.drawable.filter_all_solar)
         put(R.drawable.header_qr_24, R.drawable.msg_qrcode_solar)
         put(R.drawable.input_attach, R.drawable.input_attach_solar)
