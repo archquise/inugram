@@ -23,8 +23,13 @@ object InuConfig {
         for (item in _items) item.load(prefs)
     }
 
+    enum class PrefType { BOOL, INT, LONG, FLOAT, STRING }
+
     abstract class Item<T>(val key: String, val default: T, val exportable: Boolean = true) {
         private var currentValue: T = default
+
+        // underlying SharedPreferences type this item serializes into
+        abstract val prefType: PrefType
 
         open var value: T
             get() = currentValue
@@ -58,6 +63,7 @@ object InuConfig {
 
     open class BoolItem(key: String, default: Boolean, exportable: Boolean = true) :
         Item<Boolean>(key, default, exportable) {
+        override val prefType = PrefType.BOOL
         override fun read(prefs: SharedPreferences): Boolean = prefs.getBoolean(key, default)
         override fun SharedPreferences.Editor.write() {
             putBoolean(key, value)
@@ -71,6 +77,7 @@ object InuConfig {
     }
 
     open class IntItem(key: String, default: Int, exportable: Boolean = true) : Item<Int>(key, default, exportable) {
+        override val prefType = PrefType.INT
         override fun read(prefs: SharedPreferences): Int = prefs.getInt(key, default)
         override fun SharedPreferences.Editor.write() {
             putInt(key, value)
@@ -78,6 +85,7 @@ object InuConfig {
     }
 
     class FloatItem(key: String, default: Float, exportable: Boolean = true) : Item<Float>(key, default, exportable) {
+        override val prefType = PrefType.FLOAT
         override fun read(prefs: SharedPreferences): Float = prefs.getFloat(key, default)
         override fun SharedPreferences.Editor.write() {
             putFloat(key, value)
@@ -86,6 +94,7 @@ object InuConfig {
 
     class StringItem(key: String, default: String, exportable: Boolean = true) :
         Item<String>(key, default, exportable) {
+        override val prefType = PrefType.STRING
         override fun read(prefs: SharedPreferences): String = prefs.getString(key, default) ?: default
         override fun SharedPreferences.Editor.write() {
             putString(key, value)
@@ -93,6 +102,7 @@ object InuConfig {
     }
 
     class LongItem(key: String, default: Long, exportable: Boolean = true) : Item<Long>(key, default, exportable) {
+        override val prefType = PrefType.LONG
         override fun read(prefs: SharedPreferences): Long = prefs.getLong(key, default)
         override fun SharedPreferences.Editor.write() {
             putLong(key, value)
