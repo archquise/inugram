@@ -221,7 +221,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - sort attach panel albums by photo count instead of recency
 - 🐶 "Minimize" option in the attach panel discard prompt to keep the selection (e.g. to choose a message to reply to)
 - choose the media save folder (Inugram/Telegram) used for saved photos, videos, music and downloads
-- original video quality option in quality picker when sending videos
+- original video quality option in quality picker, including audio removal without re-encoding video
 - remember last used settings in polls + reasonable defaults
 
 ## annoyances
