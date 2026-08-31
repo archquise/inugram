@@ -5,7 +5,6 @@ misc/remove-play.patch
 misc/settings-ui.patch
 misc/defaults.patch
 debloat/hide-trending-stickers.patch
-debloat/disable-instant-camera.patch
 feature/show-seconds.patch
 debloat/disable-rounding.patch
 feature/all-recent-stickers.patch
@@ -316,3 +315,4 @@ bugfix/image-cache-large-heap.patch
 bugfix/shared-media-photo-transition-offset.patch
 bugfix/shared-media-blank-cells.patch
 bugfix/stale-cross-chat-reply-quote.patch
+feature/instant-camera-mode.patch

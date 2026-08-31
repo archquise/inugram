@@ -68,8 +68,12 @@
     <string name="InuMonetThemeAmoled">AMOLED</string>
     <string name="InuMonetThemeAuto">Auto</string>
     <string name="InuMonetThemeAutoAmoled">Auto (AMOLED)</string>
-    <string name="InuDisableInstantCamera">Disable instant camera</string>
-    <string name="InuDisableInstantCameraInfo">Prevents camera from starting when opening the attachment panel</string>
+    <string name="InuAttachCamera">Camera</string>
+    <string name="InuAttachCameraMode">Camera</string>
+    <string name="InuAttachCameraModeInstant">Instant</string>
+    <string name="InuAttachCameraModeStatic">Static</string>
+    <string name="InuAttachCameraModeFab">Floating button</string>
+    <string name="InuAttachCameraModeTab">Bottom tab</string>
     <string name="InuRoundRecorderKeepZoom">Keep zoom on pinch release</string>
     <string name="InuRoundRecorderZoomSlider">Zoom slider</string>
     <string name="InuRoundRecorderExponentialZoom">Exponential zoom</string>

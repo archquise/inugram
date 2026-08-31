@@ -209,8 +209,29 @@ object InuConfig {
     @JvmField
     val BLOCKED_MESSAGES_MODE = BlockedMessagesModeItem()
 
+    class AttachCameraModeItem : IntItem("attach_camera_mode", STATIC) {
+        // Migrate the old `disable_instant_camera` boolean toggle: on → static, off → instant.
+        override fun read(prefs: SharedPreferences): Int {
+            if (prefs.contains(key)) return prefs.getInt(key, default)
+            if (!prefs.contains("disable_instant_camera")) return default
+            val migrated = if (prefs.getBoolean("disable_instant_camera", true)) STATIC else INSTANT
+            prefs.edit {
+                putInt(key, migrated)
+                remove("disable_instant_camera")
+            }
+            return migrated
+        }
+
+        companion object {
+            const val INSTANT = 0
+            const val STATIC = 1
+            const val FAB = 2
+            const val TAB = 3
+        }
+    }
+
     @JvmField
-    val DISABLE_INSTANT_CAMERA = BoolItem("disable_instant_camera", true)
+    val ATTACH_CAMERA_MODE = AttachCameraModeItem()
 
     @JvmField
     val GIF_SEEKBAR = BoolItem("gif_seekbar", true)

@@ -146,6 +146,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 
 - 🐶 customizable max input lines (and bumped default)
 - 🐶 voice recorder moved into attachments drawer
+- 🐶 camera placement in the attach panel: instant (stock), static, floating button or bottom tab. the last two free up the grid cell
 - 🐶 custom formatting popup ui (better ux for span manipulation)
 - 🐶 customizable text classifier (native / improved / off) - reduces false positive expansions
 - show custom emoji *after* regular ones in `:smile` emoji suggestion popup
@@ -205,7 +206,6 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - disable pull-to-next-channel
 - disable swipe-to-unarchive
 - 🐶 disable swipe-to-hide the General topic in the forum topics list
-- disable instant camera in attachments
 - disable motion photos (rendering + detection, in picker and in messages)
 - disable notification chat bubbles
 - 🐶 disable cloud drafts upload
