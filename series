@@ -303,3 +303,4 @@ feature/sort-albums-by-size.patch
 misc/debug-stale-reactions.patch
 misc/debug-notifications.patch
 bugfix/share-alert-search-dead-zone.patch
+misc/debug-media-upload.patch
