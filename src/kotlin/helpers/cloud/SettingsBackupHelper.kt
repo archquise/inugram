@@ -185,6 +185,36 @@ object SettingsBackupHelper {
         }
     }
 
+    fun resetToDefaults(): Int {
+        val exportable = InuConfig.items.filter { it.exportable }
+        val stored = InuConfig.prefs.all
+        val toRemove = exportable.filter { it.key in stored }
+        InuConfig.prefs.edit {
+            for (item in toRemove) remove(item.key)
+        }
+        for (item in exportable) item.load(InuConfig.prefs)
+        return toRemove.size
+    }
+
+    fun resetAndPromptRestart(fragment: BaseFragment) {
+        val reset = resetToDefaults()
+        if (reset == 0) {
+            BulletinFactory.of(fragment).createSimpleBulletin(
+                R.raw.chats_infotip,
+                LocaleController.getString(R.string.InuBackupResetNoChanges)
+            ).show()
+            return
+        }
+        BulletinFactory.of(fragment).createSimpleBulletin(
+            R.raw.chats_infotip,
+            LocaleController.formatString(R.string.InuBackupResetSuccess, reset),
+            LocaleController.getString(R.string.InuRestartNow)
+        ) {
+            val activity = fragment.parentActivity ?: return@createSimpleBulletin
+            InuUtils.restartApp(activity)
+        }.show()
+    }
+
     const val FILENAME_SUFFIX = ".inu-settings.json"
 
     fun startImportFromFile(fragment: BaseFragment, file: File) {
