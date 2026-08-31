@@ -752,4 +752,6 @@
     <string name="InuStopBotDone">Bot stopped</string>
 
     <string name="InuPreviewMessage">Preview</string>
+
+    <string name="InuMinimize">Minimize</string>
 </resources>

@@ -219,6 +219,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - auto-disable the configured proxy while a VPN is active
 - send MP4 files attached through Files as playable videos without conversion
 - sort attach panel albums by photo count instead of recency
+- 🐶 "Minimize" option in the attach panel discard prompt to keep the selection (e.g. to choose a message to reply to)
 - choose the media save folder (Inugram/Telegram) used for saved photos, videos, music and downloads
 - original video quality option in quality picker when sending videos
 - remember last used settings in polls + reasonable defaults

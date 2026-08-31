@@ -316,3 +316,4 @@ bugfix/shared-media-photo-transition-offset.patch
 bugfix/shared-media-blank-cells.patch
 bugfix/stale-cross-chat-reply-quote.patch
 feature/instant-camera-mode.patch
+feature/minimize-attach-panel.patch
