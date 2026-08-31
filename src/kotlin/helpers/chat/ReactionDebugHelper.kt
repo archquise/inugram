@@ -14,6 +14,21 @@ object ReactionDebugHelper {
     fun isEnabled(): Boolean = BuildVars.LOGS_ENABLED && InuConfig.EXTRA_DEBUG_LOGS.value
 
     @JvmStatic
+    fun caller(): String {
+        val sb = StringBuilder()
+        var frames = 0
+        for (frame in Throwable().stackTrace) {
+            val name = frame.className
+            if (name.startsWith("desu.inugram.helpers.chat.ReactionDebugHelper")) continue
+            if (!name.startsWith("org.telegram") && !name.startsWith("desu.inugram")) continue
+            if (sb.isNotEmpty()) sb.append(" < ")
+            sb.append(name.substringAfterLast('.')).append('.').append(frame.methodName).append(':').append(frame.lineNumber)
+            if (++frames == 6) break
+        }
+        return sb.toString()
+    }
+
+    @JvmStatic
     fun describe(messageObject: MessageObject?): String {
         val message = messageObject?.messageOwner ?: return "null"
         return "mid=${message.id} ${describeReactions(messageObject)}"
