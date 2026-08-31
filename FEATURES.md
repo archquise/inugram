@@ -268,6 +268,7 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - chat list crash while flinging when RecyclerView exposes a stale child without a ViewHolder
 - dialogs list pull-to-reveal-archive glitches
 - inline code in dialog previews no longer inherits chat-bubble colors
+- chat previews no longer persist the scroll position, so opening the chat normally afterwards still starts where you left off
 - big emoji jumping around in emoji-only messages when a visible reply preview shared its spans (stock bug: per-span draw-position cache fought over by both layouts), plus oversized animated emoji in reply previews (stock bug: `cloneSpan` overwrote the resized value with the old size)
 - pinned dialog reorder scrolling/glitching mid-drag in the archive (stock bug: async list diffing dispatched the move after the drag swap)
 - forwards from users with hidden forward privacy: the optimistic message shows the anonymized name right away (when their profile is cached), and the server-confirmed hidden header is applied in place instead of showing the linked author until chat reopen

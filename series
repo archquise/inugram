@@ -308,3 +308,4 @@ bugfix/sections-scroll-view-alpha.patch
 bugfix/channel-reactions-toggle.patch
 bugfix/group-call-record-timer.patch
 feature/download-stickers.patch
+bugfix/chat-preview-scroll-persist.patch
