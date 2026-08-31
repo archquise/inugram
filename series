@@ -301,3 +301,4 @@ bugfix/action-bar-overlay-animation.patch
 feature/hdr-images.patch
 feature/sort-albums-by-size.patch
 misc/debug-stale-reactions.patch
+misc/debug-notifications.patch
