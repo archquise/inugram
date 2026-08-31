@@ -276,6 +276,10 @@ most things are toggleable in `Settings → Inugram`, with sensible opinionated 
 - shared media player visual glitches
 - profile pinned-music sheet bugfixes
 - shared media pager: fling mid-animation to chain tabs or reverse (was ignored until settled); at the edge tab the fling falls through to swipe-to-close
+- shared media grid cells (the opened one's neighbour especially) going blank after opening a photo — the viewer hides the source cell's image receiver a frame or more after resolving it, and restores it by re-resolving by message id; if the grid recycled that cell onto another message in between, the wrong cell was blanked and the restore landed elsewhere, so it never came back. deferred hides now verify the cell still shows what they were resolved for, and a cell rebound to a different message drops any inherited hidden flag
+- second copy of the photo showing over the shared media grid during the open/close transition (our own regression: stock's transition draws a list-space copy through a hole in the viewer's background, which is invisible while the main content is hidden — our keyboard fix keeps that content drawn, so the shared media provider now opts out of the second copy like ChatActivity does)
+- shared media photo transition starting/landing ~2dp off (down, and right for left-column cells): the grid's place provider pre-added the cell's image offset to the window coords, which the photo viewer then adds again via `drawRegion` — every other provider, including the sibling branches in the same method, passes the raw view position
+- image memory cache sized off `getMemoryClass()` while the app runs with `android:largeHeap` — the cache was ~29MB instead of ~56MB, too small to hold the shared media grid and the photo viewer's full-screen bitmaps at once, so opening any photo evicted the whole grid and every cell flashed its blurred thumbnail
 - attach panel: better perf, safe close before fully open
 - paid reaction animation respects litemode
 - custom emoji reaction burst respects litemode (stock only gated the "around" animation of regular emoji)

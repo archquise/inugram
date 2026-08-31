@@ -312,3 +312,6 @@ bugfix/chat-preview-scroll-persist.patch
 bugfix/nomedia-media-cache.patch
 bugfix/profile-transition-from-topics.patch
 bugfix/reaction-tag-text-baseline.patch
+bugfix/image-cache-large-heap.patch
+bugfix/shared-media-photo-transition-offset.patch
+bugfix/shared-media-blank-cells.patch
