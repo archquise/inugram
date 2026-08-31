@@ -311,3 +311,4 @@ feature/download-stickers.patch
 bugfix/chat-preview-scroll-persist.patch
 bugfix/nomedia-media-cache.patch
 bugfix/profile-transition-from-topics.patch
+bugfix/reaction-tag-text-baseline.patch
