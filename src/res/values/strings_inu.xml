@@ -604,6 +604,8 @@
     <string name="InuSendMp4DocumentAsVideoInfo">MP4 files attached through Files are sent as playable videos without conversion</string>
     <string name="InuSortAlbumsBySize">Sort albums by size</string>
     <string name="InuSortAlbumsBySizeInfo">Albums in the attachment menu are ordered by photo count instead of recency</string>
+    <string name="InuDownloadDirectory">Download folder</string>
+    <string name="InuDownloadDirectoryApplied">Applies to newly downloaded files only</string>
     <string name="InuMentionInsertTitle">Insert mention</string>
     <string name="InuPasscode">Passcode</string>
     <string name="InuPasscodeNeeded">Set up a Telegram passcode first.</string>

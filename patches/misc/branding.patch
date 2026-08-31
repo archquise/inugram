@@ -84,7 +84,7 @@ index 0000000..0000000 100644
          File storageDir = null;
          if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
 -            storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Telegram");
-+            storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Inugram");
++            storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
              if (!storageDir.mkdirs()) {
                  if (!storageDir.exists()) {
                      if (BuildVars.LOGS_ENABLED) {
@@ -130,7 +130,7 @@ index 0000000..0000000 100644
                  final ContentValues cv = new ContentValues();
                  final Uri uriToInsert = MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
 -                final File dirDest = new File(Environment.DIRECTORY_DOWNLOADS, "Telegram");
-+                final File dirDest = new File(Environment.DIRECTORY_DOWNLOADS, "Inugram");
++                final File dirDest = new File(Environment.DIRECTORY_DOWNLOADS, desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                  cv.put(MediaStore.MediaColumns.RELATIVE_PATH, dirDest + File.separator);
                  cv.put(MediaStore.Downloads.DISPLAY_NAME, filename);
                  cv.put(MediaStore.MediaColumns.MIME_TYPE, outputMime);
@@ -139,7 +139,7 @@ index 0000000..0000000 100644
                  }
              } else {
 -                final File destDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Telegram");
-+                final File destDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Inugram");
++                final File destDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                  destDir.mkdirs();
                  File destFile = new File(destDir, filename);
                  if (!destFile.exists()) {
@@ -148,12 +148,12 @@ index 0000000..0000000 100644
                          File destFile;
                          if (type == 0) {
 -                            destFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Telegram");
-+                            destFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Inugram");
++                            destFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                              destFile.mkdirs();
                              destFile = new File(destFile, AndroidUtilities.generateFileName(0, FileLoader.getFileExtension(sourceFile)));
                          } else if (type == 1) {
 -                            destFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), "Telegram");
-+                            destFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), "Inugram");
++                            destFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                              destFile.mkdirs();
                              destFile = new File(destFile, AndroidUtilities.generateFileName(1, FileLoader.getFileExtension(sourceFile)));
                          } else {
@@ -162,7 +162,7 @@ index 0000000..0000000 100644
                                  dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
                              }
 -                            dir = new File(dir, "Telegram");
-+                            dir = new File(dir, "Inugram");
++                            dir = new File(dir, desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                              dir.mkdirs();
                              destFile = new File(dir, name);
                              if (destFile.exists()) {
@@ -171,7 +171,7 @@ index 0000000..0000000 100644
                      final ContentValues cv = new ContentValues();
                      final Uri uriToInsert = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
 -                    final File dirDest = new File(Environment.DIRECTORY_PICTURES, "Telegram");
-+                    final File dirDest = new File(Environment.DIRECTORY_PICTURES, "Inugram");
++                    final File dirDest = new File(Environment.DIRECTORY_PICTURES, desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                      cv.put(MediaStore.MediaColumns.RELATIVE_PATH, dirDest + File.separator);
                      cv.put(MediaStore.Images.Media.DISPLAY_NAME, filename);
                      cv.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
@@ -180,7 +180,7 @@ index 0000000..0000000 100644
                      }
                  } else {
 -                    final File destDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Telegram");
-+                    final File destDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Inugram");
++                    final File destDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                      destDir.mkdirs();
                      File destFile = new File(destDir, AndroidUtilities.generateFileName(0, "jpg"));
                      if (!destFile.exists()) {
@@ -189,7 +189,7 @@ index 0000000..0000000 100644
                  }
                  uriToInsert = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
 -                File dirDest = new File(Environment.DIRECTORY_PICTURES, "Telegram");
-+                File dirDest = new File(Environment.DIRECTORY_PICTURES, "Inugram");
++                File dirDest = new File(Environment.DIRECTORY_PICTURES, desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                  contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, dirDest + File.separator);
                  contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, filename);
                  contentValues.put(MediaStore.Images.Media.MIME_TYPE, mimeType);
@@ -198,7 +198,7 @@ index 0000000..0000000 100644
                      filename = AndroidUtilities.generateFileName(1, extension);
                  }
 -                File dirDest = new File(Environment.DIRECTORY_MOVIES, "Telegram");
-+                File dirDest = new File(Environment.DIRECTORY_MOVIES, "Inugram");
++                File dirDest = new File(Environment.DIRECTORY_MOVIES, desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                  contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, dirDest + File.separator);
                  uriToInsert = MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
                  contentValues.put(MediaStore.Video.Media.DISPLAY_NAME, filename);
@@ -207,7 +207,7 @@ index 0000000..0000000 100644
                      filename = sourceFile.getName();
                  }
 -                File dirDest = new File(Environment.DIRECTORY_DOWNLOADS, "Telegram");
-+                File dirDest = new File(Environment.DIRECTORY_DOWNLOADS, "Inugram");
++                File dirDest = new File(Environment.DIRECTORY_DOWNLOADS, desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                  contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, dirDest + File.separator);
                  uriToInsert = MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
                  contentValues.put(MediaStore.Downloads.DISPLAY_NAME, filename);
@@ -216,7 +216,7 @@ index 0000000..0000000 100644
                      filename = sourceFile.getName();
                  }
 -                File dirDest = new File(Environment.DIRECTORY_MUSIC, "Telegram");
-+                File dirDest = new File(Environment.DIRECTORY_MUSIC, "Inugram");
++                File dirDest = new File(Environment.DIRECTORY_MUSIC, desu.inugram.InuConfig.DOWNLOAD_DIRECTORY.getValue());
                  contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, dirDest + File.separator);
                  uriToInsert = MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
                  contentValues.put(MediaStore.Audio.Media.DISPLAY_NAME, filename);
