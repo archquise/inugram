@@ -16,10 +16,15 @@ object ReactionDebugHelper {
     @JvmStatic
     fun describe(messageObject: MessageObject?): String {
         val message = messageObject?.messageOwner ?: return "null"
-        val reactions = message.reactions ?: return "mid=${message.id} reactions=null"
+        return "mid=${message.id} ${describeReactions(messageObject)}"
+    }
+
+    private fun describeReactions(messageObject: MessageObject?): String {
+        val message = messageObject?.messageOwner ?: return "reactions=none"
+        val reactions = message.reactions ?: return "reactions=null"
         val results = reactions.results.joinToString(",") { "${describe(it.reaction)}x${it.count}${if (it.chosen) "*" else ""}" }
         val recent = reactions.recent_reactions.joinToString(",") { "${describe(it.reaction)}${if (it.unread) "!" else ""}" }
-        return "mid=${message.id} results=[$results] recent=[$recent] unread=${MessageObject.hasUnreadReactions(message)}"
+        return "results=[$results] recent=[$recent] unread=${MessageObject.hasUnreadReactions(message)}"
     }
 
     private fun describe(reaction: TLRPC.Reaction?): String = when (reaction) {
@@ -43,10 +48,8 @@ object ReactionDebugHelper {
         if (!isEnabled()) return
         val shown = cell.reactionsLayoutInBubble.messageObject
         if (shown === messageObject) return
-        val shownDesc = describe(shown)
-        val actualDesc = describe(messageObject)
-        if (shownDesc == actualDesc) return
-        FileLog.d("InuRx cell kept stale reactions shown=$shownDesc actual=$actualDesc")
+        if (describeReactions(shown) == describeReactions(messageObject)) return
+        FileLog.d("InuRx cell kept stale reactions shown=${describe(shown)} actual=${describe(messageObject)}")
     }
 
     @JvmStatic
