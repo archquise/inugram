@@ -304,3 +304,5 @@ misc/debug-stale-reactions.patch
 misc/debug-notifications.patch
 bugfix/share-alert-search-dead-zone.patch
 misc/debug-media-upload.patch
+bugfix/sections-scroll-view-alpha.patch
+bugfix/channel-reactions-toggle.patch
