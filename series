@@ -315,3 +315,4 @@ bugfix/reaction-tag-text-baseline.patch
 bugfix/image-cache-large-heap.patch
 bugfix/shared-media-photo-transition-offset.patch
 bugfix/shared-media-blank-cells.patch
+bugfix/stale-cross-chat-reply-quote.patch
