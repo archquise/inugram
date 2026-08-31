@@ -309,3 +309,4 @@ bugfix/channel-reactions-toggle.patch
 bugfix/group-call-record-timer.patch
 feature/download-stickers.patch
 bugfix/chat-preview-scroll-persist.patch
+bugfix/nomedia-media-cache.patch
